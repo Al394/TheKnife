@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0" scaleShape="false" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="theknife.MainStageController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <Label alignment="CENTER" prefHeight="19.0" prefWidth="215.0" style="-fx-padding: 5;" text="Login or continue as guest" />
+   <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="89.0" prefWidth="267.0">
+      <children>
+         <Label alignment="CENTER" prefHeight="17.0" prefWidth="215.0" style="-fx-padding: 5;" text="Username" />
+         <TextField prefHeight="25.0" prefWidth="215.0" />
+         <Label alignment="CENTER" prefHeight="17.0" prefWidth="215.0" style="-fx-padding: 5;" text="Password" />
+         <PasswordField prefHeight="25.0" prefWidth="215.0" />
+      </children>
+   </FlowPane>
+   <ButtonBar prefHeight="40.0" prefWidth="200.0">
+     <buttons>
+         <Button mnemonicParsing="false" onMouseClicked="#onLoginButtonClick" text="Login" />
+       <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onRegisterButtonClick" text="Register" />
+     </buttons>
+   </ButtonBar>
+   <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-padding: 5;">
+     <buttons>
+         <Hyperlink text="Continue as guest" />
+     </buttons>
+   </ButtonBar>
+</VBox>
