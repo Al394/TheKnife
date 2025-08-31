@@ -1,7 +1,20 @@
 package theknife;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import theknife.utility.Enums;
+import theknife.utility.FileManager;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainStageController {
     @FXML
@@ -14,8 +27,16 @@ public class MainStageController {
     }
 
     @FXML
-    protected void onRegisterButtonClick() {
+    protected void onRegisterButtonClick(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
 
-        System.out.println("Register button clicked");
+    public void onGuestClick(MouseEvent mouseEvent) {
+        FileManager fm = FileManager.getInstance();
+
+        fm.readData("", Enums.FileType.USERS);
     }
 }
