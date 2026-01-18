@@ -12,17 +12,17 @@
 
 <Pane prefHeight="480.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="theknife.RegisterController">
     <Label layoutX="27.0" layoutY="42.0" text="First Name" />
-    <Label layoutX="26.0" layoutY="94.0" text="Last Name" />
-    <Label layoutX="26.0" layoutY="196.0" text="Password" />
     <TextField layoutX="25.0" layoutY="59.0" prefHeight="25.0" prefWidth="350.0" />
-    <PasswordField layoutX="25.0" layoutY="213.0" prefHeight="25.0" prefWidth="350.0" />
+    <Label layoutX="26.0" layoutY="94.0" text="Last Name" />
     <TextField layoutX="25.0" layoutY="111.0" prefHeight="25.0" prefWidth="350.0" />
     <Label layoutX="27.0" layoutY="146.0" text="Username" />
     <TextField layoutX="25.0" layoutY="163.0" prefHeight="25.0" prefWidth="350.0" />
-    <Label layoutX="24.0" layoutY="292.0" text="Residence" />
-    <TextField layoutX="23.0" layoutY="309.0" prefHeight="25.0" prefWidth="350.0" />
+    <Label layoutX="26.0" layoutY="196.0" text="Password" />
+    <PasswordField layoutX="25.0" layoutY="213.0" prefHeight="25.0" prefWidth="350.0" />
     <Label layoutX="25.0" layoutY="244.0" text="Birth Date" />
     <DatePicker layoutX="25.0" layoutY="263.0" prefHeight="25.0" prefWidth="350.0" />
+    <Label layoutX="24.0" layoutY="292.0" text="Residence" />
+    <TextField layoutX="23.0" layoutY="309.0" prefHeight="25.0" prefWidth="350.0" />
     <Label layoutX="25.0" layoutY="340.0" text="Role" />
     <ChoiceBox layoutX="23.0" layoutY="357.0" prefHeight="25.0" prefWidth="350.0" />
     <CheckBox layoutX="23.0" layoutY="395.0" mnemonicParsing="false" text="Admin" />

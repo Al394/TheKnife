@@ -5,14 +5,20 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import theknife.utility.Enums;
+import theknife.utility.Enums.Roles;
 
 public class User implements Serializable {
 
     /**
+     * Unique class identifier.
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The user First Name.
      */
-    private String FirstName;
+    public String FirstName;
     /**
      * The user Last Name.
      */
@@ -36,13 +42,13 @@ public class User implements Serializable {
     /**
      * The user Role [].
      */
-    private Enums.Roles Role;
+    private Roles Role;
     /**
      * Is user Admin.
      */
     private boolean Admin;
 
-    public User(String firstName, String lastName, String username, String password, Date birthDate, String residence, Enums.Roles role, boolean admin) {
+    public User(String firstName, String lastName, String username, String password, Date birthDate, String residence, Roles role, boolean admin) {
         FirstName = firstName;
         LastName = lastName;
         Username = username;

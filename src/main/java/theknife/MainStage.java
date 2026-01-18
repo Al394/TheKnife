@@ -5,10 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import theknife.models.User;
+import theknife.utility.Enums;
+import theknife.utility.FileManager;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The main stage class
@@ -45,6 +51,22 @@ public class MainStage extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        FileManager fileManager = FileManager.getInstance();
+
+        User a = new User("gino", "Lino", "Pino", "123", new Date(), "gg", Enums.Roles.CUSTOMER, false);
+
+        List<User> users = Arrays.asList(
+                new User("gino", "Lino", "Pino", "123", new Date(), "gg", Enums.Roles.CUSTOMER, false),
+                new User("gino2", "Lino2", "Pino2", "123", new Date(), "gg", Enums.Roles.CUSTOMER, false),
+                new User("gino3", "Lino3", "Pino3", "123", new Date(), "gg", Enums.Roles.CUSTOMER, false)
+        );
+
+        FileManager.serializeData(users, Enums.FileType.USERS);
+
+        FileManager.deserializeData(Enums.FileType.USERS);
+
 
         stage.setResizable(false);
         stage.setScene(scene);
