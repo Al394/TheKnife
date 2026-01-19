@@ -2,18 +2,18 @@ package theknife.utility;
 
 public class Enums {
     /**
-     * Enum for Roles.
+     * Enum Ruoli.
      */
-    public enum Roles {
-        CUSTOMER,
-        RESTAURANT_OWNER
+    public enum Ruoli {
+        CLIENTE,
+        RISTORATORE
     }
 
     /**
-     * Type of file for reading the correct data.
+     * Tipo file per leggere i dati corretti.
      */
-    public enum FileType {
-        RESTAURANTS,
-        USERS
+    public enum TipoFile {
+        RISTORANTI,
+        UTENTI
     }
 }
