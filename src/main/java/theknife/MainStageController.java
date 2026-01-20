@@ -7,14 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import theknife.utility.Enums;
 import theknife.utility.FileManager;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MainStageController {
     @FXML
@@ -35,8 +33,5 @@ public class MainStageController {
     }
 
     public void onGuestClick(MouseEvent mouseEvent) {
-        FileManager fm = FileManager.getInstance();
-
-        fm.readData("", Enums.FileType.USERS);
     }
 }

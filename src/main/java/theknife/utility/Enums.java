@@ -1,10 +1,15 @@
 package theknife.utility;
-
+/**
+ *
+ * Classe Enums, rappresenta degli oggetti enum utili per il mantenimento del codice.
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class Enums {
     /**
      * Enum Ruoli.
      */
-    public enum Ruoli {
+    public enum Ruolo {
+        ADMIN,
         CLIENTE,
         RISTORATORE
     }

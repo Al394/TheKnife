@@ -4,17 +4,12 @@ import theknife.utility.Enums;
 
 import java.util.Date;
 
-/**
- *
- * Classe Ristoratore, rappresenta l'oggetto Ristoratore che eredita da Utente
- * @author Alessio Sangiorgi 730420 VA
- */
-public class Ristoratore extends Utente {
+public class Admin extends Utente {
 
     /**
      * Costruttore vuoto
      */
-    public Ristoratore() {
+    public Admin() {
     }
 
     /**
@@ -27,7 +22,7 @@ public class Ristoratore extends Utente {
      * @param dataDiNascita Data di Nascita
      * @param domicilio     Domicilio
      */
-    public Ristoratore(String nome, String cognome, String username, String password, Date dataDiNascita, String domicilio) {
-        super(nome, cognome,username,password,dataDiNascita, domicilio, Enums.Ruolo.RISTORATORE);
+    public Admin(String nome, String cognome, String username, String password, Date dataDiNascita, String domicilio) {
+        super(nome, cognome,username,password,dataDiNascita, domicilio, Enums.Ruolo.ADMIN);
     }
 }

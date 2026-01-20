@@ -4,8 +4,12 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Date;
 
-import theknife.utility.Enums.Ruoli;
-
+import theknife.utility.Enums.Ruolo;
+/**
+ *
+ * Classe astratta Utente, rappresenta l'oggetto Utente
+ * @author Alessio Sangiorgi 730420 VA
+ */
 abstract public class Utente implements Serializable {
 
     /**
@@ -17,43 +21,71 @@ abstract public class Utente implements Serializable {
     /**
      * Nome utente.
      */
-    protected String Nome;
+    protected String nome;
     /**
      * Cognome utente.
      */
-    protected String Cognome;
+    protected String cognome;
     /**
      * Username utente.
      */
-    protected String Username;
+    protected String username;
     /**
      * Password utente.
      */
-    protected String Password;
+    protected String password;
     /**
      * Data di nascita.
      */
-    protected Date DataDiNascita;
+    protected Date dataDiNascita;
+
     /**
      * Domicilio utente.
      */
-    protected String Domicilio;
+    protected String domicilio;
     /**
      * Ruolo utente.
      */
-    protected Ruoli Ruolo;
-    /**
-     * L'utente è Admin.
-     */
-    protected boolean Admin;
+    protected Ruolo ruolo;
+
+    /** Getters **/
+    public Ruolo getRuolo() {
+        return ruolo;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public Date getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
     /**
      * Costruttore vuoto.
      */
-    public Utente() {}
+    public Utente() {
+    }
 
     /**
      *
+     * Costruttore facilitato.
      * @param nome          Nome
      * @param cognome       Cognome
      * @param username      Username
@@ -61,28 +93,27 @@ abstract public class Utente implements Serializable {
      * @param dataDiNascita Data di Nascita
      * @param domicilio     Domicilio
      * @param role          Ruolo
-     * @param admin         L'utente è admin
      */
-    public Utente(String nome, String cognome, String username, String password, Date dataDiNascita, String domicilio, Ruoli role, boolean admin) {
-        Nome = nome;
-        Cognome = cognome;
-        Username = username;
-        Password = password;
-        DataDiNascita = dataDiNascita;
-        Domicilio = domicilio;
-        Admin = admin;
+    public Utente(String nome, String cognome, String username, String password, Date dataDiNascita, String domicilio, Ruolo role) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.dataDiNascita = dataDiNascita;
+        this.domicilio = domicilio;
+        this.ruolo = role;
     }
+
 
     public String toCSV() {
         String[] arr = {
-                this.Nome,
-                this.Cognome,
-                this.Username,
-                this.Password,
-                this.DataDiNascita.toString(),
-                this.Domicilio,
-                this.Ruolo.toString(),
-                this.Admin ? "true" : "false"
+                this.nome,
+                this.cognome,
+                this.username,
+                this.password,
+                this.dataDiNascita.toString(),
+                this.domicilio,
+                this.ruolo.toString(),
         };
         return Arrays.toString(arr).replaceAll("\\[|\\]", "");
     }
