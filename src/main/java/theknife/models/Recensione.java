@@ -5,10 +5,15 @@ import theknife.exceptions.ValidationException;
 /**
  *
  * Classe Recensione, rappresenta l'oggetto Recensione
+ *
  * @author Alessio Sangiorgi 730420 VA
  */
 public class Recensione {
 
+    /**
+     * Id Recensione;
+     */
+    private int id;
     /**
      * Valutazione in stelle da 1 a 5
      */
@@ -27,7 +32,7 @@ public class Recensione {
     /**
      * Riferimento al ristorante recensito.
      */
-    private Ristorante ristorante;
+    private int ristoranteID;
 
     /**
      * Risposta opzionale del ristoratore.
@@ -36,27 +41,47 @@ public class Recensione {
 
     /**
      * Costruttore.
-     * @param stelle Valutazione stelle. Range [1-5]
-     * @param commento Recensione cliente.
-     * @param autore Utente che crea la recensione.
+     *
+     * @param stelle     Valutazione stelle. Range [1-5]
+     * @param commento   Recensione cliente.
+     * @param autore     Utente che crea la recensione.
      * @param ristorante Ristorante riferito alla recensione.
      * @throws ValidationException se le stelle non sono nel range 1-5
      */
-    public Recensione(byte stelle, String commento, Cliente autore, Ristorante ristorante) throws ValidationException {
+    public Recensione(int id, byte stelle, String commento, Cliente autore, int idRistorante, String risposta)
+            throws ValidationException {
         setStelle(stelle);
 
+        this.id = id;
         this.commento = commento;
         this.autore = autore;
-        this.ristorante = ristorante;
-        this.risposta = null;
+        this.ristoranteID = idRistorante;
+        this.risposta = risposta;
     }
 
-    /**
-     * Getter stelle.
-     * @return stelle [1-5]
-     */
+    /** Getters **/
     public byte getStelle() {
         return stelle;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getCommento() {
+        return commento;
+    }
+
+    public Cliente getAutore() {
+        return autore;
+    }
+
+    public int getRistoranteID() {
+        return ristoranteID;
+    }
+
+    public String getRisposta() {
+        return risposta;
     }
 
     /**
@@ -72,6 +97,7 @@ public class Recensione {
 
     /**
      * Setter per risposta recensione.
+     *
      * @param risposta Commento da parte del ristoratore.
      */
     public void setRisposta(String risposta) {

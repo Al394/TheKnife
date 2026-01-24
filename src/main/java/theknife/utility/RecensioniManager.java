@@ -1,0 +1,163 @@
+package theknife.utility;
+
+import theknife.exceptions.ValidationException;
+import theknife.models.Cliente;
+import theknife.models.Recensione;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Classe utility per lettura e scrittura recensioni.
+ */
+public class RecensioniManager extends FileManager {
+
+  private final int NUMERO_CAMPI_RECENSIONE = 6;
+  private final String HEADER = "id;stelle;commento;autoreID;ristoranteID;risposta";
+  private final String recensioniPath = "data/recensioni.csv";
+
+  private static RecensioniManager instance = null;
+  private static final HashMap<Integer, Recensione> recensioniMap = new HashMap<>();
+
+  /**
+   * Costruttore privato, istanza accessibile via {@link #getInstance()}
+   */
+  private RecensioniManager() {
+  }
+
+  /**
+   * Metodo per il singleton.
+   */
+  public static RecensioniManager getInstance() {
+    if (instance == null) {
+      instance = new RecensioniManager();
+    }
+    return instance;
+  }
+
+  /**
+   * Carica tutte le recensioni dal file CSV e le inserisce in recensioniMap.
+   */
+  public void leggiRecensioni(HashMap<Integer, Cliente> clientiMap) throws FileNotFoundException {
+    recensioniMap.clear();
+
+    File fileRecensioni = FileManager.ricavaFileDaPercorso(recensioniPath);
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileRecensioni))) {
+
+      String line;
+      boolean firstLine = true;
+
+      while ((line = reader.readLine()) != null) {
+
+        // Salta intestazione
+        if (firstLine) {
+          firstLine = false;
+          continue;
+        }
+
+        String[] campi = line.split(";");
+
+        // Riga malformata → saltata
+        if (campi.length != NUMERO_CAMPI_RECENSIONE) {
+          continue;
+        }
+
+        try {
+          Recensione recensione = parseRecensione(campi, clientiMap);
+          recensioniMap.put(recensione.getId(), recensione);
+        } catch (NumberFormatException | ValidationException | ParseException e) {
+          TheKnifeLogger.error(e);
+          continue;
+        }
+      }
+
+    } catch (IOException e) {
+      TheKnifeLogger.error(e);
+    }
+  }
+
+  /**
+   * Salva le recensioni da recensioniMap su file CSV.
+   */
+  public void scriviRecensioni() throws FileNotFoundException {
+
+    File fileRecensioni = FileManager.ricavaFileDaPercorso(recensioniPath);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioni))) {
+
+      // Intestazione
+      writer.write(HEADER);
+      writer.newLine();
+
+      for (Recensione r : recensioniMap.values()) {
+        writer.write(formatRecensione(r));
+        writer.newLine();
+      }
+
+    } catch (IOException e) {
+      TheKnifeLogger.error(e);
+    }
+  }
+
+  /**
+   * Ottiene una recensione dalla mappa per ID.
+   */
+  public Recensione getRecensione(int id) {
+    return recensioniMap.get(id);
+  }
+
+  /**
+   * Ottiene tutte le recensioni.
+   */
+  public List<Recensione> getRecensioni() {
+    return new ArrayList<>(recensioniMap.values());
+  }
+
+  /**
+   * Aggiunge una nuova recensione alla mappa.
+   */
+  public void addRecensione(Recensione recensione) {
+    recensioniMap.put(recensione.getId(), recensione);
+  }
+
+  /**
+   * Rimuove una recensione dalla mappa per ID.
+   */
+  public void removeRecensione(int id) {
+    recensioniMap.remove(id);
+  }
+
+  private Recensione parseRecensione(String[] c, HashMap<Integer, Cliente> clientiMap)
+      throws NumberFormatException, ValidationException, ParseException {
+
+    int id = Integer.parseInt(c[0]);
+    byte stelle = Byte.parseByte(c[1]);
+    String commento = c[2];
+    int autoreID = Integer.parseInt(c[3]);
+    int ristoranteID = Integer.parseInt(c[4]);
+    String risposta = c[5].isEmpty() ? null : c[5];
+
+    Cliente autore = clientiMap.get(autoreID);
+    if (autore == null) {
+      throw new IllegalArgumentException("Cliente con ID " + autoreID + " non trovato.");
+    }
+
+    Recensione recensione = new Recensione(id, stelle, commento, autore, ristoranteID, risposta);
+
+    return recensione;
+  }
+
+  private String formatRecensione(Recensione r) {
+    return String.join(";",
+        String.valueOf(r.getId()),
+        String.valueOf(r.getStelle()),
+        r.getCommento(),
+        String.valueOf(r.getAutore().getId()),
+        String.valueOf(r.getRistoranteID()),
+        r.getRisposta());
+  }
+}

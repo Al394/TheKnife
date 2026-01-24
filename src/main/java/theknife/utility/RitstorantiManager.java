@@ -1,10 +1,11 @@
 package theknife.utility;
 
+import theknife.exceptions.ValidationException;
 import theknife.models.Ristorante;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  *
@@ -12,8 +13,12 @@ import java.util.List;
  */
 public class RitstorantiManager extends FileManager {
 
+    private final int NUMERO_CAMPI_RISTORANTE = 14;
+    private final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina;descrizione;servizi;recensioniIDs";
+    private final String RestaurantsPath = "data/restaurants.csv";
+
     private static RitstorantiManager instance = null;
-    private String RestaurantsPath;
+    private static final HashMap<Integer, Ristorante> ristorantiMap = new HashMap<>();
 
     /**
      * Costruttore privato, istanza accessible via {@link #getInstance()}
@@ -35,11 +40,10 @@ public class RitstorantiManager extends FileManager {
 
     /**
      *
-     * Carica tutti i ristoranti dal file CSV.
+     * Carica tutti i ristoranti dal file CSV e li inserisce in ristorantiMap.
      */
-    public List<Ristorante> leggiRistoranti() throws FileNotFoundException {
-        List<Ristorante> ristoranti = new ArrayList<Ristorante>() {
-        };
+    public void leggiRistoranti() throws FileNotFoundException {
+        ristorantiMap.clear();
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
 
@@ -59,66 +63,73 @@ public class RitstorantiManager extends FileManager {
                 String[] campi = line.split(";");
 
                 // Riga malformata → saltata
-                if (campi.length != 10) {
+                if (campi.length != NUMERO_CAMPI_RISTORANTE) {
                     continue;
                 }
 
-                Ristorante ristorante = parseRistorante(campi);
+                try {
+                    Ristorante ristorante = parseRistorante(campi);
+                    ristorantiMap.put(ristorante.getId(), ristorante);
+                } catch (NumberFormatException | ValidationException e) {
+                    TheKnifeLogger.error(e);
 
-                ristoranti.add(ristorante);
+                    continue;
+                }
             }
 
         } catch (IOException e) {
-            System.out.println("Errore nella lettura dei ristoranti: " + e.getMessage());
+            TheKnifeLogger.error(e);
         }
-
-        return ristoranti;
     }
 
     /**
-     * Salva la lista dei ristoranti su file CSV.
-     *
-     * @param ristoranti lista da salvare
+     * Salva i ristoranti da ristorantiMap su file CSV.
      */
-    public void scriviRistoranti(List<Ristorante> ristoranti) throws FileNotFoundException {
+    public void scriviRistoranti() throws FileNotFoundException {
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistoranti))) {
 
             // Intestazione
-            writer.write("nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina");
+            writer.write(HEADER);
+
             writer.newLine();
 
-            for (Ristorante r : ristoranti) {
+            for (Ristorante r : ristorantiMap.values()) {
                 writer.write(formatRistorante(r));
                 writer.newLine();
             }
 
         } catch (IOException e) {
-            System.out.println("Errore nella scrittura dei ristoranti: " + e.getMessage());
+            TheKnifeLogger.error(e);
         }
     }
 
-    private Ristorante parseRistorante(String[] c) {
+    private Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
 
         return new Ristorante(
-                c[0],                         // nome
-                c[1],                         // nazione
-                c[2],                         // città
-                c[3],                         // indirizzo
-                Double.parseDouble(c[4]),     // latitudine
-                Double.parseDouble(c[5]),     // longitudine
-                Double.parseDouble(c[6]),     // prezzo medio
-                Boolean.parseBoolean(c[7]),   // delivery
-                Boolean.parseBoolean(c[8]),   // prenotazione
-                c[9]                          // tipo cucina
+                Integer.parseInt(c[0]), // id
+                c[1], // nome
+                c[2], // nazione
+                c[3], // città
+                c[4], // indirizzo
+                Double.parseDouble(c[5]), // latitudine
+                Double.parseDouble(c[6]), // longitudine
+                Double.parseDouble(c[7]), // prezzo medio
+                Boolean.parseBoolean(c[8]), // takeAway
+                Boolean.parseBoolean(c[9]), // booking
+                c[10], // tipo cucina
+                c[11], // descrizione
+                c[12], // servizi
+                new ArrayList<>() // recensioniIDs TODO: Trasformare le recensioni da stringa a lista
         );
     }
 
     private String formatRistorante(Ristorante r) {
 
         return String.join(";",
+                String.valueOf(r.getId()),
                 r.getNome(),
                 r.getNazione(),
                 r.getCitta(),
@@ -128,7 +139,9 @@ public class RitstorantiManager extends FileManager {
                 String.valueOf(r.getPrezzoMedio()),
                 String.valueOf(r.isTakeAway()),
                 String.valueOf(r.hasBooking()),
-                r.getTipoCucina()
-        );
+                r.getTipoCucina(),
+                r.getDescrizione(),
+                r.getServizi(),
+                String.valueOf(r.getRecensioniIDs()));
     }
 }

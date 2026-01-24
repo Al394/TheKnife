@@ -1,1 +1,1 @@
-nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina
+id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina;descrizione;servizi;recensioniIDs

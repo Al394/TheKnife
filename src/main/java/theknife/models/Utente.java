@@ -1,23 +1,21 @@
 package theknife.models;
 
-import java.io.*;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import theknife.utility.Enums.Ruolo;
+
 /**
  *
  * Classe astratta Utente, rappresenta l'oggetto Utente
+ *
  * @author Alessio Sangiorgi 730420 VA
  */
-abstract public class Utente implements Serializable {
-
+abstract public class Utente {
     /**
-     * Unique class identifier.
+     * ID utente.
      */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+    protected int id;
     /**
      * Nome utente.
      */
@@ -48,7 +46,17 @@ abstract public class Utente implements Serializable {
      */
     protected Ruolo ruolo;
 
+    /**
+     * Lista ristoranti legati all'utente.
+     * Preferiti nel caso Cliente, gestiti nel caso Proprietario.
+     */
+    protected List<Integer> ristorantiIDs;
+
     /** Getters **/
+    public int getId() {
+        return id;
+    }
+
     public Ruolo getRuolo() {
         return ruolo;
     }
@@ -77,6 +85,10 @@ abstract public class Utente implements Serializable {
         return nome;
     }
 
+    public List<Integer> getRistorantiIDs() {
+        return ristorantiIDs;
+    }
+
     /**
      * Costruttore vuoto.
      */
@@ -86,6 +98,8 @@ abstract public class Utente implements Serializable {
     /**
      *
      * Costruttore facilitato.
+     *
+     * @param id            Id
      * @param nome          Nome
      * @param cognome       Cognome
      * @param username      Username
@@ -93,8 +107,12 @@ abstract public class Utente implements Serializable {
      * @param dataDiNascita Data di Nascita
      * @param domicilio     Domicilio
      * @param role          Ruolo
+     * @param ristoranti    Lista ristoranti collegati
      */
-    public Utente(String nome, String cognome, String username, String password, Date dataDiNascita, String domicilio, Ruolo role) {
+    public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
+            String domicilio,
+            Ruolo role, List<Integer> ristoranti) {
+        this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
@@ -102,46 +120,7 @@ abstract public class Utente implements Serializable {
         this.dataDiNascita = dataDiNascita;
         this.domicilio = domicilio;
         this.ruolo = role;
+        this.ristorantiIDs = ristoranti;
     }
 
-
-    public String toCSV() {
-        String[] arr = {
-                this.nome,
-                this.cognome,
-                this.username,
-                this.password,
-                this.dataDiNascita.toString(),
-                this.domicilio,
-                this.ruolo.toString(),
-        };
-        return Arrays.toString(arr).replaceAll("\\[|\\]", "");
-    }
-
-//    /**
-//     * Read list of users from a csv file.
-//     *
-//     * @param file The csv file with users data.
-//     * @return List of registered users.
-//     */
-//    public static List<Utente> getUsers(File file) {
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            boolean firstLine = true;
-//
-//            while ((line = br.readLine()) != null) {
-//                if (firstLine) {
-//                    firstLine = false;
-//                    continue;
-//                }
-//                System.out.println("line => " + line);
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return List.of();
-//    }
 }

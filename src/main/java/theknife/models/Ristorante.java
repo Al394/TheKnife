@@ -1,7 +1,7 @@
 package theknife.models;
 
 import java.util.ArrayList;
-import java.util.List;
+import theknife.exceptions.ValidationException;
 
 /**
  *
@@ -11,7 +11,10 @@ import java.util.List;
  */
 public class Ristorante {
 
-
+    /**
+     * ID ristorante.
+     */
+    private int id;
 
     /**
      * Nome ristorante
@@ -29,14 +32,11 @@ public class Ristorante {
      * Indirizzo ristorante
      */
     private String indirizzo;
+
     /**
-     * Latitudine ristorante
+     * Latitudine e longitudine ristorante.
      */
-    private double latitudine;
-    /**
-     * Longitudine ristorante
-     */
-    private double longitudine;
+    private Coordinate locazione;
     /**
      * Prezzo medio menu ristorante
      */
@@ -54,11 +54,25 @@ public class Ristorante {
      */
     private String tipoCucina;
     /**
+     * Descrizione del ristorante.
+     */
+    private String descrizione;
+    /**
+     * Servizi fortini dal ristorante.
+     */
+    private String servizi;
+
+    /**
      * Lista recensioni del Ristorante.
      */
-    private List<Recensione> recensioni;
+    private ArrayList<Integer> recensioniIDs;
 
     /** Getters **/
+
+    public int getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -76,11 +90,11 @@ public class Ristorante {
     }
 
     public double getLatitudine() {
-        return latitudine;
+        return locazione.getLatitudine();
     }
 
     public double getLongitudine() {
-        return longitudine;
+        return locazione.getLongitudine();
     }
 
     public boolean isTakeAway() {
@@ -95,15 +109,29 @@ public class Ristorante {
         return tipoCucina;
     }
 
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public String getServizi() {
+        return servizi;
+    }
+
+    public ArrayList<Integer> getRecensioniIDs() {
+        return recensioniIDs;
+    }
+
     /**
      * Costruttore vuoto.
      */
     public Ristorante() {
+        this.recensioniIDs = new ArrayList<>();
     }
 
     /**
      * Costruttore completo per la classe Ristorante.
      *
+     * @param id          ID ristorante
      * @param nome        Nome ristorante
      * @param nazione     Nazione
      * @param citta       Città
@@ -114,19 +142,26 @@ public class Ristorante {
      * @param takeAway    Effettua consegne a domicilio
      * @param booking     Servizio prenotazione online disponibile
      * @param tipoCucina  Tipologia di cucina (es: Italiana, Sushi, ecc.)
+     * @throws ValidationException Coordinate non valide.
      */
-    public Ristorante(String nome, String nazione, String citta, String indirizzo,
-                      double latitudine, double longitudine, double prezzoMedio,
-                      boolean takeAway, boolean booking, String tipoCucina) {
+    public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
+            double latitudine, double longitudine, double prezzoMedio,
+            boolean takeAway, boolean booking, String tipoCucina, String descrizione, String servizi,
+            ArrayList<Integer> recensioniIDs)
+            throws ValidationException {
+        this.id = id;
         this.nome = nome;
         this.nazione = nazione;
         this.citta = citta;
         this.indirizzo = indirizzo;
-        setCoordinate(latitudine, longitudine);
+        this.locazione = new Coordinate(latitudine, longitudine);
         setPrezzoMedio(prezzoMedio);
         this.takeAway = takeAway;
         this.booking = booking;
         this.tipoCucina = tipoCucina;
+        this.descrizione = descrizione;
+        this.servizi = servizi;
+        this.recensioniIDs = recensioniIDs;
     }
 
     /**
@@ -134,8 +169,8 @@ public class Ristorante {
      *
      * @param recensione recensione da aggiungere
      */
-    public void aggiungiRecensione(Recensione recensione) {
-        recensioni.add(recensione);
+    public void aggiungiRecensione(int recensione) {
+        recensioniIDs.add(recensione);
     }
 
     /**
@@ -147,28 +182,17 @@ public class Ristorante {
         double result = 0;
         int sum = 0;
 
-        if (!recensioni.isEmpty()) {
+        if (!recensioniIDs.isEmpty()) {
             /* Ciclo la lista recensioni. */
-            for (Recensione recensione : recensioni) {
-                sum += recensione.getStelle();
+            for (int idRecensione : recensioniIDs) {
+                sum += idRecensione;
             }
 
             /* Faccio la media */
-            result = (double) sum / recensioni.size();
+            result = (double) sum / recensioniIDs.size();
         }
 
         return result;
-    }
-
-    /**
-     * Imposta le coordinate geografiche validandone i range.
-     */
-    public final void setCoordinate(double latitudine, double longitudine) {
-        if (latitudine < -90 || latitudine > 90 || longitudine < -180 || longitudine > 180) {
-            throw new IllegalArgumentException("Coordinate geografiche non valide");
-        }
-        this.latitudine = latitudine;
-        this.longitudine = longitudine;
     }
 
     public double getPrezzoMedio() {

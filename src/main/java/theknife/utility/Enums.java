@@ -1,7 +1,10 @@
 package theknife.utility;
+
 /**
  *
- * Classe Enums, rappresenta degli oggetti enum utili per il mantenimento del codice.
+ * Classe Enums, rappresenta degli oggetti enum utili per il mantenimento del
+ * codice.
+ *
  * @author Alessio Sangiorgi 730420 VA
  */
 public class Enums {
@@ -9,9 +12,19 @@ public class Enums {
      * Enum Ruoli.
      */
     public enum Ruolo {
-        ADMIN,
-        CLIENTE,
-        RISTORATORE
+        ADMIN("Admin"),
+        CLIENTE("Cliente"),
+        RISTORATORE("Ristoratore");
+
+        private final String ruolo;
+
+        Ruolo(String ruolo) {
+            this.ruolo = ruolo;
+        }
+
+        public String getRuolo() {
+            return ruolo;
+        }
     }
 
     /**

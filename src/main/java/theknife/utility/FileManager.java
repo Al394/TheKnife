@@ -2,12 +2,7 @@ package theknife.utility;
 
 // Alessio Sangiorgi 730420 VA
 
-import theknife.models.Utente;
-
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 /**
  *
