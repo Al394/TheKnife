@@ -12,14 +12,30 @@ import java.util.List;
 
 /**
  * Classe utility per lettura e scrittura recensioni.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class RecensioniManager extends FileManager {
 
+  /**
+   * Numero di campi per ogni recensione nel file CSV.
+   */
   private final int NUMERO_CAMPI_RECENSIONE = 6;
+  /**
+   * Header csv.
+   */
   private final String HEADER = "id;stelle;commento;autoreID;ristoranteID;risposta";
+  /**
+   * Percorso del file recensioni.
+   */
   private final String recensioniPath = "data/recensioni.csv";
-
+  /**
+   * Istanza singleton.
+   */
   private static RecensioniManager instance = null;
+  /**
+   * Mappa delle recensioni, chiave: ID recensione, valore: oggetto Recensione.
+   */
   private static final HashMap<Integer, Recensione> recensioniMap = new HashMap<>();
 
   /**

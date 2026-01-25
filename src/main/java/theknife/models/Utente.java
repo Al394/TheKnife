@@ -3,7 +3,7 @@ package theknife.models;
 import java.util.Date;
 import java.util.List;
 
-import theknife.utility.Enums.Ruolo;
+import theknife.enums.Enums.Ruolo;
 
 /**
  *
@@ -38,9 +38,19 @@ abstract public class Utente {
     protected Date dataDiNascita;
 
     /**
-     * Domicilio utente.
+     * Nazione utente.
      */
-    protected String domicilio;
+    protected String Nazione;
+
+    /**
+     * Città utente.
+     */
+    protected String Citta;
+
+    /**
+     * Indirizzo utente.
+     */
+    protected String Indirizzo;
     /**
      * Ruolo utente.
      */
@@ -61,8 +71,16 @@ abstract public class Utente {
         return ruolo;
     }
 
-    public String getDomicilio() {
-        return domicilio;
+    public String getNazione() {
+        return Nazione;
+    }
+
+    public String getCitta() {
+        return Citta;
+    }
+
+    public String getIndirizzo() {
+        return Indirizzo;
     }
 
     public Date getDataDiNascita() {
@@ -110,15 +128,16 @@ abstract public class Utente {
      * @param ristoranti    Lista ristoranti collegati
      */
     public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String domicilio,
-            Ruolo role, List<Integer> ristoranti) {
+            String nazione, String citta, String indirizzo, Ruolo role, List<Integer> ristoranti) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.password = password;
         this.dataDiNascita = dataDiNascita;
-        this.domicilio = domicilio;
+        this.Nazione = nazione;
+        this.Citta = citta;
+        this.Indirizzo = indirizzo;
         this.ruolo = role;
         this.ristorantiIDs = ristoranti;
     }

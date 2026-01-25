@@ -2,6 +2,13 @@ package theknife.utility;
 
 import theknife.models.Coordinate;
 
+/**
+ * Classe GeoLocationManager, fornisce metodi statici per la gestione
+ * di operazioni geografiche come il calcolo della distanza tra due punti
+ * sulla superficie terrestre utilizzando la formula di Haversine.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class GeoLocationManager {
     /**
      * Raggio terrestre in KM.
@@ -13,11 +20,12 @@ public class GeoLocationManager {
     /**
      * Costruttore privato per rendere la classe "statica".
      */
-    private GeoLocationManager(){
+    private GeoLocationManager() {
     }
 
     /**
-     * Calcolo la distanza tra due punti sulla Terra utilizzando la formula di Haversine.
+     * Calcolo la distanza tra due punti sulla Terra utilizzando la formula di
+     * Haversine.
      *
      * @param coordinata1 Prima coordinata.
      * @param coordinata2 Seconda coordinata.
@@ -35,25 +43,33 @@ public class GeoLocationManager {
         double latDelta_R = Math.toRadians(lat2 - lat1);
         double longDelta_R = Math.toRadians(lon2 - lon1);
 
-
         // Tutti gli input devono essere in radianti.
-        double a = formulaDiHaversine(latDelta_R, lat1_R, lat2_R, longDelta_R);
+        double hav = formulaDiHaversine(latDelta_R, lat1_R, lat2_R, longDelta_R);
 
         // Calcolo della distanza angolare.
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double c = 2 * Math.atan2(Math.sqrt(hav), Math.sqrt(1 - hav));
 
         // Distanza finale in Km.
         return RAGGIO_TERRESTRE_KM * c;
     }
 
     /**
-     * Applico la formula di Haversine per calcolare il valore intermedio {@code a}
-     * utilizzato nel calcolo della distanza ortodromica tra due punti sulla superficie terrestre.
+     * Applico la formula di Haversine per calcolare il valore intermedio
+     * {@code hav}
+     * utilizzato nel calcolo della distanza ortodromica tra due punti sulla
+     * superficie terrestre.
      *
-     * <p>Il valore restituito rappresenta il quadrato della metà della corda
-     * che unisce i due punti sulla sfera.</p>
+     * <p>
+     * Il valore restituito rappresenta il quadrato della metà della corda
+     * che unisce i due punti sulla sfera.
+     * </p>
      *
-     * <p><strong>Nota:</strong> tutti i parametri devono essere espressi in radianti.</p>
+     * <p>
+     * <strong>Nota:</strong> Tutti i parametri devono essere espressi in radianti.
+     * </p>
+     *
+     * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine
+     *      formula.</a>
      *
      * @param latDelta  differenza di latitudine tra i due punti, in radianti.
      * @param lat1      latitudine del primo punto, in radianti.
@@ -62,11 +78,11 @@ public class GeoLocationManager {
      * @return il valore {@code a} della formula di Haversine.
      */
     private static double formulaDiHaversine(double latDelta,
-                                             double lat1,
-                                             double lat2,
-                                             double longDelta) {
+            double lat1,
+            double lat2,
+            double longDelta) {
         return Math.pow(Math.sin(latDelta / 2), 2)
                 + Math.cos(lat1) * Math.cos(lat2)
-                * Math.pow(Math.sin(longDelta / 2), 2);
+                        * Math.pow(Math.sin(longDelta / 2), 2);
     }
 }

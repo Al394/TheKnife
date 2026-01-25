@@ -1,4 +1,4 @@
-package theknife.utility;
+package theknife.enums;
 
 /**
  *
@@ -12,7 +12,6 @@ public class Enums {
      * Enum Ruoli.
      */
     public enum Ruolo {
-        ADMIN("Admin"),
         CLIENTE("Cliente"),
         RISTORATORE("Ristoratore");
 
@@ -24,6 +23,25 @@ public class Enums {
 
         public String getRuolo() {
             return ruolo;
+        }
+    }
+
+    /**
+     * Enum Operazioni per fasce di prezzo.
+     */
+    public enum FasceDiPrezzoOp {
+        LESS_THAN("LESS"),
+        GREATER_THAN("GREATER"),
+        BETWEEN("BETWEEN");
+
+        private final String operazione;
+
+        FasceDiPrezzoOp(String operazione) {
+            this.operazione = operazione;
+        }
+
+        public String getOperazione() {
+            return operazione;
         }
     }
 

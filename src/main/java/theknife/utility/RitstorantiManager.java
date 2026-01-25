@@ -10,12 +10,14 @@ import java.util.HashMap;
 /**
  *
  * Classe utility per lettura e scrittura ristoranti.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class RitstorantiManager extends FileManager {
 
-    private final int NUMERO_CAMPI_RISTORANTE = 14;
-    private final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina;descrizione;servizi;recensioniIDs";
-    private final String RestaurantsPath = "data/restaurants.csv";
+    private static final int NUMERO_CAMPI_RISTORANTE = 14;
+    private static final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina;descrizione;servizi;recensioniIDs";
+    private static final String RestaurantsPath = "data/restaurants.csv";
 
     private static RitstorantiManager instance = null;
     private static final HashMap<Integer, Ristorante> ristorantiMap = new HashMap<>();
@@ -39,10 +41,27 @@ public class RitstorantiManager extends FileManager {
     }
 
     /**
+     * Metodo pubblico per esporre i ristoranti.
+     *
+     * @return HashMap ID, Ristorante
+     */
+    public static HashMap<Integer, Ristorante> getRistoranti() {
+        if (ristorantiMap.size() == 0) {
+            try {
+                leggiRistoranti();
+            } catch (FileNotFoundException e) {
+                TheKnifeLogger.error(e);
+            }
+        }
+
+        return ristorantiMap;
+    }
+
+    /**
      *
      * Carica tutti i ristoranti dal file CSV e li inserisce in ristorantiMap.
      */
-    public void leggiRistoranti() throws FileNotFoundException {
+    private static void leggiRistoranti() throws FileNotFoundException {
         ristorantiMap.clear();
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
@@ -67,17 +86,12 @@ public class RitstorantiManager extends FileManager {
                     continue;
                 }
 
-                try {
-                    Ristorante ristorante = parseRistorante(campi);
-                    ristorantiMap.put(ristorante.getId(), ristorante);
-                } catch (NumberFormatException | ValidationException e) {
-                    TheKnifeLogger.error(e);
+                Ristorante ristorante = parseRistorante(campi);
 
-                    continue;
-                }
+                ristorantiMap.put(ristorante.getId(), ristorante);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             TheKnifeLogger.error(e);
         }
     }
@@ -85,7 +99,7 @@ public class RitstorantiManager extends FileManager {
     /**
      * Salva i ristoranti da ristorantiMap su file CSV.
      */
-    public void scriviRistoranti() throws FileNotFoundException {
+    public static void scriviRistoranti() throws FileNotFoundException {
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
 
@@ -106,7 +120,7 @@ public class RitstorantiManager extends FileManager {
         }
     }
 
-    private Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
+    private static Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
 
         return new Ristorante(
                 Integer.parseInt(c[0]), // id
@@ -126,7 +140,7 @@ public class RitstorantiManager extends FileManager {
         );
     }
 
-    private String formatRistorante(Ristorante r) {
+    private static String formatRistorante(Ristorante r) {
 
         return String.join(";",
                 String.valueOf(r.getId()),

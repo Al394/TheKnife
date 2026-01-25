@@ -1,27 +1,33 @@
 package theknife.utility;
 
-import theknife.models.Admin;
+import theknife.enums.Enums;
 import theknife.models.Cliente;
 import theknife.models.Ristoratore;
 import theknife.models.Utente;
 
 import java.io.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Classe utility per lettura e scrittura utenti.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class UtentiManager extends FileManager {
-    private final int NUMERO_CAMPI_UTENTE = 8;
-    private final String HEADRES = "id;nome;cognome;username;password;dataDiNascita;domicilio;ruolo;ristoranti";
-    private final String utentiPath = "data/users.csv";
+    private static final int NUMERO_CAMPI_UTENTE = 9;
+    private static final String HEADRES = "id;nome;cognome;username;password;dataDiNascita;domicilio;ruolo;ristoranti";
+    private static final String utentiPath = "data/users.csv";
 
     private static UtentiManager instance = null;
+
+    private static final HashMap<Integer, Utente> utentiMap = new HashMap<>();
 
     /**
      * Costruttore privato, istanza accessibile via {@link #getInstance()}
@@ -36,7 +42,45 @@ public class UtentiManager extends FileManager {
         if (instance == null) {
             instance = new UtentiManager();
         }
+
         return instance;
+    }
+
+    public static void registraUtente(String nome, String cognome, String username, String password,
+            String dataDiNascita, String domicilio, Enums.Ruolo ruolo) throws ParseException, FileNotFoundException {
+        leggiUtenti();
+
+        int id = utentiMap.size() + 1;
+        Date dataNascita = new SimpleDateFormat("dd-MM-yyyy").parse(dataDiNascita);
+
+        if (Enums.Ruolo.CLIENTE == ruolo) {
+            Cliente cliente = new Cliente(id, nome, cognome, username, password, dataNascita, domicilio,
+                    new ArrayList<Integer>());
+            utentiMap.put(id, cliente);
+        }
+
+        if (Enums.Ruolo.RISTORATORE == ruolo) {
+            Ristoratore ristoratore = new Ristoratore(id, nome, cognome, username, password, dataNascita, domicilio,
+                    new ArrayList<Integer>());
+            utentiMap.put(id, ristoratore);
+        }
+    }
+
+    /**
+     * Metodo pubblico per esporre gli utenti.
+     *
+     * @return HashMap ID, Utente
+     */
+    public static HashMap<Integer, Utente> getUtenti() {
+        if (utentiMap.size() == 0) {
+            try {
+                leggiUtenti();
+            } catch (Exception e) {
+                TheKnifeLogger.error(e);
+            }
+        }
+
+        return utentiMap;
     }
 
     /**
@@ -45,10 +89,7 @@ public class UtentiManager extends FileManager {
      * @throws FileNotFoundException
      * @throws ParseException
      */
-    public List<Utente> leggiUtenti() throws FileNotFoundException, ParseException {
-
-        List<Utente> utenti = new ArrayList<>();
-
+    public static void leggiUtenti() throws FileNotFoundException, ParseException {
         File fileUtenti = FileManager.ricavaFileDaPercorso(utentiPath);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileUtenti))) {
@@ -72,14 +113,13 @@ public class UtentiManager extends FileManager {
                 }
 
                 Utente utente = parseUtente(campi);
-                utenti.add(utente);
+
+                utentiMap.put(utente.getId(), utente);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             TheKnifeLogger.error(e);
         }
-
-        return utenti;
     }
 
     /**
@@ -105,7 +145,7 @@ public class UtentiManager extends FileManager {
         }
     }
 
-    private Utente parseUtente(String[] c) throws ParseException, IllegalArgumentException {
+    private static Utente parseUtente(String[] c) throws ParseException, IllegalArgumentException {
         int id = Integer.parseInt(c[0]);
         String nome = c[1];
         String cognome = c[2];
@@ -121,8 +161,6 @@ public class UtentiManager extends FileManager {
                 .toList();
 
         switch (ruolo) {
-            case ADMIN:
-                return new Admin(id, nome, cognome, username, password, dataDiNascita, domicilio, ristoranti);
             case CLIENTE:
                 return new Cliente(id, nome, cognome, username, password, dataDiNascita, domicilio, ristoranti);
             case RISTORATORE:
@@ -132,7 +170,7 @@ public class UtentiManager extends FileManager {
         }
     }
 
-    private String parseUtente(Utente u) {
+    private static String parseUtente(Utente u) {
 
         String[] arr = {
                 String.valueOf(u.getId()),

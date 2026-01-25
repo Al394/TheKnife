@@ -14,6 +14,8 @@ import theknife.exceptions.ValidationException;
  * <li>La latitudine varia da -90.0 (Sud) a 90.0 (Nord)</li>
  * <li>La longitudine varia da -180.0 (Ovest) a 180.0 (Est)</li>
  * </ul>
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class Coordinate {
 

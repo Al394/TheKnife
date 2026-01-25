@@ -8,10 +8,17 @@ import java.time.format.DateTimeFormatter;
  * Logger per il progetto TheKnife.
  * Scrive i log in append su file data/Log.txt con data, ora, livello e
  * messaggio formattati.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class TheKnifeLogger {
-
+  /**
+   * Percorso del file di log.
+   */
   private static final String LOG_FILE_PATH = "data/Log.txt";
+  /**
+   * Formattatore data.
+   */
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
   /**
@@ -77,6 +84,17 @@ public class TheKnifeLogger {
    */
   public static void error(Exception exception) {
     String errorMessage = exception.getClass().getSimpleName() + ": " + exception.getMessage();
+    writeLog(LogLevel.ERROR, errorMessage);
+  }
+
+  /**
+   * Registra un'eccezione come ERROR.
+   *
+   * @param message   il messaggio aggiuntivo da registrare
+   * @param exception l'eccezione da registrare
+   */
+  public static void error(String message, Exception exception) {
+    String errorMessage = message + " | " + exception.getClass().getSimpleName() + ": " + exception.getMessage();
     writeLog(LogLevel.ERROR, errorMessage);
   }
 

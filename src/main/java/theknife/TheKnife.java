@@ -1,10 +1,17 @@
 package theknife;
 
 import theknife.models.Coordinate;
+import theknife.navigation.HomePage;
 import theknife.utility.GeoLocationManager;
 
 import java.nio.file.Paths;
+import java.util.Scanner;
 
+/**
+ * Main class, punto di partenza dell'applicazione.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class TheKnife {
     public static void main(String[] args) {
         String path = System.getProperty("user.dir");
@@ -25,6 +32,11 @@ public class TheKnife {
         }
 
         System.out.println("Distanza: " + res);
+
+        Scanner scanner = new Scanner(System.in);
+
+        HomePage homePage = new HomePage(scanner);
+        homePage.start();
 
     }
 }
