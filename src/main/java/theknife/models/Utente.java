@@ -40,17 +40,17 @@ abstract public class Utente {
     /**
      * Nazione utente.
      */
-    protected String Nazione;
+    protected String nazione;
 
     /**
      * Città utente.
      */
-    protected String Citta;
+    protected String citta;
 
     /**
      * Indirizzo utente.
      */
-    protected String Indirizzo;
+    protected String indirizzo;
     /**
      * Ruolo utente.
      */
@@ -72,15 +72,23 @@ abstract public class Utente {
     }
 
     public String getNazione() {
-        return Nazione;
+        return nazione;
+    }
+
+    public void setNazione(String nazione) {
+        this.nazione = nazione;
     }
 
     public String getCitta() {
-        return Citta;
+        return citta;
+    }
+
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public String getIndirizzo() {
-        return Indirizzo;
+        return indirizzo;
     }
 
     public Date getDataDiNascita() {
@@ -135,9 +143,9 @@ abstract public class Utente {
         this.username = username;
         this.password = password;
         this.dataDiNascita = dataDiNascita;
-        this.Nazione = nazione;
-        this.Citta = citta;
-        this.Indirizzo = indirizzo;
+        this.nazione = nazione;
+        this.citta = citta;
+        this.indirizzo = indirizzo;
         this.ruolo = role;
         this.ristorantiIDs = ristoranti;
     }

@@ -17,7 +17,8 @@ public abstract class Navigation {
   }
 
   /**
-   * Avvia la.
+   * Metodo astratto che deve essere implementato da tutte le pagine di
+   * navigazione.
    */
   public abstract void start();
 

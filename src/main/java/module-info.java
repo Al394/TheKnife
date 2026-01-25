@@ -5,5 +5,6 @@ module theknife {
     exports theknife.models;
     exports theknife.enums;
     exports theknife.exceptions;
+    exports theknife.navigation;
     exports theknife.utility;
 }

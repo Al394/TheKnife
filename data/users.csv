@@ -1,3 +1,2 @@
-id;nome;cognome;username;password;dataDiNascita;domicilio;ruolo;ristoranti
-1;Luca;Rossi;lRossi;12345;01/01/2000;Roma;CUSTOMER;[]
-2;Alessio; Sangiorgi; ASSAn; 1234; Sat Nov 12 00:00:00 CET 1994; Gattinara; CUSTOMER;[]
+id;nome;cognome;username;password;dataDiNascita;nazione;citta;indirizzo;ruolo;ristoranti
+1;aa;aa;aa;Yb5VqOL2tOFyM4vd8YTW2+4pyYhT4KBIXs7n8nua8LQ=;1111-11-11;aa;aa;aa;Cliente;[]

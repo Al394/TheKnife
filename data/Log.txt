@@ -1,0 +1,2 @@
+[25/01/2026 15:53:59] [ERROR] IllegalArgumentException: No enum constant theknife.enums.Enums.Ruolo.Cliente
+[25/01/2026 15:59:06] [ERROR] UnsupportedOperationException: Unimplemented method 'indirizzaAllaPaginaSuccessiva'

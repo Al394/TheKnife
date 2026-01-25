@@ -99,7 +99,7 @@ public class BLRistoranti {
      * @return true se il ristorante rientra nella fascia, false altrimenti
      */
     private boolean verificaFasciaPrezzo(Ristorante ristorante, FiltroPrezzo filtroPrezzo) {
-        double prezzoMedio = ristorante.getPrezzoMedio();
+        double prezzoMedio = ristorante.getNumeroPrezzoMedio();
         int prezzo1 = filtroPrezzo.getPrezzo1();
         int prezzo2 = filtroPrezzo.getPrezzo2();
 
@@ -114,7 +114,7 @@ public class BLRistoranti {
 
             case BETWEEN:
                 // Tra prezzo1 e prezzo2
-                return prezzo1 < prezzoMedio && prezzo2 > prezzoMedio;
+                return prezzo1 > 0 && prezzo2 > 0 && prezzo1 < prezzoMedio && prezzo2 > prezzoMedio;
 
             default:
                 return true;

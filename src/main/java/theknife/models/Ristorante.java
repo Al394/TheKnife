@@ -38,9 +38,9 @@ public class Ristorante {
      */
     private Coordinate locazione;
     /**
-     * Prezzo medio menu ristorante
+     * Prezzo medio menu ristorante nel formato "€€", "€€€", ecc.
      */
-    private double prezzoMedio;
+    private String prezzoMedio;
     /**
      * Presente il servizio di delivery.
      */
@@ -87,6 +87,10 @@ public class Ristorante {
 
     public String getIndirizzo() {
         return indirizzo;
+    }
+
+    public String getPrezzoMedio() {
+        return prezzoMedio;
     }
 
     public double getLatitudine() {
@@ -145,7 +149,7 @@ public class Ristorante {
      * @throws ValidationException Coordinate non valide.
      */
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, double prezzoMedio,
+            double latitudine, double longitudine, String prezzoMedio,
             boolean takeAway, boolean booking, String tipoCucina, String descrizione, String servizi,
             ArrayList<Integer> recensioniIDs)
             throws ValidationException {
@@ -155,7 +159,7 @@ public class Ristorante {
         this.citta = citta;
         this.indirizzo = indirizzo;
         this.locazione = new Coordinate(latitudine, longitudine);
-        setPrezzoMedio(prezzoMedio);
+        this.prezzoMedio = prezzoMedio;
         this.takeAway = takeAway;
         this.booking = booking;
         this.tipoCucina = tipoCucina;
@@ -195,21 +199,14 @@ public class Ristorante {
         return result;
     }
 
-    public double getPrezzoMedio() {
-        return prezzoMedio;
-    }
-
-    public final void setPrezzoMedio(double prezzoMedio) {
-        if (prezzoMedio < 0) {
-            throw new IllegalArgumentException("Il prezzo medio non può essere negativo");
-        }
-        this.prezzoMedio = prezzoMedio;
+    public int getNumeroPrezzoMedio() {
+        return prezzoMedio.length();
     }
 
     @Override
     public String toString() {
         return nome + " (" + citta + ") - " + tipoCucina +
-                " | Prezzo medio: " + prezzoMedio + "€" +
+                " | Prezzo medio: " + prezzoMedio +
                 " | Media stelle: " + String.format("%.2f", getMediaStelle());
     }
 

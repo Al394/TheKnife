@@ -130,7 +130,7 @@ public class RitstorantiManager extends FileManager {
                 c[4], // indirizzo
                 Double.parseDouble(c[5]), // latitudine
                 Double.parseDouble(c[6]), // longitudine
-                Double.parseDouble(c[7]), // prezzo medio
+                c[7], // prezzo medio
                 Boolean.parseBoolean(c[8]), // takeAway
                 Boolean.parseBoolean(c[9]), // booking
                 c[10], // tipo cucina
