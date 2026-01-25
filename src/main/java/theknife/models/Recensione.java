@@ -17,7 +17,7 @@ public class Recensione {
     /**
      * Valutazione in stelle da 1 a 5
      */
-    private byte stelle;
+    private int stelle;
 
     /**
      * Testo inserito a commento della recensione.
@@ -60,7 +60,7 @@ public class Recensione {
     }
 
     /** Getters **/
-    public byte getStelle() {
+    public int getStelle() {
         return stelle;
     }
 

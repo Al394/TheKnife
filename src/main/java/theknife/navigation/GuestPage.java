@@ -1,9 +1,12 @@
 package theknife.navigation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import theknife.businessLogic.BLRistoranti;
+import theknife.enums.Enums.TernaryInfo;
+import theknife.enums.Enums.FasceDiPrezzoOp;
 import theknife.models.Cliente;
 import theknife.models.Coordinate;
 import theknife.models.FiltroRicerca;
@@ -32,9 +35,8 @@ public class GuestPage extends Navigation {
 
     while (!exit) {
 
-      ottieniInformazioniPreliminari();
-
       stampaMenu();
+
       String scelta = scanner.nextLine();
 
       switch (scelta) {
@@ -43,7 +45,7 @@ public class GuestPage extends Navigation {
           break;
 
         case "2":
-          visualizzaTutti();
+          // visualizzaTutti();
           break;
 
         case "0":
@@ -54,19 +56,6 @@ public class GuestPage extends Navigation {
           stampaErrore("Scelta non valida.");
       }
     }
-  }
-
-  private void ottieniInformazioniPreliminari() {
-    stampaInfo("Per proseguire imposta almeno la nazione in cui ti trovi.");
-    while (clienteNonAutenticato.getNazione().isBlank()) {
-      clienteNonAutenticato.setNazione(leggiInput("Nazione: "));
-
-      if (clienteNonAutenticato.getNazione().isBlank())
-        stampaErrore("Ai fini della ricerca la nazione è obbligatoria.");
-    }
-
-    stampaInfo("Per saltare premere invio.");
-    citta = (leggiInput("Città: "));
   }
 
   /**
@@ -91,9 +80,13 @@ public class GuestPage extends Navigation {
     String citta = null;
     String indirizzo = null;
     String cucina = null;
-    double prezzoMax = -1;
-    boolean delivery;
-    boolean booking;
+    FiltroPrezzo filtroPrezzo = null;
+    FasceDiPrezzoOp operazione = null;
+    int prezzo1 = -1;
+    int prezzo2 = -1;
+    TernaryInfo delivery = TernaryInfo.ANY;
+    TernaryInfo booking = TernaryInfo.ANY;
+    int mediaStelle = 0;
 
     stampaInfo("Per proseguire imposta almeno la nazione in cui ti trovi.");
     while (nazione.isBlank()) {
@@ -106,20 +99,51 @@ public class GuestPage extends Navigation {
     stampaInfo("Invio per ignorare.");
     citta = leggiInput("Città: ");
 
+    stampaInfo("Invio per ignorare.");
     indirizzo = leggiInput("Tipo indirizzo: ");
 
+    stampaInfo("Invio per ignorare.");
     cucina = leggiInput("Tipo cucina: ");
 
-    prezzoMax = Double.parseDouble(leggiInput("Prezzo massimo [1-4]: "));
+    stampaInfo("Invio per ignorare.");
+    String sceltaOperazione = leggiInput(
+        "Filtro prezzo:\nInserisci 1 per 'Maggiore di'\nInserisci 2 per 'Minore di'\nInserisci 3 per 'Tra due valori'\nInvio per ignorare.\n");
 
-    FiltroRicerca filtro = new FiltroRicerca(clienteNonAutenticato.getNazione(), clienteNonAutenticato.getCitta(), null,
+    switch (sceltaOperazione) {
+      case "1":
+        operazione = FasceDiPrezzoOp.GREATER_THAN;
+        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: da [1-4]\\n"));
+        filtroPrezzo = new FiltroPrezzo(operazione, prezzo1);
+        break;
+      case "2":
+        operazione = FasceDiPrezzoOp.LESS_THAN;
+        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: da [1-4]\\n"));
+        filtroPrezzo = new FiltroPrezzo(operazione, prezzo1);
+        break;
+      case "3":
+        operazione = FasceDiPrezzoOp.BETWEEN;
+        prezzo1 = Integer.parseInt(leggiInput("Da prezzo: da [1-4]\n "));
+        prezzo2 = Integer.parseInt(leggiInput("A prezzo: da [1-4]\\n"));
+        filtroPrezzo = new FiltroPrezzo(operazione, prezzo1, prezzo2);
+      default:
+        break;
+    }
+
+    stampaInfo("Invio per ignorare.");
+    mediaStelle = Integer.parseInt(leggiInput("Media stelle: "));
+
+    FiltroRicerca filtro = new FiltroRicerca(
+        nazione.trim(),
+        citta.trim(),
+        indirizzo.trim(),
         null,
-        cucina,
-        prezzoMax > 0 ? new FiltroRicerca.FiltroPrezzo(FiltroRicerca.FiltroPrezzo.Operatore.MINORE, (int) prezzoMax)
-            : null,
-        false,
-        false,
-        (byte) 0);
+        cucina.trim(),
+        filtroPrezzo,
+        delivery,
+        booking,
+        mediaStelle);
+
+    ArrayList<Ristorante> risultati = blRistoranti.cercaRistorante(filtro);
 
     if (risultati.isEmpty()) {
       stampaInfo("Nessun ristorante trovato.");

@@ -44,7 +44,7 @@ public class Ristorante {
     /**
      * Presente il servizio di delivery.
      */
-    private boolean takeAway;
+    private boolean delivery;
     /**
      * Presente il servizio di prenotazione online.
      */
@@ -102,7 +102,7 @@ public class Ristorante {
     }
 
     public boolean isTakeAway() {
-        return takeAway;
+        return delivery;
     }
 
     public boolean hasBooking() {
@@ -143,14 +143,14 @@ public class Ristorante {
      * @param latitudine  Latitudine
      * @param longitudine Longitudine
      * @param prezzoMedio Prezzo medio
-     * @param takeAway    Effettua consegne a domicilio
+     * @param delivery    Effettua consegne a domicilio
      * @param booking     Servizio prenotazione online disponibile
      * @param tipoCucina  Tipologia di cucina (es: Italiana, Sushi, ecc.)
      * @throws ValidationException Coordinate non valide.
      */
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
             double latitudine, double longitudine, String prezzoMedio,
-            boolean takeAway, boolean booking, String tipoCucina, String descrizione, String servizi,
+            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
             ArrayList<Integer> recensioniIDs)
             throws ValidationException {
         this.id = id;
@@ -160,7 +160,7 @@ public class Ristorante {
         this.indirizzo = indirizzo;
         this.locazione = new Coordinate(latitudine, longitudine);
         this.prezzoMedio = prezzoMedio;
-        this.takeAway = takeAway;
+        this.delivery = delivery;
         this.booking = booking;
         this.tipoCucina = tipoCucina;
         this.descrizione = descrizione;

@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class RitstorantiManager extends FileManager {
 
     private static final int NUMERO_CAMPI_RISTORANTE = 14;
-    private static final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;booking;tipoCucina;descrizione;servizi;recensioniIDs";
+    private static final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;delivery;booking;tipoCucina;descrizione;servizi;recensioniIDs";
     private static final String RestaurantsPath = "data/restaurants.csv";
 
     private static RitstorantiManager instance = null;
@@ -131,7 +131,7 @@ public class RitstorantiManager extends FileManager {
                 Double.parseDouble(c[5]), // latitudine
                 Double.parseDouble(c[6]), // longitudine
                 c[7], // prezzo medio
-                Boolean.parseBoolean(c[8]), // takeAway
+                Boolean.parseBoolean(c[8]), // delivery
                 Boolean.parseBoolean(c[9]), // booking
                 c[10], // tipo cucina
                 c[11], // descrizione

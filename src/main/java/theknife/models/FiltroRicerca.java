@@ -2,6 +2,7 @@ package theknife.models;
 
 import theknife.enums.Enums;
 import theknife.enums.Enums.FasceDiPrezzoOp;
+import theknife.enums.Enums.TernaryInfo;
 
 /**
  * Modello FiltroRicerca.
@@ -24,7 +25,7 @@ import theknife.enums.Enums.FasceDiPrezzoOp;
  * - location: le coordinate geografiche (latitudine, longitudine)
  * - cucina: il tipo di cucina desiderato
  * - filtroPrezzo: il filtro per la fascia di prezzo
- * - takeaway: indica se è richiesto il servizio di asporto
+ * - delivery: indica se è richiesto il servizio di asporto
  * - booking: indica se è richiesto il servizio di prenotazione
  * - mediaStelle: la valutazione minima in stelle desiderata
  *
@@ -50,11 +51,11 @@ public class FiltroRicerca {
   /** Filtro Prezzo */
   private FiltroPrezzo filtroPrezzo;
   /** Takeaway */
-  private boolean takeaway;
+  private TernaryInfo delivery;
   /** Booking */
-  private boolean booking;
+  private TernaryInfo booking;
   /** Media Stelle */
-  private byte mediaStelle;
+  private int mediaStelle;
 
   /**
    * Costruttore FiltroRicerca.
@@ -65,19 +66,19 @@ public class FiltroRicerca {
    * @param location     Coordinate
    * @param cucina       Cucina
    * @param filtroPrezzo Filtro prezzo
-   * @param takeaway     possibilità take away
+   * @param delivery     possibilità take away
    * @param booking      possibilità
    * @param mediaStelle  media stelle
    */
   public FiltroRicerca(String nazione, String citta, String indirizzo, Coordinate location, String cucina,
-      FiltroPrezzo filtroPrezzo, boolean takeaway, boolean booking, byte mediaStelle) {
+      FiltroPrezzo filtroPrezzo, TernaryInfo delivery, TernaryInfo booking, int mediaStelle) {
     this.nazione = nazione.trim();
     this.citta = citta.trim();
     this.indirizzo = indirizzo.trim();
     this.location = location;
     this.cucina = cucina.trim();
     this.filtroPrezzo = filtroPrezzo;
-    this.takeaway = takeaway;
+    this.delivery = delivery;
     this.booking = booking;
     this.mediaStelle = mediaStelle;
   }
@@ -107,15 +108,15 @@ public class FiltroRicerca {
     return filtroPrezzo;
   }
 
-  public boolean isTakeaway() {
-    return takeaway;
+  public boolean hasDelivery() {
+    return TernaryInfo.YES.equals(delivery);
   }
 
   public boolean isBooking() {
-    return booking;
+    return TernaryInfo.YES.equals(booking);
   }
 
-  public byte getMediaStelle() {
+  public int getMediaStelle() {
     return mediaStelle;
   }
 

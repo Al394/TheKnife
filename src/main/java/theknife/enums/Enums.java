@@ -45,11 +45,19 @@ public class Enums {
         }
     }
 
-    /**
-     * Tipo file per leggere i dati corretti.
-     */
-    public enum TipoFile {
-        RISTORANTI,
-        UTENTI
+    public enum TernaryInfo {
+        YES("Yes"),
+        NO("No"),
+        ANY("Any");
+
+        private final String info;
+
+        TernaryInfo(String info) {
+            this.info = info;
+        }
+
+        public String getInfo() {
+            return info;
+        }
     }
 }

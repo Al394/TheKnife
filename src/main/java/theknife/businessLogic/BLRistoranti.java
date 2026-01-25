@@ -34,7 +34,7 @@ public class BLRistoranti {
      * @return Lista di ristoranti che soddisfano i criteri
      * @throws IllegalArgumentException se la città non è specificata
      */
-    public void cercaRistorante(FiltroRicerca filtroRicerca) {
+    public ArrayList<Ristorante> cercaRistorante(FiltroRicerca filtroRicerca) {
         // Validazione: la città è obbligatoria
         if (filtroRicerca.getCitta() == null || filtroRicerca.getCitta().trim().isEmpty()) {
             throw new IllegalArgumentException("La città è un criterio di ricerca obbligatorio");
@@ -71,7 +71,7 @@ public class BLRistoranti {
             }
 
             // 5. Filtro per delivery (opzionale)
-            if (filtroRicerca.isTakeaway() && !r.isTakeAway()) {
+            if (filtroRicerca.hasDelivery() && !r.isTakeAway()) {
                 continue;
             }
 
@@ -89,6 +89,7 @@ public class BLRistoranti {
 
             ristorantiTrovati.add(r);
         }
+        return ristorantiTrovati;
     }
 
     /**
