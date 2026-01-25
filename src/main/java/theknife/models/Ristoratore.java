@@ -3,7 +3,7 @@ package theknife.models;
 import java.util.Date;
 import java.util.List;
 
-import theknife.enums.Enums;
+import theknife.enums.Enums.Ruolo;
 
 /**
  *
@@ -37,7 +37,7 @@ public class Ristoratore extends Utente {
      */
     public Ristoratore(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
             String nazione, String citta, String indirizzo, List<Integer> ristoranti) {
-        super(id, nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo, Enums.Ruolo.RISTORATORE,
+        super(id, nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo, Ruolo.RISTORATORE,
                 ristoranti);
     }
 }

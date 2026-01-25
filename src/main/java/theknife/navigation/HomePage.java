@@ -20,8 +20,6 @@ public class HomePage extends Navigation {
 
       String scelta = scanner.nextLine();
 
-      pulisciConsole();
-
       switch (scelta) {
         case "1":
           vaiAllaLogin();
@@ -36,8 +34,6 @@ public class HomePage extends Navigation {
           break;
 
         case "0":
-          pulisciConsole();
-
           System.out.println("Uscita dal programma in corso...");
           exit = true;
           break;
@@ -49,13 +45,15 @@ public class HomePage extends Navigation {
   }
 
   private void stampaMenu() {
+    pulisciConsole();
+
     System.out.println("================================");
     System.out.println("          THE KNIFE             ");
     System.out.println("================================");
-    System.out.println("1. Login");
-    System.out.println("2. Continua come ospite");
-    System.out.println("3. Registrazione");
-    System.out.println("0. Esci");
+    System.out.println("1 | Login");
+    System.out.println("2 | Continua come ospite");
+    System.out.println("3 | Registrazione");
+    System.out.println("0 | Esci");
     System.out.print("Seleziona un'opzione: ");
   }
 
@@ -65,8 +63,8 @@ public class HomePage extends Navigation {
   }
 
   private void continuaComeGuest() {
-    // GuestPage guestPage = new GuestPage(scanner);
-    // guestPage.start();
+    GuestPage guestPage = new GuestPage(scanner);
+    guestPage.start();
   }
 
   private void vaiAllaRegistrazione() {

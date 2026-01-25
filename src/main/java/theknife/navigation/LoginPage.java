@@ -15,12 +15,11 @@ public class LoginPage extends Navigation {
 
   @Override
   public void start() {
-
-    stampaInfo("=== LOGIN ===");
+    stampaMenu();
 
     while (true) {
 
-      stampaInfo("Premi 0 per tornare alla home.");
+      scriviMessaggio("0 | Torna alla home.\n");
 
       String username = leggiInput("Username: ");
 
@@ -33,14 +32,14 @@ public class LoginPage extends Navigation {
       try {
         Utente utente = UtentiManager.login(username, password);
 
-        stampaMessaggio("Login effettuato con successo!");
+        scriviMessaggio("Login effettuato con successo!");
 
         indirizzaAllaPaginaSuccessiva(utente, scanner);
 
         return; // esce dal login dopo successo
 
       } catch (AuthException e) {
-        stampaErrore(e.getMessage());
+        scriviErrore(e.getMessage());
       }
     }
   }
@@ -52,6 +51,14 @@ public class LoginPage extends Navigation {
       new RistoratorePage(scanner).start();
     }
     throw new UnsupportedOperationException("Unimplemented method 'indirizzaAllaPaginaSuccessiva'");
+  }
+
+  private void stampaMenu() {
+    pulisciConsole();
+
+    scriviMessaggio("==============================");
+    scriviMessaggio("            LOGIN             ");
+    scriviMessaggio("==============================");
   }
 
 }

@@ -1,14 +1,11 @@
 package theknife.utility;
 
 import theknife.exceptions.ValidationException;
-import theknife.models.Cliente;
 import theknife.models.Recensione;
 
 import java.io.*;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Classe utility per lettura e scrittura recensioni.
@@ -57,7 +54,7 @@ public class RecensioniManager extends FileManager {
   /**
    * Carica tutte le recensioni dal file CSV e le inserisce in recensioniMap.
    */
-  public void leggiRecensioni(HashMap<Integer, Cliente> clientiMap) throws FileNotFoundException {
+  public void leggiRecensioni() throws FileNotFoundException {
     recensioniMap.clear();
 
     File fileRecensioni = FileManager.ricavaFileDaPercorso(recensioniPath);
@@ -83,7 +80,7 @@ public class RecensioniManager extends FileManager {
         }
 
         try {
-          Recensione recensione = parseRecensione(campi, clientiMap);
+          Recensione recensione = parseRecensione(campi);
           recensioniMap.put(recensione.getId(), recensione);
         } catch (NumberFormatException | ValidationException | ParseException e) {
           TheKnifeLogger.error(e);
@@ -129,8 +126,14 @@ public class RecensioniManager extends FileManager {
   /**
    * Ottiene tutte le recensioni.
    */
-  public List<Recensione> getRecensioni() {
-    return new ArrayList<>(recensioniMap.values());
+  public HashMap<Integer, Recensione> getRecensioni() {
+    try {
+      leggiRecensioni();
+    } catch (FileNotFoundException e) {
+      TheKnifeLogger.error(e);
+    }
+
+    return recensioniMap;
   }
 
   /**
@@ -147,7 +150,7 @@ public class RecensioniManager extends FileManager {
     recensioniMap.remove(id);
   }
 
-  private Recensione parseRecensione(String[] c, HashMap<Integer, Cliente> clientiMap)
+  private Recensione parseRecensione(String[] c)
       throws NumberFormatException, ValidationException, ParseException {
 
     int id = Integer.parseInt(c[0]);
@@ -157,12 +160,7 @@ public class RecensioniManager extends FileManager {
     int ristoranteID = Integer.parseInt(c[4]);
     String risposta = c[5].isEmpty() ? null : c[5];
 
-    Cliente autore = clientiMap.get(autoreID);
-    if (autore == null) {
-      throw new IllegalArgumentException("Cliente con ID " + autoreID + " non trovato.");
-    }
-
-    Recensione recensione = new Recensione(id, stelle, commento, autore, ristoranteID, risposta);
+    Recensione recensione = new Recensione(id, stelle, commento, autoreID, ristoranteID, risposta);
 
     return recensione;
   }
@@ -172,7 +170,7 @@ public class RecensioniManager extends FileManager {
         String.valueOf(r.getId()),
         String.valueOf(r.getStelle()),
         r.getCommento(),
-        String.valueOf(r.getAutore().getId()),
+        String.valueOf(r.getAutoreID()),
         String.valueOf(r.getRistoranteID()),
         r.getRisposta());
   }

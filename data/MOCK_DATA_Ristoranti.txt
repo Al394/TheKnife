@@ -1,6 +1,6 @@
 id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;delivery;tipoCucina;descrizione;servizi;recensioniIDs
 1;Steffie;IE;Yūki;62 Delaware Point;36.3034445;139.8755526;99;false;false;Argentina;Expanded secondary circuit;Universal hybrid algorithm;[]
-2;Buck;FR;Jalaud;69706 Buena Vista Court;10.829771;122.615819;49;true;true;Cinese;Public-key needs-based instruction set;Inverse maximized help-desk;[1,2]
+2;Buck;FR;Jalaud;69706 Buena Vista Court;10.829771;122.615819;49;true;true;Cinese;Public-key needs-based instruction set;Inverse maximized help-desk;[]
 3;Jemmie;US;Kota Bharu;875 Reinke Way;6.1097207;102.2462087;83;true;true;Argentina;Realigned contextually-based matrices;Optional optimizing data-warehouse;[]
 4;Petey;DE;Ban Talat Bueng;14984 Leroy Hill;13.0742447;101.0084698;72;false;true;Argentina;Profound hybrid approach;Organized contextually-based productivity;[]
 5;Coralyn;DE;Otorohanga;94 Arizona Terrace;-38.1854517;175.2102748;8;true;true;Russa;Cross-platform intangible standardization;Future-proofed web-enabled pricing structure;[]

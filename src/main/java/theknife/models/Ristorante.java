@@ -38,9 +38,9 @@ public class Ristorante {
      */
     private Coordinate locazione;
     /**
-     * Prezzo medio menu ristorante nel formato "€€", "€€€", ecc.
+     * Prezzo medio menu ristorante in euro.
      */
-    private String prezzoMedio;
+    private int prezzoMedio;
     /**
      * Presente il servizio di delivery.
      */
@@ -67,6 +67,11 @@ public class Ristorante {
      */
     private ArrayList<Integer> recensioniIDs;
 
+    /**
+     * Lista di recensioni.
+     */
+    private ArrayList<Recensione> recensioni = new ArrayList<>();
+
     /** Getters **/
 
     public int getId() {
@@ -89,7 +94,7 @@ public class Ristorante {
         return indirizzo;
     }
 
-    public String getPrezzoMedio() {
+    public int getPrezzoMedio() {
         return prezzoMedio;
     }
 
@@ -125,6 +130,14 @@ public class Ristorante {
         return recensioniIDs;
     }
 
+    public ArrayList<Recensione> getRecensioni() {
+        return recensioni;
+    }
+
+    public void setRecensioni(ArrayList<Recensione> recensioni) {
+        this.recensioni = recensioni;
+    }
+
     /**
      * Costruttore vuoto.
      */
@@ -149,7 +162,7 @@ public class Ristorante {
      * @throws ValidationException Coordinate non valide.
      */
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, String prezzoMedio,
+            double latitudine, double longitudine, int prezzoMedio,
             boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
             ArrayList<Integer> recensioniIDs)
             throws ValidationException {
@@ -173,8 +186,8 @@ public class Ristorante {
      *
      * @param recensione recensione da aggiungere
      */
-    public void aggiungiRecensione(int recensione) {
-        recensioniIDs.add(recensione);
+    public void aggiungiRecensione(Recensione recensione) {
+        recensioni.add(recensione);
     }
 
     /**
@@ -199,15 +212,27 @@ public class Ristorante {
         return result;
     }
 
-    public int getNumeroPrezzoMedio() {
-        return prezzoMedio.length();
-    }
-
     @Override
     public String toString() {
         return nome + " (" + citta + ") - " + tipoCucina +
-                " | Prezzo medio: " + prezzoMedio +
+                " | Prezzo medio: " + prezzoMedio + "Euro" +
                 " | Media stelle: " + String.format("%.2f", getMediaStelle());
+    }
+
+    public String getDettagliCompleti() {
+        return "Nome: " + nome + "\n" +
+                "Nazione: " + nazione + "\n" +
+                "Città: " + citta + "\n" +
+                "Indirizzo: " + indirizzo + "\n" +
+                "Locazione: (" + locazione.getLatitudine() + ", " + locazione.getLongitudine() + ")\n" +
+                "Prezzo medio: " + prezzoMedio + "Euro\n" +
+                "Delivery: " + (delivery ? "Sì" : "No") + "\n" +
+                "Booking: " + (booking ? "Sì" : "No") + "\n" +
+                "Tipo di cucina: " + tipoCucina + "\n" +
+                "Descrizione: " + descrizione + "\n" +
+                "Servizi: " + servizi + "\n" +
+                "Media stelle: " + String.format("%.2f", getMediaStelle()) + "\n" +
+                "Numero recensioni: " + recensioniIDs.size();
     }
 
 }

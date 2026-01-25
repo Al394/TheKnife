@@ -27,7 +27,7 @@ public class Recensione {
     /**
      * Riferimento al Cliente che ha effettuato la recensione.
      */
-    private Cliente autore;
+    private int autoreID;
 
     /**
      * Riferimento al ristorante recensito.
@@ -48,13 +48,13 @@ public class Recensione {
      * @param ristorante Ristorante riferito alla recensione.
      * @throws ValidationException se le stelle non sono nel range 1-5
      */
-    public Recensione(int id, byte stelle, String commento, Cliente autore, int idRistorante, String risposta)
+    public Recensione(int id, byte stelle, String commento, int autoreID, int idRistorante, String risposta)
             throws ValidationException {
         setStelle(stelle);
 
         this.id = id;
         this.commento = commento;
-        this.autore = autore;
+        this.autoreID = autoreID;
         this.ristoranteID = idRistorante;
         this.risposta = risposta;
     }
@@ -72,8 +72,8 @@ public class Recensione {
         return commento;
     }
 
-    public Cliente getAutore() {
-        return autore;
+    public int getAutoreID() {
+        return autoreID;
     }
 
     public int getRistoranteID() {

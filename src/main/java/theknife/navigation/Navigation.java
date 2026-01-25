@@ -2,6 +2,8 @@ package theknife.navigation;
 
 import java.util.Scanner;
 
+import theknife.models.Ristorante;
+
 /**
  * Classe astratta base per tutti i controller dell'applicazione.
  * Fornisce funzionalità comuni di input/output.
@@ -27,25 +29,28 @@ public abstract class Navigation {
     return scanner.nextLine().trim();
   }
 
-  protected void stampaMessaggio(String messaggio) {
+  protected void scriviMessaggio(String messaggio) {
     System.out.println(messaggio);
   }
 
-  protected void stampaErrore(String messaggio) {
+  protected void scriviDettagliRistorante(int indice, Ristorante ristorante) {
+    System.out.println(indice + ". " + ristorante.toString() + "\n");
+  }
+
+  protected void scriviDettagliCompletiRistorante(Ristorante ristorante) {
+    System.out.println(ristorante.getDettagliCompleti() + "\n");
+  }
+
+  protected void scriviErrore(String messaggio) {
     System.out.println("Errore: " + messaggio);
   }
 
-  protected void stampaInfo(String messaggio) {
+  protected void scriviInfo(String messaggio) {
     System.out.println("[" + messaggio + "]");
   }
 
-  protected void attendiInvio() {
-    System.out.println("\nPremi INVIO per continuare...");
-    scanner.nextLine();
-  }
-
-  protected void premiInvioPerVuoto() {
-    System.out.println("\nPremi INVIO per lasciare vuoto");
+  protected void attendiInputBack() {
+    System.out.println("\nPremi qualsiasi tasto per tornare indietro.");
     scanner.nextLine();
   }
 

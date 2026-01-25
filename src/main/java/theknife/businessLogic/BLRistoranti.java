@@ -18,7 +18,7 @@ public class BLRistoranti {
     /**
      * Riferimento interno ristoranti.
      */
-    private ArrayList<Ristorante> ristorantiTrovati;
+    private final ArrayList<Ristorante> ristorantiTrovati = new ArrayList<>();
 
     /**
      * Il service riceve i dati già caricati dal repository/manager.
@@ -100,7 +100,7 @@ public class BLRistoranti {
      * @return true se il ristorante rientra nella fascia, false altrimenti
      */
     private boolean verificaFasciaPrezzo(Ristorante ristorante, FiltroPrezzo filtroPrezzo) {
-        double prezzoMedio = ristorante.getNumeroPrezzoMedio();
+        double prezzoMedio = ristorante.getPrezzoMedio();
         int prezzo1 = filtroPrezzo.getPrezzo1();
         int prezzo2 = filtroPrezzo.getPrezzo2();
 

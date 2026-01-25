@@ -1,6 +1,6 @@
 package theknife.utility;
 
-import theknife.enums.Enums;
+import theknife.enums.Enums.Ruolo;
 import theknife.exceptions.AuthException;
 import theknife.models.Cliente;
 import theknife.models.Ristoratore;
@@ -30,7 +30,7 @@ public class UtentiManager extends FileManager {
 
     private static UtentiManager instance = null;
 
-    private static final SimpleDateFormat MyDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private static final HashMap<Integer, Utente> utentiMap = new HashMap<>();
 
@@ -67,20 +67,20 @@ public class UtentiManager extends FileManager {
      * @throws FileNotFoundException
      */
     public static void registrazione(String nome, String cognome, String username, String password,
-            Date dataDiNascita, String nazione, String citta, String indirizzo, Enums.Ruolo ruolo)
+            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, FileNotFoundException {
 
         getUtenti();
 
         int id = utentiMap.size() + 1;
 
-        if (Enums.Ruolo.CLIENTE == ruolo) {
+        if (Ruolo.CLIENTE == ruolo) {
             Cliente cliente = new Cliente(id, nome, cognome, username, password, dataDiNascita, nazione, citta,
                     indirizzo, new ArrayList<Integer>());
             utentiMap.put(id, cliente);
         }
 
-        if (Enums.Ruolo.RISTORATORE == ruolo) {
+        if (Ruolo.RISTORATORE == ruolo) {
             Ristoratore ristoratore = new Ristoratore(id, nome, cognome, username, password, dataDiNascita, nazione,
                     citta, indirizzo, new ArrayList<Integer>());
             utentiMap.put(id, ristoratore);
@@ -186,11 +186,11 @@ public class UtentiManager extends FileManager {
         String cognome = c[2];
         String username = c[3];
         String password = c[4];
-        Date dataDiNascita = MyDateFormatter.parse(c[5]);
+        Date dataDiNascita = dateTimeFormatter.parse(c[5]);
         String nazione = c[6];
         String citta = c[7];
         String indirizzo = c[8];
-        Enums.Ruolo ruolo = Enums.Ruolo.valueOf(c[9]);
+        Ruolo ruolo = Ruolo.valueOf(c[9]);
         List<Integer> ristoranti = Arrays.stream(c[10].replaceAll("\\[|\\]", "").split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
@@ -217,7 +217,7 @@ public class UtentiManager extends FileManager {
                 u.getCognome(),
                 u.getUsername(),
                 hashPassword(u.getPassword()),
-                MyDateFormatter.format(u.getDataDiNascita()),
+                dateTimeFormatter.format(u.getDataDiNascita()),
                 u.getNazione(),
                 u.getCitta(),
                 u.getIndirizzo(),

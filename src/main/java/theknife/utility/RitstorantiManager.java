@@ -1,6 +1,7 @@
 package theknife.utility;
 
 import theknife.exceptions.ValidationException;
+import theknife.models.Recensione;
 import theknife.models.Ristorante;
 
 import java.io.*;
@@ -21,6 +22,7 @@ public class RitstorantiManager extends FileManager {
 
     private static RitstorantiManager instance = null;
     private static final HashMap<Integer, Ristorante> ristorantiMap = new HashMap<>();
+    private static final HashMap<Integer, Recensione> recensioniMap = new HashMap<>();
 
     /**
      * Costruttore privato, istanza accessible via {@link #getInstance()}
@@ -63,6 +65,11 @@ public class RitstorantiManager extends FileManager {
      */
     private static void leggiRistoranti() throws FileNotFoundException {
         ristorantiMap.clear();
+        recensioniMap.clear();
+
+        RecensioniManager recM = RecensioniManager.getInstance();
+
+        recensioniMap.putAll(recM.getRecensioni());
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
 
@@ -87,6 +94,12 @@ public class RitstorantiManager extends FileManager {
                 }
 
                 Ristorante ristorante = parseRistorante(campi);
+
+                // Associa le recensioni al ristorante
+                ristorante.getRecensioniIDs().forEach(id -> {
+                    if (recensioniMap.containsKey(id))
+                        ristorante.aggiungiRecensione(recensioniMap.get(id));
+                });
 
                 ristorantiMap.put(ristorante.getId(), ristorante);
             }
@@ -130,7 +143,7 @@ public class RitstorantiManager extends FileManager {
                 c[4], // indirizzo
                 Double.parseDouble(c[5]), // latitudine
                 Double.parseDouble(c[6]), // longitudine
-                c[7], // prezzo medio
+                Integer.parseInt(c[7]), // prezzo medio
                 Boolean.parseBoolean(c[8]), // delivery
                 Boolean.parseBoolean(c[9]), // booking
                 c[10], // tipo cucina

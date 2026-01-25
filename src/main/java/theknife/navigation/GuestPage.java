@@ -1,14 +1,11 @@
 package theknife.navigation;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import theknife.businessLogic.BLRistoranti;
 import theknife.enums.Enums.TernaryInfo;
 import theknife.enums.Enums.FasceDiPrezzoOp;
-import theknife.models.Cliente;
-import theknife.models.Coordinate;
 import theknife.models.FiltroRicerca;
 import theknife.models.FiltroRicerca.FiltroPrezzo;
 import theknife.models.Ristorante;
@@ -19,8 +16,6 @@ import theknife.models.Ristorante;
  */
 public class GuestPage extends Navigation {
 
-  private Cliente clienteNonAutenticato = new Cliente();
-
   public GuestPage(Scanner scanner) {
     super(scanner);
   }
@@ -30,11 +25,9 @@ public class GuestPage extends Navigation {
    */
   @Override
   public void start() {
-
     boolean exit = false;
 
     while (!exit) {
-
       stampaMenu();
 
       String scelta = scanner.nextLine();
@@ -44,16 +37,12 @@ public class GuestPage extends Navigation {
           cercaRistoranti();
           break;
 
-        case "2":
-          // visualizzaTutti();
-          break;
-
         case "0":
           exit = true;
           break;
 
         default:
-          stampaErrore("Scelta non valida.");
+          scriviErrore("Scelta non valida.");
       }
     }
   }
@@ -62,19 +51,21 @@ public class GuestPage extends Navigation {
    * Menu guest.
    */
   private void stampaMenu() {
+    pulisciConsole();
+
     System.out.println("==============================");
     System.out.println("      MODALITÀ OSPITE         ");
     System.out.println("==============================");
-    System.out.println("1. Cerca ristoranti");
-    System.out.println("2. Visualizza tutti i ristoranti");
-    System.out.println("0. Torna alla Home");
+    System.out.println("1 | Cerca ristoranti");
+    System.out.println("0 | Torna alla Home");
     System.out.print("Seleziona un'opzione: ");
   }
 
   private void cercaRistoranti() {
+
     BLRistoranti blRistoranti = new BLRistoranti();
 
-    stampaInfo("Ricerca ristoranti");
+    stampaMenuRicercaRistoranti();
 
     String nazione = null;
     String citta = null;
@@ -88,26 +79,33 @@ public class GuestPage extends Navigation {
     TernaryInfo booking = TernaryInfo.ANY;
     int mediaStelle = 0;
 
-    stampaInfo("Per proseguire imposta almeno la nazione in cui ti trovi.");
-    while (nazione.isBlank()) {
+    scriviInfo("Inserisci la nazione in cui ti trovi.");
+    while (nazione == null || nazione.isBlank()) {
       nazione = leggiInput("Nazione: ");
 
       if (nazione.isBlank())
-        stampaErrore("Ai fini della ricerca la nazione è obbligatoria.");
+        scriviErrore("Ai fini della ricerca la nazione è obbligatoria.");
     }
 
-    stampaInfo("Invio per ignorare.");
-    citta = leggiInput("Città: ");
+    scriviInfo("Inserisci la città in cui ti trovi.");
+    while (citta == null || citta.isBlank()) {
+      citta = leggiInput("Città: ");
 
-    stampaInfo("Invio per ignorare.");
+      if (citta.isBlank())
+        scriviErrore("Ai fini della ricerca la città è obbligatoria.");
+    }
+
+    scriviInfo("Invio per ignorare.");
     indirizzo = leggiInput("Tipo indirizzo: ");
 
-    stampaInfo("Invio per ignorare.");
+    scriviInfo("Invio per ignorare.");
     cucina = leggiInput("Tipo cucina: ");
 
-    stampaInfo("Invio per ignorare.");
-    String sceltaOperazione = leggiInput(
-        "Filtro prezzo:\nInserisci 1 per 'Maggiore di'\nInserisci 2 per 'Minore di'\nInserisci 3 per 'Tra due valori'\nInvio per ignorare.\n");
+    scriviInfo("Invio per ignorare.");
+    scriviInfo(" Seleziona un opzione ");
+    scriviMessaggio("1 | Maggiore di\n2 | Minore di\n3 | Tra due valori");
+
+    String sceltaOperazione = leggiInput("Filtro prezzo: ");
 
     switch (sceltaOperazione) {
       case "1":
@@ -129,7 +127,7 @@ public class GuestPage extends Navigation {
         break;
     }
 
-    stampaInfo("Invio per ignorare.");
+    scriviInfo("Invio per ignorare.");
     String inputDelivery = leggiInput("Consegna a domicilio? (s/n): ");
     if (inputDelivery.equalsIgnoreCase("s")) {
       delivery = TernaryInfo.YES;
@@ -139,18 +137,22 @@ public class GuestPage extends Navigation {
       delivery = TernaryInfo.ANY;
     }
 
-    stampaInfo("Invio per ignorare.");
+    scriviInfo("Invio per ignorare.");
     String inputBooking = leggiInput("Prenotazione online? (s/n): ");
-    if (inputBooking.equalsIgnoreCase("s")) {
+    if (inputBooking.equalsIgnoreCase("s"))
       booking = TernaryInfo.YES;
-    } else if (inputDelivery.equalsIgnoreCase("n")) {
+    else if (inputDelivery.equalsIgnoreCase("n"))
       booking = TernaryInfo.NO;
-    } else {
+    else
       booking = TernaryInfo.ANY;
-    }
 
-    stampaInfo("Invio per ignorare.");
-    mediaStelle = Integer.parseInt(leggiInput("Media stelle: "));
+    scriviInfo("Invio per ignorare.");
+    String mediaStelleStr = leggiInput("Media stelle: ");
+
+    if (mediaStelleStr.isBlank())
+      mediaStelle = -1;
+    else
+      mediaStelle = Integer.parseInt(mediaStelleStr);
 
     FiltroRicerca filtro = new FiltroRicerca(
         nazione.trim(),
@@ -165,14 +167,25 @@ public class GuestPage extends Navigation {
 
     ArrayList<Ristorante> risultati = blRistoranti.cercaRistorante(filtro);
 
-    if (risultati.isEmpty()) {
-      stampaInfo("Nessun ristorante trovato.");
-    } else {
-      for (Ristorante r : risultati) {
-        System.out.println(r);
-      }
-    }
+    pulisciConsole();
 
-    attendiInvio();
+    if (risultati.isEmpty()) {
+      pulisciConsole();
+
+      scriviInfo("Nessun ristorante trovato");
+
+      attendiInputBack();
+    } else {
+      RistorantiPage ristorantePage = new RistorantiPage(scanner, risultati);
+      ristorantePage.start();
+    }
+  }
+
+  private void stampaMenuRicercaRistoranti() {
+    pulisciConsole();
+
+    scriviMessaggio("==============================");
+    scriviMessaggio("      RICERCA RISTORANTI      ");
+    scriviMessaggio("==============================");
   }
 }

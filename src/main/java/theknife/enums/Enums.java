@@ -12,8 +12,8 @@ public class Enums {
      * Enum Ruoli.
      */
     public enum Ruolo {
-        CLIENTE("Cliente"),
-        RISTORATORE("Ristoratore");
+        CLIENTE("CLIENTE"),
+        RISTORATORE("RISTORATORE");
 
         private final String ruolo;
 

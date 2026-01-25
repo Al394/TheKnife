@@ -31,104 +31,110 @@ public class RegistrazionePage extends Navigation {
     String ruolo = "";
     Enums.Ruolo ruoloEnum = null;
 
-    stampaMessaggio("=== NUOVA REGISTRAZIONE ===");
+    while (true) {
 
-    while (nome.isBlank()) {
-      nome = leggiInput("Inserisci Nome: ");
-      if (nome.isBlank()) {
-        stampaMessaggio("Errore: Il nome non può essere vuoto.");
+      stampaMenu();
+
+      while (nome.isBlank()) {
+        nome = leggiInput("Inserisci Nome: ");
+
+        if (nome.equals("0"))
+          return;
+
+        if (nome.isBlank()) {
+          scriviErrore("Il nome non può essere vuoto.");
+        }
       }
-    }
 
-    while (cognome.isBlank()) {
-      cognome = leggiInput("Inserisci Cognome: ");
-      if (cognome.isBlank()) {
-        stampaMessaggio("Errore: Il cognome non può essere vuoto.");
+      while (cognome.isBlank()) {
+        cognome = leggiInput("Inserisci Cognome: ");
+        if (cognome.isBlank()) {
+          scriviErrore("Il cognome non può essere vuoto.");
+        }
       }
-    }
 
-    while (username.isBlank()) {
-      username = leggiInput("Inserisci Username: ");
-      if (username.isBlank()) {
-        stampaMessaggio("Errore: Lo username non può essere vuoto.");
+      while (username.isBlank()) {
+        username = leggiInput("Inserisci Username: ");
+        if (username.isBlank()) {
+          scriviErrore("Lo username non può essere vuoto.");
+        }
       }
-    }
 
-    while (password.isBlank()) {
-      password = leggiInput("Inserisci Password: ");
-      if (!isPasswordValida(password)) {
-        stampaMessaggio("Errore: La password deve essere di almeno 4 caratteri.");
+      while (password.isBlank()) {
+        password = leggiInput("Inserisci Password: ");
+        if (!isPasswordValida(password)) {
+          scriviErrore("La password deve essere di almeno 4 caratteri.");
 
-        // Evito di uscire dal ciclo se la password non è valida.
-        password = "";
+          // Evito di uscire dal ciclo se la password non è valida.
+          password = "";
+        }
       }
-    }
 
-    while (dataDiNascitaStr.isBlank()) {
-      dataDiNascitaStr = leggiInput("Inserisci Data di Nascita (dd-MM-yyyy): ");
+      while (dataDiNascitaStr.isBlank()) {
+        dataDiNascitaStr = leggiInput("Inserisci Data di Nascita [Giorno/Mese/Anno -> dd/MM/yyyy]: ");
+
+        try {
+          dataDiNascita = parseDate(dataDiNascitaStr);
+
+        } catch (Exception e) {
+          scriviErrore("La data di nascita non è valida.");
+          TheKnifeLogger.error(e);
+
+          // Evito di uscire dal ciclo se la data non è valida.
+          dataDiNascitaStr = "";
+        }
+      }
+
+      while (nazione.isBlank()) {
+        nazione = leggiInput("Inserisci Nazione: ");
+        if (nazione.isBlank()) {
+          scriviErrore("La nazione non può essere vuota.");
+        }
+      }
+
+      while (citta.isBlank()) {
+        citta = leggiInput("Inserisci Città: ");
+        if (citta.isBlank()) {
+          scriviErrore("La città non può essere vuota.");
+        }
+      }
+
+      while (indirizzo.isBlank()) {
+        indirizzo = leggiInput("Inserisci Indirizzo: ");
+        if (indirizzo.isBlank()) {
+          scriviErrore("L'indirizzo non può essere vuoto.");
+        }
+      }
+
+      while (ruolo.isBlank()) {
+        ruolo = leggiInput("Inserisci il tuo ruolo:\n1. Cliente\n2. Ristoratore");
+        if (ruolo.isBlank()) {
+          scriviErrore("Il ruolo non può essere lasciato vuoto.");
+        }
+        ruoloEnum = ruolo.equals("1") ? Enums.Ruolo.CLIENTE
+            : ruolo.equals("2") ? Enums.Ruolo.RISTORATORE : null;
+
+        if (ruoloEnum == null) {
+          scriviErrore("Ruolo non valido. Inserisci 1 per Cliente o 2 per Ristoratore.");
+
+          ruolo = "";
+        }
+      }
 
       try {
-        dataDiNascita = parseDate(dataDiNascitaStr);
+        UtentiManager.registrazione(nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo,
+            ruoloEnum);
+        pulisciConsole();
 
+        scriviMessaggio("Utente registrato con successo!");
+
+        return;
       } catch (Exception e) {
-        stampaMessaggio("Errore: La data di nascita non è valida.");
         TheKnifeLogger.error(e);
 
-        // Evito di uscire dal ciclo se la data non è valida.
-        dataDiNascitaStr = "";
+        scriviMessaggio("Errore durante la registrazione dell'utente. " + e.getMessage());
       }
     }
-
-    while (nazione.isBlank()) {
-      nazione = leggiInput("Inserisci Nazione: ");
-      if (nazione.isBlank()) {
-        stampaMessaggio("Errore: La nazione non può essere vuota.");
-      }
-    }
-
-    while (citta.isBlank()) {
-      citta = leggiInput("Inserisci Città: ");
-      if (citta.isBlank()) {
-        stampaMessaggio("Errore: La città non può essere vuota.");
-      }
-    }
-
-    while (indirizzo.isBlank()) {
-      indirizzo = leggiInput("Inserisci Indirizzo: ");
-      if (indirizzo.isBlank()) {
-        stampaMessaggio("Errore: L'indirizzo non può essere vuoto.");
-      }
-    }
-
-    while (ruolo.isBlank()) {
-      ruolo = leggiInput("Inserisci il tuo ruolo:\n1. Cliente\n2. Ristoratore\n");
-      if (ruolo.isBlank()) {
-        stampaMessaggio("Errore: Il ruolo non può essere lasciato vuoto.");
-      }
-      ruoloEnum = ruolo.equals("1") ? Enums.Ruolo.CLIENTE
-          : ruolo.equals("2") ? Enums.Ruolo.RISTORATORE : null;
-
-      if (ruoloEnum == null) {
-        stampaMessaggio("Errore: Ruolo non valido. Inserisci 1 per Cliente o 2 per Ristoratore.");
-
-        ruolo = "";
-      }
-    }
-
-    try {
-      UtentiManager.registrazione(nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo,
-          ruoloEnum);
-    } catch (Exception e) {
-      TheKnifeLogger.error(e);
-
-      stampaMessaggio("Errore durante la registrazione dell'utente. " + e.getMessage());
-
-      return;
-    }
-
-    pulisciConsole();
-
-    stampaMessaggio("Utente registrato con successo!");
   }
 
   private boolean isPasswordValida(String password) {
@@ -136,7 +142,16 @@ public class RegistrazionePage extends Navigation {
   }
 
   private Date parseDate(String date) throws ParseException {
-    return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+    return new SimpleDateFormat("dd/MM/yyyy").parse(date);
+  }
+
+  private void stampaMenu() {
+    pulisciConsole();
+
+    scriviMessaggio("==============================");
+    scriviMessaggio("      NUOVA REGISTRAZIONE     ");
+    scriviMessaggio("==============================");
+    System.out.println("0 | Torna indietro.");
   }
 
 }
