@@ -112,21 +112,41 @@ public class GuestPage extends Navigation {
     switch (sceltaOperazione) {
       case "1":
         operazione = FasceDiPrezzoOp.GREATER_THAN;
-        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: da [1-4]\\n"));
+        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: "));
         filtroPrezzo = new FiltroPrezzo(operazione, prezzo1);
         break;
       case "2":
         operazione = FasceDiPrezzoOp.LESS_THAN;
-        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: da [1-4]\\n"));
+        prezzo1 = Integer.parseInt(leggiInput("Inserisci prezzo: "));
         filtroPrezzo = new FiltroPrezzo(operazione, prezzo1);
         break;
       case "3":
         operazione = FasceDiPrezzoOp.BETWEEN;
-        prezzo1 = Integer.parseInt(leggiInput("Da prezzo: da [1-4]\n "));
-        prezzo2 = Integer.parseInt(leggiInput("A prezzo: da [1-4]\\n"));
+        prezzo1 = Integer.parseInt(leggiInput("Da prezzo: "));
+        prezzo2 = Integer.parseInt(leggiInput("A prezzo: "));
         filtroPrezzo = new FiltroPrezzo(operazione, prezzo1, prezzo2);
       default:
         break;
+    }
+
+    stampaInfo("Invio per ignorare.");
+    String inputDelivery = leggiInput("Consegna a domicilio? (s/n): ");
+    if (inputDelivery.equalsIgnoreCase("s")) {
+      delivery = TernaryInfo.YES;
+    } else if (inputDelivery.equalsIgnoreCase("n")) {
+      delivery = TernaryInfo.NO;
+    } else {
+      delivery = TernaryInfo.ANY;
+    }
+
+    stampaInfo("Invio per ignorare.");
+    String inputBooking = leggiInput("Prenotazione online? (s/n): ");
+    if (inputBooking.equalsIgnoreCase("s")) {
+      booking = TernaryInfo.YES;
+    } else if (inputDelivery.equalsIgnoreCase("n")) {
+      booking = TernaryInfo.NO;
+    } else {
+      booking = TernaryInfo.ANY;
     }
 
     stampaInfo("Invio per ignorare.");

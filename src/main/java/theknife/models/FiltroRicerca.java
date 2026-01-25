@@ -120,7 +120,7 @@ public class FiltroRicerca {
     return mediaStelle;
   }
 
-  public class FiltroPrezzo {
+  public static class FiltroPrezzo {
     /**
      * Tipo di operazione: >, <, Between.
      */
