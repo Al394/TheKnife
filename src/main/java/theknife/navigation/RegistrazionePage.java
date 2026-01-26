@@ -107,7 +107,7 @@ public class RegistrazionePage extends Navigation {
       }
 
       while (ruolo.isBlank()) {
-        ruolo = leggiInput("Inserisci il tuo ruolo:\n1. Cliente\n2. Ristoratore");
+        ruolo = leggiInput("Inserisci il tuo ruolo:\n1 | Cliente\n2 | Ristoratore\n");
         if (ruolo.isBlank()) {
           scriviErrore("Il ruolo non può essere lasciato vuoto.");
         }
@@ -115,7 +115,7 @@ public class RegistrazionePage extends Navigation {
             : ruolo.equals("2") ? Enums.Ruolo.RISTORATORE : null;
 
         if (ruoloEnum == null) {
-          scriviErrore("Ruolo non valido. Inserisci 1 per Cliente o 2 per Ristoratore.");
+          scriviErrore("Ruolo non valido.\n1 | Cliente\n2 | Ristoratore.");
 
           ruolo = "";
         }

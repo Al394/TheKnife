@@ -7,6 +7,11 @@ import theknife.exceptions.AuthException;
 import theknife.models.Utente;
 import theknife.utility.UtentiManager;
 
+/**
+ * Classe Controller per la login.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class LoginPage extends Navigation {
 
   public LoginPage(Scanner scanner) {
@@ -46,11 +51,10 @@ public class LoginPage extends Navigation {
 
   private void indirizzaAllaPaginaSuccessiva(Utente utente, Scanner scanner) {
     if (utente.getRuolo() == Enums.Ruolo.CLIENTE) {
-      new ClientePage(scanner).start();
+      new ClientePage(scanner, utente).start();
     } else if (utente.getRuolo() == Enums.Ruolo.RISTORATORE) {
-      new RistoratorePage(scanner).start();
+      new RistoratorePage(scanner, utente).start();
     }
-    throw new UnsupportedOperationException("Unimplemented method 'indirizzaAllaPaginaSuccessiva'");
   }
 
   private void stampaMenu() {

@@ -239,8 +239,10 @@ public class UtentiManager extends FileManager {
         // Carico gli utenti se non già fatto.
         getUtenti();
 
+        String hashedPSW = hashPassword(password);
+
         for (Utente u : utentiMap.values()) {
-            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+            if (u.getUsername().equals(username) && u.getPassword().equals(hashedPSW)) {
                 return u;
             }
         }
