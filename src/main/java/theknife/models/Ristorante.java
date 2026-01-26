@@ -3,6 +3,7 @@ package theknife.models;
 import theknife.exceptions.ValidationException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -66,7 +67,7 @@ public class Ristorante {
     /**
      * Lista recensioni del Ristorante.
      */
-    private ArrayList<Integer> recensioniIDs;
+    private List<Integer> recensioniIDs;
 
     /**
      * Lista di recensioni.
@@ -97,9 +98,9 @@ public class Ristorante {
      * @throws ValidationException Coordinate non valide.
      */
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
-                      double latitudine, double longitudine, int prezzoMedio,
-                      boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
-                      ArrayList<Integer> recensioniIDs)
+            double latitudine, double longitudine, int prezzoMedio,
+            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
+            List<Integer> recensioniIDs)
             throws ValidationException {
         this.id = id;
         this.nome = nome;
@@ -172,7 +173,7 @@ public class Ristorante {
         return servizi;
     }
 
-    public ArrayList<Integer> getRecensioniIDs() {
+    public List<Integer> getRecensioniIDs() {
         return recensioniIDs;
     }
 
@@ -202,10 +203,10 @@ public class Ristorante {
         double result = 0;
         int sum = 0;
 
-        if (!recensioniIDs.isEmpty()) {
+        if (!recensioni.isEmpty()) {
             /* Ciclo la lista recensioni. */
-            for (int idRecensione : recensioniIDs) {
-                sum += idRecensione;
+            for (Recensione recensione : recensioni) {
+                sum += recensione.getStelle();
             }
 
             /* Faccio la media */

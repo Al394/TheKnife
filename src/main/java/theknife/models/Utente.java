@@ -2,6 +2,7 @@ package theknife.models;
 
 import theknife.enums.Enums.Ruolo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +61,7 @@ abstract public class Utente {
      * Lista ristoranti legati all'utente.
      * Preferiti nel caso Cliente, gestiti nel caso Proprietario.
      */
-    protected List<Integer> ristorantiIDs;
+    protected ArrayList<Integer> ristorantiIDs;
 
     /**
      * Costruttore vuoto.
@@ -83,7 +84,7 @@ abstract public class Utente {
      * @param ristoranti    Lista ristoranti collegati
      */
     public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-                  String nazione, String citta, String indirizzo, Ruolo role, List<Integer> ristoranti) {
+            String nazione, String citta, String indirizzo, Ruolo role, ArrayList<Integer> ristoranti) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -148,7 +149,7 @@ abstract public class Utente {
         return nome;
     }
 
-    public List<Integer> getRistorantiIDs() {
+    public ArrayList<Integer> getRistorantiIDs() {
         return ristorantiIDs;
     }
 

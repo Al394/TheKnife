@@ -76,7 +76,7 @@ public class RecensioniManager extends FileManager {
 
         // Riga malformata → saltata
         if (campi.length != NUMERO_CAMPI_RECENSIONE) {
-          continue;
+          TheKnifeLogger.error("Recensioni: Numero campi insufficienti");
         }
 
         try {
@@ -158,7 +158,7 @@ public class RecensioniManager extends FileManager {
     String commento = c[2];
     int autoreID = Integer.parseInt(c[3]);
     int ristoranteID = Integer.parseInt(c[4]);
-    String risposta = c[5].isEmpty() ? null : c[5];
+    String risposta = c[5].isEmpty() ? "" : c[5];
 
     Recensione recensione = new Recensione(id, stelle, commento, autoreID, ristoranteID, risposta);
 

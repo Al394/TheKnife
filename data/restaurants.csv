@@ -1,6 +1,6 @@
-id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;delivery;tipoCucina;descrizione;servizi;recensioniIDs
-1;Steffie;mrossi;mrossi;62 Delaware Point;36.3034445;139.8755526;99;false;false;Argentina;Expanded secondary circuit;Universal hybrid algorithm;[]
-2;Buck;FR;Jalaud;69706 Buena Vista Court;10.829771;122.615819;49;true;true;Cinese;Public-key needs-based instruction set;Inverse maximized help-desk;[1,2]
+id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;delivery;booking;tipoCucina;descrizione;servizi;recensioniIDs
+1;Steffie;mrossi;mrossi;62 Delaware Point;36.3034445;139.8755526;99;false;false;Argentina;Expanded secondary circuit;Universal hybrid algorithm;[1]
+2;Buck;FR;Jalaud;69706 Buena Vista Court;10.829771;122.615819;49;true;true;Cinese;Public-key needs-based instruction set;Inverse maximized help-desk;[]
 3;Jemmie;US;Kota Bharu;875 Reinke Way;6.1097207;102.2462087;83;true;true;Argentina;Realigned contextually-based matrices;Optional optimizing data-warehouse;[]
 4;Petey;DE;Ban Talat Bueng;14984 Leroy Hill;13.0742447;101.0084698;72;false;true;Argentina;Profound hybrid approach;Organized contextually-based productivity;[]
 5;Coralyn;DE;Otorohanga;94 Arizona Terrace;-38.1854517;175.2102748;8;true;true;Russa;Cross-platform intangible standardization;Future-proofed web-enabled pricing structure;[]
@@ -637,7 +637,7 @@ id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;takeAway;deli
 636;Leigha;IE;Gushan;0568 Hermina Point;25.423994;119.038321;21;false;false;Italiana;Intuitive coherent strategy;Universal cohesive matrix;[]
 637;Patton;US;Mababanaba;3079 Lakewood Junction;15.5027303;120.5129814;51;true;false;Argentina;Monitored high-level functionalities;Business-focused zero tolerance monitoring;[]
 638;Jorrie;US;Kinlough;295 Lerdahl Center;53.2121335;-6.1136478;2;false;true;Russa;Persevering bifurcated policy;Networked attitude-oriented policy;[]
-639;Ninnette;IT;São João dos Inhamuns;19974 Esch Avenue;-6;-40.28333;7;true;false;Italiana;Face to face global Graphical User Interface;Assimilated zero administration framework;[]
+639;Ninnette;IT;São João dos Inhamuns;19974 Esch Avenue;-6.0;-40.28333;7;true;false;Italiana;Face to face global Graphical User Interface;Assimilated zero administration framework;[]
 640;Lurline;US;Kalān Deh;2 7th Avenue;33.1184269;67.778633;51;true;true;Cinese;Managed homogeneous product;Stand-alone scalable contingency;[]
 641;Keir;IT;Semikarakorsk;03344 Morrow Terrace;47.5155739;40.8140313;88;false;true;Cinese;Networked regional open architecture;Cross-group uniform portal;[]
 642;Fawne;US;Guanabacoa;0 Monica Parkway;23.10848;-82.2474648;55;false;true;Cinese;Intuitive client-driven methodology;Versatile tangible capacity;[]

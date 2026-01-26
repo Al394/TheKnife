@@ -6,7 +6,9 @@ import theknife.models.Ristorante;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -111,7 +113,7 @@ public class RitstorantiManager extends FileManager {
     /**
      * Salva i ristoranti da ristorantiMap su file CSV.
      */
-    public static void scriviRistoranti() throws FileNotFoundException {
+    public static void scriviRistoranti(List<Ristorante> ristoranti) throws FileNotFoundException {
 
         File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
 
@@ -122,7 +124,7 @@ public class RitstorantiManager extends FileManager {
 
             writer.newLine();
 
-            for (Ristorante r : ristorantiMap.values()) {
+            for (Ristorante r : ristoranti) {
                 writer.write(formatRistorante(r));
                 writer.newLine();
             }
@@ -133,6 +135,12 @@ public class RitstorantiManager extends FileManager {
     }
 
     private static Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
+
+        List<Integer> rec = Arrays.stream(c[13].replaceAll("\\[|\\]", "").split(","))
+                .map(String::trim)
+                .filter(r -> !r.isEmpty())
+                .map(Integer::parseInt)
+                .toList();
 
         return new Ristorante(
                 Integer.parseInt(c[0]), // id
@@ -148,8 +156,7 @@ public class RitstorantiManager extends FileManager {
                 c[10], // tipo cucina
                 c[11], // descrizione
                 c[12], // servizi
-                new ArrayList<>() // recensioniIDs TODO: Trasformare le recensioni da stringa a lista
-        );
+                rec);
     }
 
     private static String formatRistorante(Ristorante r) {

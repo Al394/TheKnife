@@ -1,6 +1,7 @@
 package theknife.navigation;
 
 import theknife.businessLogic.BLCliente;
+import theknife.businessLogic.BLRecensione;
 import theknife.businessLogic.BLRistorante;
 import theknife.enums.Enums.FasceDiPrezzoOp;
 import theknife.enums.Enums.TernaryInfo;
@@ -25,6 +26,7 @@ public class ClientePage extends Navigation {
 
     private final Cliente cliente;
     private final BLCliente blCliente;
+    private final RecensioniManager rm = RecensioniManager.getInstance();
 
     public ClientePage(Scanner scanner, Utente utente) {
         super(scanner);
@@ -267,6 +269,8 @@ public class ClientePage extends Navigation {
                     break;
                 case "2":
                     visualizzaRecensioniRistorante(ristoranteSelezionato);
+
+                    attendiInputBack();
                     break;
                 case "3":
                     if (conferma("Sicuro di voler rimuovere dai preferiti?")) {
@@ -371,7 +375,6 @@ public class ClientePage extends Navigation {
             String commento = leggiInput("Commento: ");
 
             try {
-                RecensioniManager rm = RecensioniManager.getInstance();
                 HashMap<Integer, Recensione> recensioni = rm.getRecensioni();
                 int nuovoID = recensioni.size() + 1;
 
@@ -405,7 +408,6 @@ public class ClientePage extends Navigation {
     private void modificaRecensione() {
         pulisciConsole();
 
-        RecensioniManager rm = RecensioniManager.getInstance();
         HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
 
         // Filtra le recensioni dell'utente
@@ -488,67 +490,60 @@ public class ClientePage extends Navigation {
     private void eliminaRecensione() {
         pulisciConsole();
 
-        RecensioniManager rm = RecensioniManager.getInstance();
         HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
 
         // Filtra le recensioni dell'utente
-        ArrayList<Recensione> recensioniCliente = new ArrayList<>();
+        ArrayList<Recensione> mieRecensioni = new ArrayList<>();
         for (Recensione r : tuteRecensioni.values()) {
             if (r.getAutoreID() == cliente.getId()) {
-                recensioniCliente.add(r);
+                mieRecensioni.add(r);
             }
         }
 
-        if (recensioniCliente.isEmpty()) {
+        if (mieRecensioni.isEmpty()) {
             scriviInfo("Non hai ancora scritto alcuna recensione.");
-
             attendiInputBack();
-
             return;
         }
+        while (true) {
+            pulisciConsole();
 
-        scriviMessaggio("Le tue recensioni:");
+            scriviMessaggio("Le tue recensioni:");
 
-        for (int i = 0; i < recensioniCliente.size(); i++) {
-            Recensione r = recensioniCliente.get(i);
-
-            Ristorante rist = RitstorantiManager.getRistoranti().get(r.getRistoranteID());
-
-            System.out.println((i + 1) + " | " + rist.getNome() + " - " + r.getStelle() + " stelle");
-            System.out.println("   Commento: " + r.getCommento());
-        }
-
-        String input = leggiInput("Inserisci l'indice della recensione da eliminare.\n0 | Torna indietro.");
-
-        if (input.equals("0"))
-            return;
-
-        try {
-            int indice = Integer.parseInt(input) - 1;
-            if (indice < 0 || indice >= recensioniCliente.size()) {
-                scriviErrore("Indice non valido.");
-                return;
+            for (int i = 0; i < mieRecensioni.size(); i++) {
+                Recensione r = mieRecensioni.get(i);
+                Ristorante rist = RitstorantiManager.getRistoranti().get(r.getRistoranteID());
+                System.out.println((i + 1) + ". " + rist.getNome() + " - " + r.getStelle() + " stelle");
+                System.out.println("   Commento: " + r.getCommento());
             }
 
-            Recensione recensioneSelezionata = recensioniCliente.get(indice);
+            String input = leggiInput("Inserisci l'indice della recensione da eliminare.\n0 | Torna indietro.");
 
-            if (conferma("Sicuro di voler eliminare questa recensione?")) {
-                rm.removeRecensione(recensioneSelezionata.getId());
-                try {
-                    rm.scriviRecensioni();
-                } catch (java.io.FileNotFoundException e) {
-                    scriviErrore("Errore durante il salvataggio della recensione.");
+            if (input.equals("0"))
+                return;
+
+            try {
+                int indice = Integer.parseInt(input) - 1;
+
+                if (indice > 0 || indice <= mieRecensioni.size()) {
+
+                    Recensione recensioneSelezionata = mieRecensioni.get(indice);
+
+                    BLRecensione blRecensione = new BLRecensione(recensioneSelezionata);
+
+                    if (blRecensione.eliminaRecensione())
+                        scriviMessaggio("Recensione eliminata correttamente.");
+                    else
+                        scriviErrore("Eliminazione fallita.");
+
                     attendiInputBack();
                     return;
                 }
 
-                scriviMessaggio("Recensione eliminata con successo!");
+            } catch (NumberFormatException e) {
+                scriviErrore("Input non valido.");
+                return;
             }
-
-            attendiInputBack();
-
-        } catch (NumberFormatException e) {
-            scriviErrore("Input non valido.");
         }
     }
 
@@ -558,18 +553,11 @@ public class ClientePage extends Navigation {
     private void visualizzaRecensioniRistorante(Ristorante ristorante) {
         pulisciConsole();
 
-        RecensioniManager rm = RecensioniManager.getInstance();
-        HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
-
-        ArrayList<Recensione> recensioniRistorante = new ArrayList<>();
-        for (Recensione r : tuteRecensioni.values()) {
-            if (r.getRistoranteID() == ristorante.getId()) {
-                recensioniRistorante.add(r);
-            }
-        }
+        ArrayList<Recensione> recensioniRistorante = ristorante.getRecensioni();
 
         if (recensioniRistorante.isEmpty()) {
             scriviInfo("Nessuna recensione per questo ristorante.");
+
             attendiInputBack();
             return;
         }
@@ -577,14 +565,14 @@ public class ClientePage extends Navigation {
         scriviMessaggio("Recensioni per " + ristorante.getNome() + ":");
 
         for (Recensione r : recensioniRistorante) {
-            System.out.println("\n" + r.getStelle() + " stelle:");
-            System.out.println(r.getCommento());
-            if (r.getRisposta() != null && !r.getRisposta().isEmpty()) {
-                System.out.println("[Risposta]: " + r.getRisposta());
+            scriviMessaggio("Stelle: " + r.getStelle());
+            scriviMessaggio("Commento: " + r.getCommento());
+
+            if (!r.getRisposta().isEmpty()) {
+                System.out.println("Risposta: " + r.getRisposta());
             }
         }
 
-        attendiInputBack();
     }
 
     private void stampaMenuRicercaRistoranti() {

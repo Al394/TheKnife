@@ -11,6 +11,7 @@ import theknife.utility.UtentiManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -76,8 +77,14 @@ public class DettagliRistorantiClientePage extends Navigation {
                             break;
                         case "2":
                             visualizzaRecensioni(ristoranteSelezionato);
+                            break;
                         case "3":
-                            if (cliente.getRistorantiIDs().contains(ristoranteSelezionato.getId())) {
+                            List<Integer> ids = cliente.getRistorantiIDs();
+                            int id = ristoranteSelezionato.getId();
+
+                            Boolean res = ids.contains(id);
+
+                            if (res) {
                                 // Rimuovi dai preferiti
                                 if (conferma("Rimuovere dai preferiti?")) {
                                     try {
@@ -150,19 +157,10 @@ public class DettagliRistorantiClientePage extends Navigation {
     private void visualizzaRecensioni(Ristorante ristorante) {
         pulisciConsole();
 
-        RecensioniManager rm = RecensioniManager.getInstance();
-        HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
+        ArrayList<Recensione> recensioniRistorante = ristorante.getRecensioni();
 
-        ArrayList<Recensione> recensioniRistorante = new ArrayList<>();
-        for (Recensione r : tuteRecensioni.values()) {
-            if (r.getRistoranteID() == ristorante.getId()) {
-                recensioniRistorante.add(r);
-            }
-        }
-
-        if (recensioniRistorante.isEmpty()) {
+        if (ristorante.getRecensioni().isEmpty()) {
             scriviInfo("Nessuna recensione per questo ristorante.");
-            attendiInputBack();
             return;
         }
 
@@ -174,16 +172,6 @@ public class DettagliRistorantiClientePage extends Navigation {
             if (r.getRisposta() != null && !r.getRisposta().isEmpty()) {
                 System.out.println("[Risposta]: " + r.getRisposta());
             }
-        }
-
-        attendiInputBack();
-    }
-
-    private void aggiornaUtente() {
-        try {
-            UtentiManager.scriviUtenti(new ArrayList<>(UtentiManager.getUtenti().values()));
-        } catch (Exception e) {
-            scriviErrore("Errore durante l'aggiornamento dei dati.");
         }
     }
 }

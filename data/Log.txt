@@ -1,1 +1,1 @@
-[26/01/2026 20:25:13] [ERROR] UnsupportedOperationException: null
+[26/01/2026 23:53:41] [ERROR] IndexOutOfBoundsException: Index 2 out of bounds for length 2

@@ -90,7 +90,7 @@ public class FiltroRicerca {
      * @param mediaStelle  media stelle
      */
     public FiltroRicerca(String nazione, String citta, String indirizzo, Coordinate location, String cucina,
-                         FiltroPrezzo filtroPrezzo, TernaryInfo delivery, TernaryInfo booking, int mediaStelle) {
+            FiltroPrezzo filtroPrezzo, TernaryInfo delivery, TernaryInfo booking, int mediaStelle) {
         this.nazione = nazione.trim();
         this.citta = citta.trim();
         this.indirizzo = indirizzo.trim();

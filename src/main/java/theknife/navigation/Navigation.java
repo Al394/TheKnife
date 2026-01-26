@@ -56,7 +56,7 @@ public abstract class Navigation {
     }
 
     protected void attendiInputBack() {
-        System.out.println("\nPremi qualsiasi tasto per tornare indietro.");
+        System.out.println("\nPremi Invio per tornare indietro.");
         scanner.nextLine();
     }
 

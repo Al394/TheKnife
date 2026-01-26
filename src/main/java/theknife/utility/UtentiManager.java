@@ -12,6 +12,7 @@ import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Classe utility per lettura e scrittura utenti.
@@ -59,7 +60,7 @@ public class UtentiManager extends FileManager {
      * @throws FileNotFoundException
      */
     public static void registrazione(String nome, String cognome, String username, String password,
-                                     Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
+            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, FileNotFoundException {
 
         getUtenti();
@@ -183,11 +184,11 @@ public class UtentiManager extends FileManager {
         String citta = c[7];
         String indirizzo = c[8];
         Ruolo ruolo = Ruolo.valueOf(c[9]);
-        List<Integer> ristoranti = Arrays.stream(c[10].replaceAll("\\[|\\]", "").split(","))
+        ArrayList<Integer> ristoranti = Arrays.stream(c[10].replaceAll("\\[|\\]", "").split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(Integer::parseInt)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
 
         switch (ruolo) {
             case CLIENTE:
@@ -208,7 +209,7 @@ public class UtentiManager extends FileManager {
                 u.getNome(),
                 u.getCognome(),
                 u.getUsername(),
-                hashPassword(u.getPassword()),
+                u.getPassword(),
                 dateTimeFormatter.format(u.getDataDiNascita()),
                 u.getNazione(),
                 u.getCitta(),
