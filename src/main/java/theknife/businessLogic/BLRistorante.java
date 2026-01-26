@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Alessio Sangiorgi 730420
  */
-public class BLRistoranti {
+public class BLRistorante {
 
     /**
      * Riferimento interno ristoranti.
@@ -23,7 +23,7 @@ public class BLRistoranti {
     /**
      * Il service riceve i dati già caricati dal repository/manager.
      */
-    public BLRistoranti() {
+    public BLRistorante() {
     }
 
     /**

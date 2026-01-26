@@ -1,13 +1,16 @@
 package theknife.navigation;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import theknife.businessLogic.BLCliente;
 import theknife.models.Cliente;
 import theknife.models.Recensione;
 import theknife.models.Ristorante;
 import theknife.utility.RecensioniManager;
+import theknife.utility.TheKnifeLogger;
 import theknife.utility.UtentiManager;
 
 /**
@@ -19,11 +22,13 @@ import theknife.utility.UtentiManager;
 public class DettagliRistorantiClientePage extends Navigation {
   public final ArrayList<Ristorante> risultati = new ArrayList<>();
   private Cliente cliente;
+  private BLCliente blCliente;
 
   public DettagliRistorantiClientePage(Scanner scanner, ArrayList<Ristorante> risultati, Cliente cliente) {
     super(scanner);
     this.risultati.addAll(risultati);
     this.cliente = cliente;
+    this.blCliente = new BLCliente(cliente);
   }
 
   @Override
@@ -75,16 +80,24 @@ public class DettagliRistorantiClientePage extends Navigation {
               if (cliente.getRistorantiIDs().contains(ristoranteSelezionato.getId())) {
                 // Rimuovi dai preferiti
                 if (conferma("Rimuovere dai preferiti?")) {
-                  cliente.getRistorantiIDs().remove(Integer.valueOf(ristoranteSelezionato.getId()));
+                  try {
+                    blCliente.rimuoviPreferito(ristoranteSelezionato.getId());
+                  } catch (FileNotFoundException e) {
+                    TheKnifeLogger.error(e);
 
-                  aggiornaUtente();
-
+                    scriviErrore("Errore nel rimuovere il preferito.");
+                  }
                   scriviMessaggio("Rimosso dai preferiti!");
                 }
               } else {
                 // Aggiungi ai preferiti
-                cliente.getRistorantiIDs().add(ristoranteSelezionato.getId());
-                aggiornaUtente();
+                try {
+                  blCliente.aggiungiPreferito(ristoranteSelezionato.getId());
+                } catch (FileNotFoundException e) {
+                  TheKnifeLogger.error(e);
+
+                  scriviErrore("Errore nel salvataggio preferito.");
+                }
                 scriviMessaggio("Aggiunto ai preferiti!");
               }
               break;

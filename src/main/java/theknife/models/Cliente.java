@@ -35,7 +35,7 @@ public class Cliente extends Utente {
      * @param ristoranti    Lista dei ristoranti preferiti
      */
     public Cliente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String nazione, String citta, String indirizzo, List<Integer> ristoranti) {
+                   String nazione, String citta, String indirizzo, List<Integer> ristoranti) {
         super(id, nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo, Enums.Ruolo.CLIENTE,
                 ristoranti);
     }

@@ -3,7 +3,7 @@ package theknife.navigation;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import theknife.businessLogic.BLRistoranti;
+import theknife.businessLogic.BLRistorante;
 import theknife.enums.Enums.TernaryInfo;
 import theknife.enums.Enums.FasceDiPrezzoOp;
 import theknife.models.FiltroRicerca;
@@ -63,7 +63,7 @@ public class GuestPage extends Navigation {
 
   private void cercaRistoranti() {
 
-    BLRistoranti blRistoranti = new BLRistoranti();
+    BLRistorante blRistoranti = new BLRistorante();
 
     stampaMenuRicercaRistoranti();
 
