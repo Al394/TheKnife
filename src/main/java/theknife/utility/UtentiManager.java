@@ -11,12 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Classe utility per lettura e scrittura utenti.
@@ -27,12 +22,9 @@ public class UtentiManager extends FileManager {
     private static final int NUMERO_CAMPI_UTENTE = 11;
     private static final String HEADERS = "id;nome;cognome;username;password;dataDiNascita;nazione;citta;indirizzo;ruolo;ristoranti";
     private static final String PATH_UTENTI = "data/users.csv";
-
-    private static UtentiManager instance = null;
-
     private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("dd/MM/yyyy");
-
     private static final HashMap<Integer, Utente> utentiMap = new HashMap<>();
+    private static UtentiManager instance = null;
 
     /**
      * Costruttore privato, istanza accessibile via {@link #getInstance()}
@@ -67,7 +59,7 @@ public class UtentiManager extends FileManager {
      * @throws FileNotFoundException
      */
     public static void registrazione(String nome, String cognome, String username, String password,
-            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
+                                     Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, FileNotFoundException {
 
         getUtenti();

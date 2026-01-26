@@ -1,9 +1,9 @@
 package theknife.models;
 
+import theknife.enums.Enums.Ruolo;
+
 import java.util.Date;
 import java.util.List;
-
-import theknife.enums.Enums.Ruolo;
 
 /**
  *
@@ -62,7 +62,44 @@ abstract public class Utente {
      */
     protected List<Integer> ristorantiIDs;
 
-    /** Getters **/
+    /**
+     * Costruttore vuoto.
+     */
+    public Utente() {
+    }
+
+    /**
+     *
+     * Costruttore facilitato.
+     *
+     * @param id            Id
+     * @param nome          Nome
+     * @param cognome       Cognome
+     * @param username      Username
+     * @param password      Password
+     * @param dataDiNascita Data di Nascita
+     * @param domicilio     Domicilio
+     * @param role          Ruolo
+     * @param ristoranti    Lista ristoranti collegati
+     */
+    public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
+                  String nazione, String citta, String indirizzo, Ruolo role, List<Integer> ristoranti) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password = password;
+        this.dataDiNascita = dataDiNascita;
+        this.nazione = nazione;
+        this.citta = citta;
+        this.indirizzo = indirizzo;
+        this.ruolo = role;
+        this.ristorantiIDs = ristoranti;
+    }
+
+    /**
+     * Getters
+     **/
     public int getId() {
         return id;
     }
@@ -113,41 +150,6 @@ abstract public class Utente {
 
     public List<Integer> getRistorantiIDs() {
         return ristorantiIDs;
-    }
-
-    /**
-     * Costruttore vuoto.
-     */
-    public Utente() {
-    }
-
-    /**
-     *
-     * Costruttore facilitato.
-     *
-     * @param id            Id
-     * @param nome          Nome
-     * @param cognome       Cognome
-     * @param username      Username
-     * @param password      Password
-     * @param dataDiNascita Data di Nascita
-     * @param domicilio     Domicilio
-     * @param role          Ruolo
-     * @param ristoranti    Lista ristoranti collegati
-     */
-    public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String nazione, String citta, String indirizzo, Ruolo role, List<Integer> ristoranti) {
-        this.id = id;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.username = username;
-        this.password = password;
-        this.dataDiNascita = dataDiNascita;
-        this.nazione = nazione;
-        this.citta = citta;
-        this.indirizzo = indirizzo;
-        this.ruolo = role;
-        this.ristorantiIDs = ristoranti;
     }
 
 }

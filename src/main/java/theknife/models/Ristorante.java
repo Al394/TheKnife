@@ -1,7 +1,8 @@
 package theknife.models;
 
-import java.util.ArrayList;
 import theknife.exceptions.ValidationException;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -72,7 +73,52 @@ public class Ristorante {
      */
     private ArrayList<Recensione> recensioni = new ArrayList<>();
 
-    /** Getters **/
+    /**
+     * Costruttore vuoto.
+     */
+    public Ristorante() {
+        this.recensioniIDs = new ArrayList<>();
+    }
+
+    /**
+     * Costruttore completo per la classe Ristorante.
+     *
+     * @param id          ID ristorante
+     * @param nome        Nome ristorante
+     * @param nazione     Nazione
+     * @param citta       Città
+     * @param indirizzo   Indirizzo
+     * @param latitudine  Latitudine
+     * @param longitudine Longitudine
+     * @param prezzoMedio Prezzo medio
+     * @param delivery    Effettua consegne a domicilio
+     * @param booking     Servizio prenotazione online disponibile
+     * @param tipoCucina  Tipologia di cucina (es: Italiana, Sushi, ecc.)
+     * @throws ValidationException Coordinate non valide.
+     */
+    public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
+                      double latitudine, double longitudine, int prezzoMedio,
+                      boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
+                      ArrayList<Integer> recensioniIDs)
+            throws ValidationException {
+        this.id = id;
+        this.nome = nome;
+        this.nazione = nazione;
+        this.citta = citta;
+        this.indirizzo = indirizzo;
+        this.locazione = new Coordinate(latitudine, longitudine);
+        this.prezzoMedio = prezzoMedio;
+        this.delivery = delivery;
+        this.booking = booking;
+        this.tipoCucina = tipoCucina;
+        this.descrizione = descrizione;
+        this.servizi = servizi;
+        this.recensioniIDs = recensioniIDs;
+    }
+
+    /**
+     * Getters
+     **/
 
     public int getId() {
         return id;
@@ -136,49 +182,6 @@ public class Ristorante {
 
     public void setRecensioni(ArrayList<Recensione> recensioni) {
         this.recensioni = recensioni;
-    }
-
-    /**
-     * Costruttore vuoto.
-     */
-    public Ristorante() {
-        this.recensioniIDs = new ArrayList<>();
-    }
-
-    /**
-     * Costruttore completo per la classe Ristorante.
-     *
-     * @param id          ID ristorante
-     * @param nome        Nome ristorante
-     * @param nazione     Nazione
-     * @param citta       Città
-     * @param indirizzo   Indirizzo
-     * @param latitudine  Latitudine
-     * @param longitudine Longitudine
-     * @param prezzoMedio Prezzo medio
-     * @param delivery    Effettua consegne a domicilio
-     * @param booking     Servizio prenotazione online disponibile
-     * @param tipoCucina  Tipologia di cucina (es: Italiana, Sushi, ecc.)
-     * @throws ValidationException Coordinate non valide.
-     */
-    public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, int prezzoMedio,
-            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
-            ArrayList<Integer> recensioniIDs)
-            throws ValidationException {
-        this.id = id;
-        this.nome = nome;
-        this.nazione = nazione;
-        this.citta = citta;
-        this.indirizzo = indirizzo;
-        this.locazione = new Coordinate(latitudine, longitudine);
-        this.prezzoMedio = prezzoMedio;
-        this.delivery = delivery;
-        this.booking = booking;
-        this.tipoCucina = tipoCucina;
-        this.descrizione = descrizione;
-        this.servizi = servizi;
-        this.recensioniIDs = recensioniIDs;
     }
 
     /**

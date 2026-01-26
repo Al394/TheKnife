@@ -1,26 +1,21 @@
 package theknife.navigation;
 
+import theknife.businessLogic.BLCliente;
+import theknife.businessLogic.BLRistorante;
+import theknife.enums.Enums.FasceDiPrezzoOp;
+import theknife.enums.Enums.TernaryInfo;
+import theknife.exceptions.ValidationException;
+import theknife.models.*;
+import theknife.models.FiltroRicerca.FiltroPrezzo;
+import theknife.utility.RecensioniManager;
+import theknife.utility.RitstorantiManager;
+import theknife.utility.TheKnifeLogger;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
-import theknife.businessLogic.BLCliente;
-import theknife.businessLogic.BLRistorante;
-import theknife.enums.Enums.TernaryInfo;
-import theknife.enums.Enums.FasceDiPrezzoOp;
-import theknife.exceptions.ValidationException;
-import theknife.models.Cliente;
-import theknife.models.FiltroRicerca;
-import theknife.models.FiltroRicerca.FiltroPrezzo;
-import theknife.models.Recensione;
-import theknife.models.Ristorante;
-import theknife.models.Utente;
-import theknife.utility.RecensioniManager;
-import theknife.utility.RitstorantiManager;
-import theknife.utility.TheKnifeLogger;
-import theknife.utility.UtentiManager;
 
 /**
  * Controller per la modalità Cliente.

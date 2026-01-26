@@ -2,7 +2,8 @@ package theknife.utility;
 
 // Alessio Sangiorgi 730420 VA
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  *

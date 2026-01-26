@@ -7,7 +7,7 @@ package theknife.exceptions;
  * @author Alessio Sangiorgi 730420 VA
  */
 public class AuthException extends Exception {
-  public AuthException(String message) {
-    super(message);
-  }
+    public AuthException(String message) {
+        super(message);
+    }
 }

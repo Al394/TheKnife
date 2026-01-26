@@ -1,9 +1,9 @@
 package theknife.models;
 
+import theknife.enums.Enums;
+
 import java.util.Date;
 import java.util.List;
-
-import theknife.enums.Enums;
 
 /**
  *

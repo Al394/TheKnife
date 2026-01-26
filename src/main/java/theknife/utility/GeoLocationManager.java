@@ -68,21 +68,20 @@ public class GeoLocationManager {
      * <strong>Nota:</strong> Tutti i parametri devono essere espressi in radianti.
      * </p>
      *
-     * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine
-     *      formula.</a>
-     *
      * @param latDelta  differenza di latitudine tra i due punti, in radianti.
      * @param lat1      latitudine del primo punto, in radianti.
      * @param lat2      latitudine del secondo punto, in radianti.
      * @param longDelta differenza di longitudine tra i due punti, in radianti.
      * @return il valore {@code a} della formula di Haversine.
+     * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine
+     * formula.</a>
      */
     private static double formulaDiHaversine(double latDelta,
-            double lat1,
-            double lat2,
-            double longDelta) {
+                                             double lat1,
+                                             double lat2,
+                                             double longDelta) {
         return Math.pow(Math.sin(latDelta / 2), 2)
                 + Math.cos(lat1) * Math.cos(lat2)
-                        * Math.pow(Math.sin(longDelta / 2), 2);
+                * Math.pow(Math.sin(longDelta / 2), 2);
     }
 }

@@ -1,9 +1,9 @@
 package theknife.models;
 
+import theknife.enums.Enums.Ruolo;
+
 import java.util.Date;
 import java.util.List;
-
-import theknife.enums.Enums.Ruolo;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Ristoratore extends Utente {
      * @param ristoranti    Lista dei ristoranti gestiti
      */
     public Ristoratore(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String nazione, String citta, String indirizzo, List<Integer> ristoranti) {
+                       String nazione, String citta, String indirizzo, List<Integer> ristoranti) {
         super(id, nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo, Ruolo.RISTORATORE,
                 ristoranti);
     }

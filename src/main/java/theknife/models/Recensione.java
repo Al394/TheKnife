@@ -59,9 +59,22 @@ public class Recensione {
         this.risposta = risposta;
     }
 
-    /** Getters **/
+    /**
+     * Getters
+     **/
     public int getStelle() {
         return stelle;
+    }
+
+    /**
+     * Setter delle stelle. Verifica che le stelle siano comprese nel range [1-5]
+     */
+    public final void setStelle(byte stelle) throws ValidationException {
+        if (stelle < 1 || stelle > 5) {
+            throw new ValidationException("La valutazione deve essere compresa tra 1 e 5 stelle.");
+        }
+
+        this.stelle = stelle;
     }
 
     public int getId() {
@@ -82,17 +95,6 @@ public class Recensione {
 
     public String getRisposta() {
         return risposta;
-    }
-
-    /**
-     * Setter delle stelle. Verifica che le stelle siano comprese nel range [1-5]
-     */
-    public final void setStelle(byte stelle) throws ValidationException {
-        if (stelle < 1 || stelle > 5) {
-            throw new ValidationException("La valutazione deve essere compresa tra 1 e 5 stelle.");
-        }
-
-        this.stelle = stelle;
     }
 
     /**
