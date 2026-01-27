@@ -140,7 +140,14 @@ public class RecensioniManager extends FileManager {
    * Aggiunge una nuova recensione alla mappa.
    */
   public void addRecensione(Recensione recensione) {
+    // Sostituisco la vecchia recensione.
     recensioniMap.put(recensione.getId(), recensione);
+
+    try {
+      scriviRecensioni();
+    } catch (java.io.FileNotFoundException e) {
+      TheKnifeLogger.error(e);
+    }
   }
 
   /**

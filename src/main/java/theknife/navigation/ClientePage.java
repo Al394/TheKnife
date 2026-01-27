@@ -427,13 +427,16 @@ public class ClientePage extends Navigation {
             System.out.println("   Commento: " + r.getCommento());
         }
 
-        String input = leggiInput("Inserisci l'indice della recensione da modificare.\n0 | Torna indietro.");
+        String input = leggiInput("Inserisci l'indice della recensione da modificare.\n0 | Torna indietro.\n");
 
         if (input.equals("0"))
             return;
 
         try {
             int indice = Integer.parseInt(input) - 1;
+            String nuovoCommento, azione = "";
+            Boolean exit = false;
+
             if (indice < 0 || indice >= mieRecensioni.size()) {
                 scriviErrore("Indice non valido.");
                 return;
@@ -441,40 +444,52 @@ public class ClientePage extends Navigation {
 
             Recensione recensioneSelezionata = mieRecensioni.get(indice);
 
-            int stelle = -1;
-            while (stelle < 1 || stelle > 5) {
-                try {
-                    String stelleStr = leggiInput("Nuova valutazione (1-5): ");
-                    stelle = Integer.parseInt(stelleStr);
-                    if (stelle < 1 || stelle > 5) {
-                        scriviErrore("La valutazione deve essere tra 1 e 5.");
-                    }
-                } catch (NumberFormatException e) {
-                    scriviErrore("Input non valido.");
+            while (!exit) {
+                azione = leggiInput("1 | Modifica stelle.\n2 | Modifica commento.\n0 | Torna indietro.\n");
+
+                switch (azione) {
+                    case "0":
+                        return;
+                    case "1":
+                        int stelle = -1;
+
+                        while (stelle < 1 || stelle > 5) {
+                            try {
+                                String stelleStr = leggiInput("Nuova valutazione (1-5): ");
+
+                                stelle = Integer.parseInt(stelleStr);
+
+                                if (stelle < 1 || stelle > 5) {
+                                    scriviErrore("La valutazione deve essere tra 1 e 5.");
+                                }
+                            } catch (NumberFormatException e) {
+                                scriviErrore("Input non valido.");
+                            }
+                        }
+                        recensioneSelezionata.setStelle((byte) stelle);
+                        exit = true;
+                        break;
+                    case "2":
+                        nuovoCommento = leggiInput("Nuovo commento: ");
+                        recensioneSelezionata.setCommento(nuovoCommento);
+                        exit = true;
+                    default:
+                        scriviErrore("Input non valido.");
+                        break;
                 }
             }
 
-            try {
-                recensioneSelezionata.setStelle((byte) stelle);
-                // Nota: Il commento non può essere modificato direttamente nel modello
-                // Recensione
-                // È possibile solo modificare le stelle e la risposta del ristoratore
-                rm.addRecensione(recensioneSelezionata);
-                try {
-                    rm.scriviRecensioni();
-                } catch (java.io.FileNotFoundException e) {
-                    scriviErrore("Errore durante il salvataggio della recensione.");
-                    return;
-                }
+            // Recensione
+            // È possibile solo modificare le stelle e la risposta del ristoratore
+            rm.addRecensione(recensioneSelezionata);
 
-                scriviMessaggio("Recensione modificata con successo!");
-                attendiInputBack();
-            } catch (ValidationException e) {
-                scriviErrore(e.getMessage());
-            }
+            scriviMessaggio("Recensione modificata con successo!");
 
+            attendiInputBack();
         } catch (NumberFormatException e) {
             scriviErrore("Input non valido.");
+        } catch (ValidationException e) {
+            scriviErrore(e.getMessage());
         }
     }
 
