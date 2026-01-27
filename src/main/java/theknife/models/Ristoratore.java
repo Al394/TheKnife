@@ -4,7 +4,6 @@ import theknife.enums.Enums.Ruolo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -37,7 +36,7 @@ public class Ristoratore extends Utente {
      * @param ristoranti    Lista dei ristoranti gestiti
      */
     public Ristoratore(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String nazione, String citta, String indirizzo, ArrayList<Integer> ristoranti) {
+                       String nazione, String citta, String indirizzo, ArrayList<Integer> ristoranti) {
         super(id, nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo, Ruolo.RISTORATORE,
                 ristoranti);
     }

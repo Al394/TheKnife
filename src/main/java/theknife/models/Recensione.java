@@ -96,6 +96,15 @@ public class Recensione {
         return commento;
     }
 
+    /**
+     * Setter per modifica commento recensione.
+     *
+     * @param commento Nuovo commento.
+     */
+    public void setCommento(String commento) {
+        this.commento = commento;
+    }
+
     public int getAutoreID() {
         return autoreID;
     }
@@ -115,14 +124,5 @@ public class Recensione {
      */
     public void setRisposta(String risposta) {
         this.risposta = risposta;
-    }
-
-    /**
-     * Setter per modifica commento recensione.
-     *
-     * @param commento Nuovo commento.
-     */
-    public void setCommento(String commento) {
-        this.commento = commento;
     }
 }

@@ -5,11 +5,7 @@ import theknife.models.Recensione;
 import theknife.models.Ristorante;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  *
@@ -180,8 +176,8 @@ public class RitstorantiManager extends FileManager {
     }
 
     public static Ristorante aggiungRistorante(String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
-            String tipoCucina, String descrizione, String servizi) throws ValidationException, FileNotFoundException {
+                                               double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
+                                               String tipoCucina, String descrizione, String servizi) throws ValidationException, FileNotFoundException {
 
         leggiRistoranti();
 

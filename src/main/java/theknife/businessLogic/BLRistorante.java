@@ -7,7 +7,6 @@ import theknife.models.Recensione;
 import theknife.models.Ristorante;
 import theknife.utility.RecensioniManager;
 import theknife.utility.RitstorantiManager;
-import theknife.utility.TheKnifeLogger;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -51,8 +50,8 @@ public class BLRistorante {
      * Recupera il riepilogo delle recensioni per un ristorante.
      *
      * @param ristoranteID ID del ristorante
-     * @return Array con media stelle e numero recensioni [mediaStelle,
-     *         numeroRecensioni]
+     * @return Array con media stelle e numero recensioni
+     *         [mediaStelle, numeroRecensioni]
      * @throws IllegalArgumentException se il ristorante non esiste
      */
     public double[] getRiepilogoRecensioni(int ristoranteID) {

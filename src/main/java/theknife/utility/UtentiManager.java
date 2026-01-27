@@ -60,7 +60,7 @@ public class UtentiManager extends FileManager {
      * @throws FileNotFoundException
      */
     public static void registraUtente(String nome, String cognome, String username, String password,
-            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
+                                      Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, FileNotFoundException {
 
         getUtenti();
