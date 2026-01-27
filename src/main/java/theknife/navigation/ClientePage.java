@@ -378,16 +378,10 @@ public class ClientePage extends Navigation {
                 HashMap<Integer, Recensione> recensioni = rm.getRecensioni();
                 int nuovoID = recensioni.size() + 1;
 
-                Recensione nuovaRecensione = new Recensione(nuovoID, (byte) stelle, commento, cliente.getId(),
-                        ristoranteSelezionato.getId(), null);
+                BLRecensione blRecensione = new BLRecensione();
 
-                rm.addRecensione(nuovaRecensione);
-                try {
-                    rm.scriviRecensioni();
-                } catch (java.io.FileNotFoundException e) {
-                    scriviErrore("Errore durante il salvataggio della recensione.");
-                    return;
-                }
+                blRecensione.aggiungiRecensione(nuovoID, (byte) stelle, commento, cliente.getId(),
+                        ristoranteSelezionato.getId());
 
                 scriviMessaggio("Recensione aggiunta con successo!");
                 attendiInputBack();
@@ -490,11 +484,9 @@ public class ClientePage extends Navigation {
     private void eliminaRecensione() {
         pulisciConsole();
 
-        HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
-
         // Filtra le recensioni dell'utente
         ArrayList<Recensione> mieRecensioni = new ArrayList<>();
-        for (Recensione r : tuteRecensioni.values()) {
+        for (Recensione r : rm.getRecensioni().values()) {
             if (r.getAutoreID() == cliente.getId()) {
                 mieRecensioni.add(r);
             }
