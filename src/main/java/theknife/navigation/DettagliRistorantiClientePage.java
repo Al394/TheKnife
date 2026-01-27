@@ -4,13 +4,9 @@ import theknife.businessLogic.BLCliente;
 import theknife.models.Cliente;
 import theknife.models.Recensione;
 import theknife.models.Ristorante;
-import theknife.utility.RecensioniManager;
 import theknife.utility.TheKnifeLogger;
-import theknife.utility.UtentiManager;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 

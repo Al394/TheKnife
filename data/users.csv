@@ -1003,4 +1003,5 @@ id;nome;cognome;username;password;dataDiNascita;nazione;citta;indirizzo;ruolo;ri
 1002;aa;aa;aa;E1+MREotM7oMN8uYSAqXovh8fPtHmtjqKJcypAyLwJs=;16/11/0141;a;a;a;RISTORATORE;[]
 1003;Alessio;Sangiorgi;Gino;5W4GukGoU3xsYvoW5e6xoPmRd43qd/umFDpBuhgPXzo=;11/03/1112;IT;Rome;a;RISTORATORE;[]
 1004;aa;a;a;wP1PN5UTgVrQwMSwgVxvMykJAgpIIZgjYpvOPkv3ctw=;16/07/7783;a;a;a;RISTORATORE;[]
-1005;1111;1111;1111;D/4avRoIIVNTwjPW4AlhPpXuxCU4Mqdhryj/N6xaFQw=;11/11/1111;mrossi;mrossi;mrossi;CLIENTE;[1]
+1005;1111;1111;1111;D/4avRoIIVNTwjPW4AlhPpXuxCU4Mqdhryj/N6xaFQw=;11/11/1111;mrossi;mrossi;mrossi;RISTORATORE;[1]
+1006;2222;2222;2222;7e4p+IJUO5VmILJtDuDn6VA5mxxCIvXeBeBkJbTJlek=;22/10/2223;2;2;2;CLIENTE;[]

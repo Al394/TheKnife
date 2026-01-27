@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * Controller per la modalità Cliente.
@@ -375,8 +376,9 @@ public class ClientePage extends Navigation {
             String commento = leggiInput("Commento: ");
 
             try {
-                HashMap<Integer, Recensione> recensioni = rm.getRecensioni();
-                int nuovoID = recensioni.size() + 1;
+                TreeMap<Integer, Recensione> recensioniHMap = new TreeMap<Integer, Recensione>(rm.getRecensioni());
+
+                int nuovoID = recensioniHMap.lastKey() + 1;
 
                 BLRecensione blRecensione = new BLRecensione();
 
@@ -400,96 +402,102 @@ public class ClientePage extends Navigation {
      * Modifica una recensione esistente dell'utente.
      */
     private void modificaRecensione() {
-        pulisciConsole();
+        Recensione recensioneSelezionata;
+        HashMap<Integer, Recensione> tutteLeRecensioni;
+        ArrayList<Recensione> mieRecensioni;
 
-        HashMap<Integer, Recensione> tuteRecensioni = rm.getRecensioni();
+        while (true) {
 
-        // Filtra le recensioni dell'utente
-        ArrayList<Recensione> mieRecensioni = new ArrayList<>();
-        for (Recensione r : tuteRecensioni.values()) {
-            if (r.getAutoreID() == cliente.getId()) {
-                mieRecensioni.add(r);
-            }
-        }
+            pulisciConsole();
 
-        if (mieRecensioni.isEmpty()) {
-            scriviInfo("Non hai ancora scritto alcuna recensione.");
-            attendiInputBack();
-            return;
-        }
+            tutteLeRecensioni = rm.getRecensioni();
 
-        scriviMessaggio("Le tue recensioni:");
-
-        for (int i = 0; i < mieRecensioni.size(); i++) {
-            Recensione r = mieRecensioni.get(i);
-            Ristorante rist = RitstorantiManager.getRistoranti().get(r.getRistoranteID());
-            System.out.println((i + 1) + ". " + rist.getNome() + " - " + r.getStelle() + " stelle");
-            System.out.println("   Commento: " + r.getCommento());
-        }
-
-        String input = leggiInput("Inserisci l'indice della recensione da modificare.\n0 | Torna indietro.\n");
-
-        if (input.equals("0"))
-            return;
-
-        try {
-            int indice = Integer.parseInt(input) - 1;
-            String nuovoCommento, azione = "";
-            Boolean exit = false;
-
-            if (indice < 0 || indice >= mieRecensioni.size()) {
-                scriviErrore("Indice non valido.");
-                return;
-            }
-
-            Recensione recensioneSelezionata = mieRecensioni.get(indice);
-
-            while (!exit) {
-                azione = leggiInput("1 | Modifica stelle.\n2 | Modifica commento.\n0 | Torna indietro.\n");
-
-                switch (azione) {
-                    case "0":
-                        return;
-                    case "1":
-                        int stelle = -1;
-
-                        while (stelle < 1 || stelle > 5) {
-                            try {
-                                String stelleStr = leggiInput("Nuova valutazione (1-5): ");
-
-                                stelle = Integer.parseInt(stelleStr);
-
-                                if (stelle < 1 || stelle > 5) {
-                                    scriviErrore("La valutazione deve essere tra 1 e 5.");
-                                }
-                            } catch (NumberFormatException e) {
-                                scriviErrore("Input non valido.");
-                            }
-                        }
-                        recensioneSelezionata.setStelle((byte) stelle);
-                        exit = true;
-                        break;
-                    case "2":
-                        nuovoCommento = leggiInput("Nuovo commento: ");
-                        recensioneSelezionata.setCommento(nuovoCommento);
-                        exit = true;
-                    default:
-                        scriviErrore("Input non valido.");
-                        break;
+            // Filtra le recensioni dell'utente
+            mieRecensioni = new ArrayList<>();
+            for (Recensione r : tutteLeRecensioni.values()) {
+                if (r.getAutoreID() == cliente.getId()) {
+                    mieRecensioni.add(r);
                 }
             }
 
-            // Recensione
-            // È possibile solo modificare le stelle e la risposta del ristoratore
-            rm.addRecensione(recensioneSelezionata);
+            if (mieRecensioni.isEmpty()) {
+                scriviInfo("Non hai ancora scritto alcuna recensione.");
+                attendiInputBack();
+                return;
+            }
 
-            scriviMessaggio("Recensione modificata con successo!");
+            scriviMessaggio("Le tue recensioni:");
 
-            attendiInputBack();
-        } catch (NumberFormatException e) {
-            scriviErrore("Input non valido.");
-        } catch (ValidationException e) {
-            scriviErrore(e.getMessage());
+            for (int i = 0; i < mieRecensioni.size(); i++) {
+                Recensione r = mieRecensioni.get(i);
+                Ristorante rist = RitstorantiManager.getRistoranti().get(r.getRistoranteID());
+                scriviMessaggio((i + 1) + ". " + rist.getNome() + " - " + r.getStelle() + " stelle");
+                scriviMessaggio("   Commento: " + r.getCommento());
+            }
+
+            String input = leggiInput("Inserisci l'indice della recensione da modificare.\n0 | Torna indietro.\n");
+
+            if (input.equals("0"))
+                return;
+
+            try {
+                int indice = Integer.parseInt(input) - 1;
+                String nuovoCommento, azione = "";
+                Boolean exit = false;
+                Boolean valid = indice >= 0 && indice < mieRecensioni.size();
+
+                if (indice < 0 || indice >= mieRecensioni.size()) {
+                    scriviErrore("Indice non valido.");
+                }
+
+                while (valid && !exit) {
+                    recensioneSelezionata = mieRecensioni.get(indice);
+
+                    azione = leggiInput("1 | Modifica stelle.\n2 | Modifica commento.\n0 | Torna indietro.\n");
+
+                    switch (azione) {
+                        case "0":
+                            return;
+                        case "1":
+                            int stelle = -1;
+
+                            while (stelle < 1 || stelle > 5) {
+                                try {
+                                    String stelleStr = leggiInput("Nuova valutazione (1-5): ");
+
+                                    stelle = Integer.parseInt(stelleStr);
+
+                                    if (stelle < 1 || stelle > 5) {
+                                        scriviErrore("La valutazione deve essere tra 1 e 5.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    scriviErrore("Input non valido.");
+                                }
+                            }
+                            recensioneSelezionata.setStelle((byte) stelle);
+                            exit = true;
+                            break;
+                        case "2":
+                            nuovoCommento = leggiInput("Nuovo commento: ");
+                            recensioneSelezionata.setCommento(nuovoCommento);
+                            exit = true;
+                            break;
+                        default:
+                            scriviErrore("Input non valido.");
+                            break;
+                    }
+                    // Recensione
+                    // È possibile solo modificare le stelle e la risposta del ristoratore
+                    rm.addRecensione(recensioneSelezionata);
+
+                    scriviMessaggio("Recensione modificata con successo!");
+                }
+                attendiInputBack();
+            } catch (NumberFormatException e) {
+                scriviErrore("Input non valido.");
+            } catch (ValidationException e) {
+                scriviErrore(e.getMessage());
+            }
         }
     }
 

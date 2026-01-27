@@ -1,10 +1,13 @@
 package theknife.businessLogic;
 
+import theknife.exceptions.ValidationException;
 import theknife.models.FiltroRicerca;
 import theknife.models.FiltroRicerca.FiltroPrezzo;
+import theknife.models.Recensione;
 import theknife.models.Ristorante;
+import theknife.utility.RecensioniManager;
 import theknife.utility.RitstorantiManager;
-import theknife.utility.UtentiManager;
+import theknife.utility.TheKnifeLogger;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -26,6 +29,88 @@ public class BLRistorante {
      * Il service riceve i dati già caricati dal repository/manager.
      */
     public BLRistorante() {
+    }
+
+    /**
+     * Recupera i ristoranti di uno specifico ristoratore.
+     *
+     * @param ristoratoreIDs Lista degli ID ristoranti del ristoratore
+     * @return Lista di ristoranti gestiti dal ristoratore
+     */
+    public ArrayList<Ristorante> getRistorantiRistoratore(ArrayList<Integer> ristoratoreIDs) {
+        ArrayList<Ristorante> ristoranti = new ArrayList<>();
+        for (Integer id : ristoratoreIDs) {
+            if (RitstorantiManager.getRistoranti().containsKey(id)) {
+                ristoranti.add(RitstorantiManager.getRistoranti().get(id));
+            }
+        }
+        return ristoranti;
+    }
+
+    /**
+     * Recupera il riepilogo delle recensioni per un ristorante.
+     *
+     * @param ristoranteID ID del ristorante
+     * @return Array con media stelle e numero recensioni [mediaStelle,
+     *         numeroRecensioni]
+     * @throws IllegalArgumentException se il ristorante non esiste
+     */
+    public double[] getRiepilogoRecensioni(int ristoranteID) {
+        if (!RitstorantiManager.getRistoranti().containsKey(ristoranteID)) {
+            throw new IllegalArgumentException("Ristorante con ID " + ristoranteID + " non trovato");
+        }
+
+        Ristorante ristorante = RitstorantiManager.getRistoranti().get(ristoranteID);
+
+        double[] riepilogo = new double[2];
+
+        riepilogo[0] = ristorante.getMediaStelle();
+        riepilogo[1] = ristorante.getRecensioniIDs().size();
+
+        return riepilogo;
+    }
+
+    /**
+     * Recupera tutte le recensioni di un ristorante.
+     *
+     * @param ristoranteID ID del ristorante
+     * @return Lista di recensioni del ristorante
+     * @throws IllegalArgumentException se il ristorante non esiste
+     */
+    public ArrayList<Recensione> getRecensioniRistorante(int ristoranteID) {
+        if (!RitstorantiManager.getRistoranti().containsKey(ristoranteID)) {
+            throw new IllegalArgumentException("Ristorante con ID " + ristoranteID + " non trovato");
+        }
+
+        return RitstorantiManager.getRistoranti().get(ristoranteID).getRecensioni();
+    }
+
+    /**
+     * Aggiunge una risposta a una recensione.
+     *
+     * @param ristoranteScelto ID del ristorante
+     * @param recensioneScelto ID della recensione
+     * @param risposta         Testo della risposta
+     * @throws FileNotFoundException
+     * @throws IllegalArgumentException se ristorante o recensione non esistono
+     */
+    public void rispondiRecensione(Ristorante ristorante, Recensione recensioneScelta, String risposta)
+            throws FileNotFoundException {
+        ristorante.getRecensioni().remove(recensioneScelta);
+
+        recensioneScelta.setRisposta(risposta);
+
+        ristorante.getRecensioni().add(recensioneScelta);
+
+        // Aggiorno file ristoranti.
+        RitstorantiManager.scriviRistoranti(RitstorantiManager.getRistoranti().values().stream().toList());
+
+        RecensioniManager rManager = RecensioniManager.getInstance();
+
+        // Sovrascrivo la recensione aggiornandola.
+        rManager.getRecensioni().put(recensioneScelta.getId(), recensioneScelta);
+
+        rManager.scriviRecensioni();
     }
 
     /**
@@ -122,6 +207,15 @@ public class BLRistorante {
             default:
                 return true;
         }
+    }
+
+    public Ristorante aggiungiRistorante(String nome, String nazione, String citta, String indirizzo,
+            double latitudine, double longitudine, int prezzoMedio,
+            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi)
+            throws FileNotFoundException, ValidationException {
+
+        return RitstorantiManager.aggiungRistorante(nome, nazione, citta, indirizzo, latitudine,
+                longitudine, prezzoMedio, delivery, booking, tipoCucina, descrizione, servizi);
     }
 
 }

@@ -1,2 +1,4 @@
 id;stelle;commento;autoreID;ristoranteID;risposta
-1;1;Prova;1005;1;""
+1;1;Prova;1005;1;Ma non avevo gi� risposto?
+2;5;Nuovo commentino;1006;1; #nessuna#risposta#
+3;2;2;1006;2;#nessuna#risposta#

@@ -1,5 +1,6 @@
 package theknife.models;
 
+import theknife.enums.Enums.Risposte;
 import theknife.exceptions.ValidationException;
 
 /**
@@ -37,7 +38,7 @@ public class Recensione {
     /**
      * Risposta opzionale del ristoratore.
      */
-    private String risposta = "";
+    private String risposta = Risposte.NESSUNA_RISPOSTA.getRisposta();
 
     /**
      * Costruttore.

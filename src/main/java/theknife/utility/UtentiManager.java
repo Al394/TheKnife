@@ -59,11 +59,13 @@ public class UtentiManager extends FileManager {
      * @throws ParseException
      * @throws FileNotFoundException
      */
-    public static void registrazione(String nome, String cognome, String username, String password,
+    public static void registraUtente(String nome, String cognome, String username, String password,
             Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, FileNotFoundException {
 
         getUtenti();
+
+        password = hashPassword(password);
 
         int id = utentiMap.size() + 1;
 

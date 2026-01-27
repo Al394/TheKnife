@@ -79,16 +79,11 @@ public class RecensioniManager extends FileManager {
           TheKnifeLogger.error("Recensioni: Numero campi insufficienti");
         }
 
-        try {
-          Recensione recensione = parseRecensione(campi);
-          recensioniMap.put(recensione.getId(), recensione);
-        } catch (NumberFormatException | ValidationException | ParseException e) {
-          TheKnifeLogger.error(e);
-          continue;
-        }
+        Recensione recensione = parseRecensione(campi);
+        recensioniMap.put(recensione.getId(), recensione);
       }
 
-    } catch (IOException e) {
+    } catch (Exception e) {
       TheKnifeLogger.error(e);
     }
   }

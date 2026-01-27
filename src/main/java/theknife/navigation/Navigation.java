@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public abstract class Navigation {
 
+    private static final String NO_BLANK_INPUT = "Questo campo è obbligatorio.";
     protected final Scanner scanner;
 
     public Navigation(Scanner scanner) {
@@ -35,6 +36,20 @@ public abstract class Navigation {
         return scanner.nextLine().trim();
     }
 
+    protected String loopLeggiInput(String messaggio) {
+        String input = "";
+        while (true) {
+            System.out.print(messaggio);
+
+            input = scanner.nextLine().trim();
+
+            if (input.isBlank())
+                scriviMessaggio(NO_BLANK_INPUT);
+            else
+                return input;
+        }
+    }
+
     protected void scriviMessaggio(String messaggio) {
         System.out.println(messaggio);
     }
@@ -56,7 +71,7 @@ public abstract class Navigation {
     }
 
     protected void attendiInputBack() {
-        System.out.println("\nPremi Invio per tornare indietro.");
+        System.out.println("Premi Invio per tornare indietro.");
         scanner.nextLine();
     }
 

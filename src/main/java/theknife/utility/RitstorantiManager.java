@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  *
@@ -176,5 +177,28 @@ public class RitstorantiManager extends FileManager {
                 r.getDescrizione(),
                 r.getServizi(),
                 String.valueOf(r.getRecensioniIDs()));
+    }
+
+    public static Ristorante aggiungRistorante(String nome, String nazione, String citta, String indirizzo,
+            double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
+            String tipoCucina, String descrizione, String servizi) throws ValidationException, FileNotFoundException {
+
+        leggiRistoranti();
+
+        // Albero rb. dove posso ottenere velocemente il max.
+        // Operazione possibile poichè HashMap e TreeMap implementano l'interfaccia Map.
+        TreeMap<Integer, Ristorante> mapRistoranti = new TreeMap<Integer, Ristorante>(ristorantiMap);
+
+        int id = mapRistoranti.lastKey() + 1;
+
+        Ristorante ristorante = new Ristorante(id, nome, nazione, citta, indirizzo,
+                latitudine, longitudine, prezzoMedio, delivery, booking,
+                tipoCucina, descrizione, servizi, new ArrayList<Integer>());
+
+        ristorantiMap.put(id, ristorante);
+
+        scriviRistoranti(ristorantiMap.values().stream().toList());
+
+        return ristorante;
     }
 }

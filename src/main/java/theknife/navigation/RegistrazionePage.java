@@ -122,7 +122,8 @@ public class RegistrazionePage extends Navigation {
             }
 
             try {
-                UtentiManager.registrazione(nome, cognome, username, password, dataDiNascita, nazione, citta, indirizzo,
+                UtentiManager.registraUtente(nome, cognome, username, password, dataDiNascita, nazione, citta,
+                        indirizzo,
                         ruoloEnum);
                 pulisciConsole();
 

@@ -60,4 +60,18 @@ public class Enums {
             return info;
         }
     }
+
+    public enum Risposte {
+        NESSUNA_RISPOSTA("#nessuna#risposta#");
+
+        private final String risposta;
+
+        Risposte(String risposta) {
+            this.risposta = risposta;
+        }
+
+        public String getRisposta() {
+            return risposta;
+        }
+    }
 }
