@@ -9,7 +9,7 @@ javac -d bin (Get-ChildItem -Path src -Recurse -Filter *.java | Select -Expand F
 ```
 jar cvmf manifest.mf TheKnife.jar -C bin ./bin
 ```
-### Il file `.Jar` verrà generato nella stesso percorso in cui si lancia il comando.
+Il file `.Jar` verrà generato nella stesso percorso in cui si lancia il comando.
 
 ## Esecuzione del file in Multipiattaforma:
 
@@ -23,4 +23,5 @@ _Se la cartella `data` non è presente nello stesso percorso dell'eseguibile,_
 _il programma la genererà autonomamente e creerà i file .csv necessari per il salvataggio delle risorse._
 
 _Testato su piattaforme Windows 10/11 e distribuzioni Linux in particolare Debian._
+
 
