@@ -83,7 +83,7 @@ abstract public class Utente {
      * @param ristoranti    Lista ristoranti collegati
      */
     public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-                  String nazione, String citta, String indirizzo, Ruolo role, ArrayList<Integer> ristoranti) {
+            String nazione, String citta, String indirizzo, Ruolo role, ArrayList<Integer> ristoranti) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;

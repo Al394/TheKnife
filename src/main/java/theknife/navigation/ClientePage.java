@@ -13,6 +13,8 @@ import theknife.utility.RitstorantiManager;
 import theknife.utility.TheKnifeLogger;
 
 import java.io.FileNotFoundException;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -273,7 +275,7 @@ public class ClientePage extends Navigation {
                     if (conferma("Sicuro di voler rimuovere dai preferiti?")) {
                         try {
                             blCliente.rimuoviPreferito(ristoranteSelezionato.getId());
-                        } catch (FileNotFoundException e) {
+                        } catch (IOException e) {
                             TheKnifeLogger.error(e);
 
                             scriviErrore("Errore salvataggio preferiti.");

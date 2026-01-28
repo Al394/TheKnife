@@ -4,25 +4,25 @@ package theknife.utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  *
  * Classe Singleton FileManager, rappresenta l'oggetto FileManager
+ * Utilizzato per la gestione dei file
+ * Verifica l'esistenza altrimenti li crea.
  *
  * @author Alessio Sangiorgi 730420 VA
  */
 public class FileManager {
 
-    public static File ricavaFileDaPercorso(String path) throws FileNotFoundException {
+    public static File ricavaFileDaPercorso(Path path) throws IOException {
 
-        File f = new File(path);
+        File f = path.toFile();
 
         if (!f.exists()) {
-            throw new FileNotFoundException("File non trovato in questo percorso: " + path);
-        }
-
-        if (!f.isFile()) {
-            throw new FileNotFoundException("Il percorso è una cartella: " + path);
+            f.createNewFile();
         }
 
         return f;

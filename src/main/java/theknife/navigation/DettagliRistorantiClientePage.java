@@ -6,7 +6,7 @@ import theknife.models.Recensione;
 import theknife.models.Ristorante;
 import theknife.utility.TheKnifeLogger;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -86,7 +86,7 @@ public class DettagliRistorantiClientePage extends Navigation {
                                 if (conferma("Rimuovere dai preferiti?")) {
                                     try {
                                         blCliente.rimuoviPreferito(ristoranteSelezionato.getId());
-                                    } catch (FileNotFoundException e) {
+                                    } catch (IOException e) {
                                         TheKnifeLogger.error(e);
 
                                         scriviErrore("Errore nel rimuovere il preferito.");
@@ -97,7 +97,7 @@ public class DettagliRistorantiClientePage extends Navigation {
                                 // Aggiungi ai preferiti
                                 try {
                                     blCliente.aggiungiPreferito(ristoranteSelezionato.getId());
-                                } catch (FileNotFoundException e) {
+                                } catch (IOException e) {
                                     TheKnifeLogger.error(e);
 
                                     scriviErrore("Errore nel salvataggio preferito.");

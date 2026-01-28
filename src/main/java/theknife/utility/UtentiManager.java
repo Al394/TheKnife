@@ -8,6 +8,8 @@ import theknife.models.Utente;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 public class UtentiManager extends FileManager {
     private static final int NUMERO_CAMPI_UTENTE = 11;
     private static final String HEADERS = "id;nome;cognome;username;password;dataDiNascita;nazione;citta;indirizzo;ruolo;ristoranti";
-    private static final String PATH_UTENTI = "data/users.csv";
+    private static final Path PATH_UTENTI = Paths.get("data", "users.csv");
     private static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("dd/MM/yyyy");
     private static final HashMap<Integer, Utente> utentiMap = new HashMap<>();
     private static UtentiManager instance = null;
@@ -57,11 +59,11 @@ public class UtentiManager extends FileManager {
      * @param indirizzo     Indirizzo
      * @param ruolo         Ruolo
      * @throws ParseException
-     * @throws FileNotFoundException
+     * @throws IOException
      */
     public static void registraUtente(String nome, String cognome, String username, String password,
-                                      Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
-            throws ParseException, FileNotFoundException {
+            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
+            throws ParseException, IOException {
 
         getUtenti();
 
@@ -104,10 +106,10 @@ public class UtentiManager extends FileManager {
     /**
      * Carica tutti gli utenti dal file CSV.
      *
-     * @throws FileNotFoundException
      * @throws ParseException
+     * @throws IOException
      */
-    private static void leggiUtenti() throws FileNotFoundException, ParseException {
+    private static void leggiUtenti() throws ParseException, IOException {
         File fileUtenti = FileManager.ricavaFileDaPercorso(PATH_UTENTI);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileUtenti))) {
@@ -142,8 +144,10 @@ public class UtentiManager extends FileManager {
 
     /**
      * Salva la lista degli utenti su file CSV.
+     *
+     * @throws IOException
      */
-    public static void scriviUtenti(List<Utente> utenti) throws FileNotFoundException {
+    public static void scriviUtenti(List<Utente> utenti) throws IOException {
 
         File fileUtenti = FileManager.ricavaFileDaPercorso(PATH_UTENTI);
 

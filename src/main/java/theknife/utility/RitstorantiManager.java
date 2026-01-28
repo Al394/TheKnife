@@ -5,6 +5,8 @@ import theknife.models.Recensione;
 import theknife.models.Ristorante;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -17,7 +19,7 @@ public class RitstorantiManager extends FileManager {
 
     private static final int NUMERO_CAMPI_RISTORANTE = 14;
     private static final String HEADER = "id;nome;nazione;citta;indirizzo;latitudine;longitudine;prezzoMedio;delivery;booking;tipoCucina;descrizione;servizi;recensioniIDs";
-    private static final String RestaurantsPath = "data/restaurants.csv";
+    private static final Path PATH_RISTORANTI = Paths.get("data", "ristoranti.csv");
     private static final HashMap<Integer, Ristorante> ristorantiMap = new HashMap<>();
     private static final HashMap<Integer, Recensione> recensioniMap = new HashMap<>();
     private static RitstorantiManager instance = null;
@@ -49,7 +51,7 @@ public class RitstorantiManager extends FileManager {
         if (ristorantiMap.size() == 0) {
             try {
                 leggiRistoranti();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 TheKnifeLogger.error(e);
             }
         }
@@ -60,8 +62,10 @@ public class RitstorantiManager extends FileManager {
     /**
      *
      * Carica tutti i ristoranti dal file CSV e li inserisce in ristorantiMap.
+     *
+     * @throws IOException
      */
-    private static void leggiRistoranti() throws FileNotFoundException {
+    private static void leggiRistoranti() throws IOException {
         ristorantiMap.clear();
         recensioniMap.clear();
 
@@ -69,7 +73,7 @@ public class RitstorantiManager extends FileManager {
 
         recensioniMap.putAll(recM.getRecensioni());
 
-        File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
+        File fileRistoranti = FileManager.ricavaFileDaPercorso(PATH_RISTORANTI);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileRistoranti))) {
 
@@ -109,10 +113,12 @@ public class RitstorantiManager extends FileManager {
 
     /**
      * Salva i ristoranti da ristorantiMap su file CSV.
+     *
+     * @throws IOException
      */
-    public static void scriviRistoranti(List<Ristorante> ristoranti) throws FileNotFoundException {
+    public static void scriviRistoranti(List<Ristorante> ristoranti) throws IOException {
 
-        File fileRistoranti = FileManager.ricavaFileDaPercorso(RestaurantsPath);
+        File fileRistoranti = FileManager.ricavaFileDaPercorso(PATH_RISTORANTI);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRistoranti))) {
 
@@ -176,8 +182,8 @@ public class RitstorantiManager extends FileManager {
     }
 
     public static Ristorante aggiungRistorante(String nome, String nazione, String citta, String indirizzo,
-                                               double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
-                                               String tipoCucina, String descrizione, String servizi) throws ValidationException, FileNotFoundException {
+            double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
+            String tipoCucina, String descrizione, String servizi) throws ValidationException, IOException {
 
         leggiRistoranti();
 

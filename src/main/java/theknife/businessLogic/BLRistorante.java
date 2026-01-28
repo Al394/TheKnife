@@ -8,7 +8,7 @@ import theknife.models.Ristorante;
 import theknife.utility.RecensioniManager;
 import theknife.utility.RitstorantiManager;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,11 +90,11 @@ public class BLRistorante {
      * @param ristoranteScelto ID del ristorante
      * @param recensioneScelto ID della recensione
      * @param risposta         Testo della risposta
-     * @throws FileNotFoundException
+     * @throws IOException
      * @throws IllegalArgumentException se ristorante o recensione non esistono
      */
     public void rispondiRecensione(Ristorante ristorante, Recensione recensioneScelta, String risposta)
-            throws FileNotFoundException {
+            throws IOException {
         ristorante.getRecensioni().remove(recensioneScelta);
 
         recensioneScelta.setRisposta(risposta);
@@ -211,7 +211,7 @@ public class BLRistorante {
     public Ristorante aggiungiRistorante(String nome, String nazione, String citta, String indirizzo,
             double latitudine, double longitudine, int prezzoMedio,
             boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi)
-            throws FileNotFoundException, ValidationException {
+            throws ValidationException, IOException {
 
         return RitstorantiManager.aggiungRistorante(nome, nazione, citta, indirizzo, latitudine,
                 longitudine, prezzoMedio, delivery, booking, tipoCucina, descrizione, servizi);

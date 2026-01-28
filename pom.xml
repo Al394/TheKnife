@@ -14,6 +14,19 @@
         <junit.version>5.12.1</junit.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>theknife</id>
+            <name>TheKnife</name>
+            <url>file://${project.basedir}/bin</url>
+        </repository>
+        <snapshotRepository>
+            <id>theknife</id>
+            <name>TheKnife</name>
+            <url>file://${project.basedir}/bin</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>

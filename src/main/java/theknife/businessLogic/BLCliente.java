@@ -3,7 +3,7 @@ package theknife.businessLogic;
 import theknife.models.Cliente;
 import theknife.utility.UtentiManager;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BLCliente {
@@ -17,9 +17,9 @@ public class BLCliente {
     /**
      * Aggiunge un ristorante ai preferiti del cliente.
      *
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    public void aggiungiPreferito(int ristoranteID) throws FileNotFoundException {
+    public void aggiungiPreferito(int ristoranteID) throws IOException {
         aggiungiRiferimentoRistorante(ristoranteID);
     }
 
@@ -28,9 +28,9 @@ public class BLCliente {
      * ristoratore.
      *
      * @param ristoranteID
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    private void aggiungiRiferimentoRistorante(int ristoranteID) throws FileNotFoundException {
+    private void aggiungiRiferimentoRistorante(int ristoranteID) throws IOException {
         if (!cliente.getRistorantiIDs().contains(ristoranteID)) {
             cliente.getRistorantiIDs().add(ristoranteID);
 
@@ -41,9 +41,9 @@ public class BLCliente {
     /**
      * Rimuove un ristorante dai preferiti del cliente.
      *
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    public void rimuoviPreferito(int ristoranteID) throws FileNotFoundException {
+    public void rimuoviPreferito(int ristoranteID) throws IOException {
         cliente.getRistorantiIDs().remove(cliente.getRistorantiIDs().indexOf(ristoranteID));
 
         aggiornaUtente();
@@ -52,9 +52,9 @@ public class BLCliente {
     /**
      * Aggiorna i dati dell'utente nel file.
      *
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    private void aggiornaUtente() throws FileNotFoundException {
+    private void aggiornaUtente() throws IOException {
         UtentiManager.scriviUtenti(new ArrayList<>(UtentiManager.getUtenti().values()));
     }
 

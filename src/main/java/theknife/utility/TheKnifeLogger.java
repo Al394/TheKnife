@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +20,7 @@ public class TheKnifeLogger {
     /**
      * Percorso del file di log.
      */
-    private static final String LOG_FILE_PATH = "data/Log.txt";
+    private static final Path LOG_FILE_PATH = Paths.get("data", "log.csv");
     /**
      * Formattatore data.
      */
@@ -99,16 +101,19 @@ public class TheKnifeLogger {
      */
     private static void writeLog(LogLevel level, String message) {
         try {
+            File logFile = LOG_FILE_PATH.toFile();
+
             // Crea il file se non esiste
-            File logFile = new File(LOG_FILE_PATH);
             if (!logFile.exists()) {
+
                 logFile.getParentFile().mkdirs();
+
                 logFile.createNewFile();
             }
 
             // Scrivi in append
             try (FileWriter fw = new FileWriter(logFile, true);
-                 BufferedWriter bw = new BufferedWriter(fw)) {
+                    BufferedWriter bw = new BufferedWriter(fw)) {
 
                 String timestamp = LocalDateTime.now().format(dateTimeFormatter);
                 String logEntry = "[" + timestamp + "] [" + level.getLevel() + "] " + message;

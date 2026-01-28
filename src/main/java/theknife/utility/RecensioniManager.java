@@ -4,6 +4,8 @@ import theknife.exceptions.ValidationException;
 import theknife.models.Recensione;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
 
@@ -33,7 +35,7 @@ public class RecensioniManager extends FileManager {
     /**
      * Percorso del file recensioni.
      */
-    private final String recensioniPath = "data/recensioni.csv";
+    private final Path PATH_RECENSIONI = Paths.get("data", "recensioni.csv");
 
     /**
      * Costruttore privato, istanza accessibile via {@link #getInstance()}
@@ -53,11 +55,13 @@ public class RecensioniManager extends FileManager {
 
     /**
      * Carica tutte le recensioni dal file CSV e le inserisce in recensioniMap.
+     *
+     * @throws IOException
      */
-    public void leggiRecensioni() throws FileNotFoundException {
+    public void leggiRecensioni() throws IOException {
         recensioniMap.clear();
 
-        File fileRecensioni = FileManager.ricavaFileDaPercorso(recensioniPath);
+        File fileRecensioni = FileManager.ricavaFileDaPercorso(PATH_RECENSIONI);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileRecensioni))) {
 
@@ -90,10 +94,12 @@ public class RecensioniManager extends FileManager {
 
     /**
      * Salva le recensioni da recensioniMap su file CSV.
+     *
+     * @throws IOException
      */
-    public void scriviRecensioni() throws FileNotFoundException {
+    public void scriviRecensioni() throws IOException {
 
-        File fileRecensioni = FileManager.ricavaFileDaPercorso(recensioniPath);
+        File fileRecensioni = FileManager.ricavaFileDaPercorso(PATH_RECENSIONI);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileRecensioni))) {
 
@@ -120,11 +126,12 @@ public class RecensioniManager extends FileManager {
 
     /**
      * Ottiene tutte le recensioni.
+     *
      */
     public HashMap<Integer, Recensione> getRecensioni() {
         try {
             leggiRecensioni();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             TheKnifeLogger.error(e);
         }
 
@@ -133,6 +140,7 @@ public class RecensioniManager extends FileManager {
 
     /**
      * Aggiunge una nuova recensione alla mappa.
+     *
      */
     public void addRecensione(Recensione recensione) {
         // Sostituisco la vecchia recensione.
@@ -140,7 +148,7 @@ public class RecensioniManager extends FileManager {
 
         try {
             scriviRecensioni();
-        } catch (java.io.FileNotFoundException e) {
+        } catch (IOException e) {
             TheKnifeLogger.error(e);
         }
     }

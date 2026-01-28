@@ -8,6 +8,7 @@ import theknife.utility.RitstorantiManager;
 import theknife.utility.TheKnifeLogger;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,7 +58,7 @@ public class BLRecensione {
      * @throws FileNotFoundException
      */
     public void aggiungiRecensione(int nuovoID, byte stelle, String commento, int autoreID, int ristoranteID)
-            throws ValidationException, FileNotFoundException {
+            throws ValidationException {
         Recensione nuovaRecensione = new Recensione(nuovoID, stelle, commento, autoreID, ristoranteID);
 
         validaRistoranteUnico(nuovaRecensione);
@@ -66,10 +67,8 @@ public class BLRecensione {
 
         try {
             recManager.scriviRecensioni();
-        } catch (java.io.FileNotFoundException e) {
+        } catch (IOException e) {
             TheKnifeLogger.error(e);
-
-            throw e;
         }
     }
 
