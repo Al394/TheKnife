@@ -32,7 +32,7 @@ public class RitstorantiManager extends FileManager {
 
     /**
      *
-     * Metodo per il singleton.
+     * Metodo per il singleton pattern.
      */
     public static RitstorantiManager getInstance() {
         if (instance == null) {
@@ -48,7 +48,7 @@ public class RitstorantiManager extends FileManager {
      * @return HashMap ID, Ristorante
      */
     public static HashMap<Integer, Ristorante> getRistoranti() {
-        if (ristorantiMap.size() == 0) {
+        if (ristorantiMap.isEmpty()) {
             try {
                 leggiRistoranti();
             } catch (IOException e) {
@@ -137,6 +137,14 @@ public class RitstorantiManager extends FileManager {
         }
     }
 
+    /**
+     * Effettua il parse della riga letta da csv.
+     *
+     * @param c Array di stringhe.
+     * @return
+     * @throws NumberFormatException
+     * @throws ValidationException
+     */
     private static Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
 
         List<Integer> rec = Arrays.stream(c[13].replaceAll("\\[|\\]", "").split(","))
@@ -162,6 +170,12 @@ public class RitstorantiManager extends FileManager {
                 rec);
     }
 
+    /**
+     * Formatto istanza per scrittura su CSV.
+     *
+     * @param r Ristorante da scrivere.
+     * @return
+     */
     private static String formatRistorante(Ristorante r) {
 
         return String.join(";",
@@ -181,9 +195,28 @@ public class RitstorantiManager extends FileManager {
                 String.valueOf(r.getRecensioniIDs()));
     }
 
+    /**
+     * Aggiungo un ristorante alla lista dei ristoranti e salvo il valore su csv.
+     *
+     * @param nome        nome
+     * @param nazione     nazione
+     * @param citta       città
+     * @param indirizzo   indirizzo
+     * @param latitudine  latitudine
+     * @param longitudine longitudine
+     * @param prezzoMedio prezzoMedio
+     * @param delivery    delivery
+     * @param booking     booking
+     * @param tipoCucina  tipoCucina
+     * @param descrizione descrizione
+     * @param servizi     servizi
+     * @return
+     * @throws ValidationException
+     * @throws IOException
+     */
     public static Ristorante aggiungRistorante(String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
-            String tipoCucina, String descrizione, String servizi) throws ValidationException, IOException {
+                                               double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
+                                               String tipoCucina, String descrizione, String servizi) throws ValidationException, IOException {
 
         leggiRistoranti();
 

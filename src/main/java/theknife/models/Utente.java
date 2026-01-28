@@ -78,12 +78,14 @@ abstract public class Utente {
      * @param username      Username
      * @param password      Password
      * @param dataDiNascita Data di Nascita
-     * @param domicilio     Domicilio
+     * @param nazione       Nazione
+     * @param citta         Città
+     * @param indirizzo     Indirizzo
      * @param role          Ruolo
      * @param ristoranti    Lista ristoranti collegati
      */
     public Utente(int id, String nome, String cognome, String username, String password, Date dataDiNascita,
-            String nazione, String citta, String indirizzo, Ruolo role, ArrayList<Integer> ristoranti) {
+                  String nazione, String citta, String indirizzo, Ruolo role, ArrayList<Integer> ristoranti) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;

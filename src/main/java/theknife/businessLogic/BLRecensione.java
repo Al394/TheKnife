@@ -12,15 +12,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe di logica.
+ * Gestisce la manipolazione del'oggetto {@link Recensione}.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class BLRecensione {
 
     private final RecensioniManager recManager = RecensioniManager.getInstance();
     private Recensione recensione;
 
+    /**
+     * Costruttore
+     *
+     * @param rec
+     */
     public BLRecensione(Recensione rec) {
         this.recensione = rec;
     }
 
+    /**
+     * Costruttore
+     */
     public BLRecensione() {
     }
 
@@ -49,11 +63,11 @@ public class BLRecensione {
      * <p>
      * Valido stelle e unicità per ristorante.
      *
-     * @param nuovoID
-     * @param stelle
-     * @param commento
-     * @param autoreID
-     * @param ristoranteID
+     * @param nuovoID      nuovoID
+     * @param stelle       stelle
+     * @param commento     commento
+     * @param autoreID     autoreID
+     * @param ristoranteID ristoranteID
      * @throws ValidationException
      * @throws FileNotFoundException
      */

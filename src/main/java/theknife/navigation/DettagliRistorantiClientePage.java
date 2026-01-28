@@ -19,9 +19,15 @@ import java.util.Scanner;
  */
 public class DettagliRistorantiClientePage extends Navigation {
     public final ArrayList<Ristorante> risultati = new ArrayList<>();
-    private Cliente cliente;
-    private BLCliente blCliente;
+    private final Cliente cliente;
+    private final BLCliente blCliente;
 
+    /**
+     * Costruttore
+     * @param scanner
+     * @param risultati
+     * @param cliente
+     */
     public DettagliRistorantiClientePage(Scanner scanner, ArrayList<Ristorante> risultati, Cliente cliente) {
         super(scanner);
         this.risultati.addAll(risultati);

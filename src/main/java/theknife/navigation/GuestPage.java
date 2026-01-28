@@ -13,9 +13,15 @@ import java.util.Scanner;
 /**
  * Controller per la modalità Guest (ospite).
  * Consente solo la consultazione dei ristoranti.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class GuestPage extends Navigation {
 
+    /**
+     * Costruttore
+     * @param scanner
+     */
     public GuestPage(Scanner scanner) {
         super(scanner);
     }
@@ -60,6 +66,9 @@ public class GuestPage extends Navigation {
         scriviMessaggio("0 | Torna alla Home");
     }
 
+    /**
+     * Cerco ristoranti.
+     */
     private void cercaRistoranti() {
 
         BLRistorante blRistoranti = new BLRistorante();
@@ -116,13 +125,12 @@ public class GuestPage extends Navigation {
 
         scriviInfo("Invio per ignorare.");
         String inputDelivery = leggiInput("Consegna a domicilio? (s/n): ");
-        if (inputDelivery.equalsIgnoreCase("s")) {
-            delivery = TernaryInfo.YES;
-        } else if (inputDelivery.equalsIgnoreCase("n")) {
+        if (inputDelivery.equalsIgnoreCase("s")) delivery = TernaryInfo.YES;
+        else if (inputDelivery.equalsIgnoreCase("n"))
             delivery = TernaryInfo.NO;
-        } else {
+        else
             delivery = TernaryInfo.ANY;
-        }
+
 
         scriviInfo("Invio per ignorare.");
         String inputBooking = leggiInput("Prenotazione online? (s/n): ");

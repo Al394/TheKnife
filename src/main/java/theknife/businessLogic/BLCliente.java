@@ -5,11 +5,21 @@ import theknife.utility.UtentiManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * Classe di logica.
+ * Gestisce la manipolazione del'oggetto {@link Cliente}.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class BLCliente {
 
     private final Cliente cliente;
+    private final UtentiManager uManager = UtentiManager.getInstance();
 
+    /**
+     * Costruttore.
+     * @param cliente
+     */
     public BLCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -55,7 +65,7 @@ public class BLCliente {
      * @throws IOException
      */
     private void aggiornaUtente() throws IOException {
-        UtentiManager.scriviUtenti(new ArrayList<>(UtentiManager.getUtenti().values()));
+        uManager.scriviUtenti(new ArrayList<>(uManager.getUtenti().values()));
     }
 
 }

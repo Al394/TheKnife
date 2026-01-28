@@ -43,10 +43,10 @@ public class Recensione {
     /**
      * Costruttore.
      *
-     * @param stelle     Valutazione stelle. Range [1-5]
-     * @param commento   Recensione cliente.
-     * @param autore     Utente che crea la recensione.
-     * @param ristorante Ristorante riferito alla recensione.
+     * @param stelle       Valutazione stelle. Range [1-5]
+     * @param commento     Recensione cliente.
+     * @param autoreID     Utente che crea la recensione.
+     * @param ristoranteID Ristorante riferito alla recensione.
      * @throws ValidationException se le stelle non sono nel range 1-5
      */
     public Recensione(int id, byte stelle, String commento, int autoreID, int ristoranteID)

@@ -14,6 +14,12 @@ import java.util.Scanner;
  */
 public class LoginPage extends Navigation {
 
+    private final UtentiManager uManager = UtentiManager.getInstance();
+
+    /**
+     * Costruttore
+     * @param scanner
+     */
     public LoginPage(Scanner scanner) {
         super(scanner);
     }
@@ -32,7 +38,7 @@ public class LoginPage extends Navigation {
             String password = leggiInput("Password: ");
 
             try {
-                Utente utente = UtentiManager.login(username, password);
+                Utente utente = uManager.login(username, password);
 
                 scriviMessaggio("Login effettuato con successo!");
 

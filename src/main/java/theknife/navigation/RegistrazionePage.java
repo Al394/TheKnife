@@ -9,9 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * Controller per la Registrazione.
+ * Consente di registrare clienti e ristoratori
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class RegistrazionePage extends Navigation {
 
     private static final String DATE_PATTERN = "MM/dd/yyyy";
+    private final UtentiManager uManager = UtentiManager.getInstance();
 
     public RegistrazionePage(Scanner scanner) {
         super(scanner);
@@ -88,7 +95,7 @@ public class RegistrazionePage extends Navigation {
             }
 
             try {
-                UtentiManager.registraUtente(nome, cognome, username, password, dataDiNascita, nazione, citta,
+                uManager.registraUtente(nome, cognome, username, password, dataDiNascita, nazione, citta,
                         indirizzo,
                         ruoloEnum);
 

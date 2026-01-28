@@ -19,6 +19,7 @@ public abstract class Navigation {
         this.scanner = scanner;
     }
 
+    // Codice ANSI che permette la pulizia della console (anche del CMD windows)
     protected static void pulisciConsole() {
         // Codice ANSI: \033[H (Home) \033[2J (Clear screen)
         System.out.print("\033[H\033[2J");

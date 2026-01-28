@@ -2,6 +2,11 @@ package theknife.navigation;
 
 import java.util.Scanner;
 
+/**
+ * Home page. Visualizzata all'apertura dell'applicazione.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class HomePage extends Navigation {
 
     public HomePage(Scanner scanner) {

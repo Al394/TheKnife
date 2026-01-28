@@ -11,7 +11,12 @@ import theknife.models.Utente;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Controller per i Ristoratore.
+ * Consente di la navigazione menu da parte del ristoratore.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class RistoratorePage extends Navigation {
 
     private Ristoratore ristoratore;

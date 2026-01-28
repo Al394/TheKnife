@@ -1,9 +1,6 @@
 package theknife.utility;
 
-// Alessio Sangiorgi 730420 VA
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -17,13 +14,19 @@ import java.nio.file.Path;
  */
 public class FileManager {
 
+    /**
+     * Ricavo il file dal percorso e lo creo.
+     *
+     * @param path file path
+     * @return File da leggere/scriver
+     * @throws IOException
+     */
     public static File ricavaFileDaPercorso(Path path) throws IOException {
 
         File f = path.toFile();
 
-        if (!f.exists()) {
+        if (!f.exists())
             f.createNewFile();
-        }
 
         return f;
     }

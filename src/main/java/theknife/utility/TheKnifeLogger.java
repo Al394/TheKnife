@@ -1,5 +1,7 @@
 package theknife.utility;
 
+import theknife.enums.Enums.LogLevel;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -127,23 +129,4 @@ public class TheKnifeLogger {
         }
     }
 
-    /**
-     * Enum per i livelli di log.
-     */
-    public enum LogLevel {
-        DEBUG("DEBUG"),
-        INFO("INFO"),
-        WARNING("WARNING"),
-        ERROR("ERROR");
-
-        private final String level;
-
-        LogLevel(String level) {
-            this.level = level;
-        }
-
-        public String getLevel() {
-            return level;
-        }
-    }
 }

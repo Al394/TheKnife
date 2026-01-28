@@ -5,12 +5,6 @@ import theknife.enums.Enums.FasceDiPrezzoOp;
 import theknife.enums.Enums.TernaryInfo;
 
 /**
- * Modello FiltroRicerca.
- *
- * @author Alessio Sangiorgi 730420 VA
- */
-
-/**
  * Classe FiltroRicerca per la gestione dei parametri di ricerca di ristoranti.
  * <p>
  * Questa classe rappresenta un filtro di ricerca avanzato che consente di
@@ -141,6 +135,10 @@ public class FiltroRicerca {
         return mediaStelle;
     }
 
+    /**
+     * Classe d'appoggio per gestione filtro prezzo.
+     * Range max min.
+     */
     public static class FiltroPrezzo {
         /**
          * Tipo di operazione: >, <, Between.

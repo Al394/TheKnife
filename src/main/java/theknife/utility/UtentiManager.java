@@ -36,7 +36,7 @@ public class UtentiManager extends FileManager {
     }
 
     /**
-     * Metodo per il singleton.
+     * Metodo per il singleton pattern.
      */
     public static UtentiManager getInstance() {
         if (instance == null) {
@@ -61,8 +61,8 @@ public class UtentiManager extends FileManager {
      * @throws ParseException
      * @throws IOException
      */
-    public static void registraUtente(String nome, String cognome, String username, String password,
-            Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
+    public void registraUtente(String nome, String cognome, String username, String password,
+                               Date dataDiNascita, String nazione, String citta, String indirizzo, Ruolo ruolo)
             throws ParseException, IOException {
 
         getUtenti();
@@ -91,8 +91,8 @@ public class UtentiManager extends FileManager {
      *
      * @return HashMap ID, Utente
      */
-    public static HashMap<Integer, Utente> getUtenti() {
-        if (utentiMap.size() == 0) {
+    public HashMap<Integer, Utente> getUtenti() {
+        if (utentiMap.isEmpty()) {
             try {
                 leggiUtenti();
             } catch (Exception e) {
@@ -109,7 +109,7 @@ public class UtentiManager extends FileManager {
      * @throws ParseException
      * @throws IOException
      */
-    private static void leggiUtenti() throws ParseException, IOException {
+    private void leggiUtenti() throws ParseException, IOException {
         File fileUtenti = FileManager.ricavaFileDaPercorso(PATH_UTENTI);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileUtenti))) {
@@ -147,7 +147,7 @@ public class UtentiManager extends FileManager {
      *
      * @throws IOException
      */
-    public static void scriviUtenti(List<Utente> utenti) throws IOException {
+    public void scriviUtenti(List<Utente> utenti) throws IOException {
 
         File fileUtenti = FileManager.ricavaFileDaPercorso(PATH_UTENTI);
 
@@ -179,7 +179,7 @@ public class UtentiManager extends FileManager {
         }
     }
 
-    private static Utente leggiUtenteCSV(String[] c) throws ParseException, IllegalArgumentException {
+    private Utente leggiUtenteCSV(String[] c) throws ParseException, IllegalArgumentException {
         int id = Integer.parseInt(c[0]);
         String nome = c[1];
         String cognome = c[2];
@@ -229,12 +229,12 @@ public class UtentiManager extends FileManager {
     /**
      * Effettua il login di un utente.
      *
-     * @param username
-     * @param password
+     * @param username Username.
+     * @param password Password.
      * @return Utente nel caso di successo.
      * @throws AuthException
      */
-    public static Utente login(String username, String password) throws AuthException {
+    public Utente login(String username, String password) throws AuthException {
         // Carico gli utenti se non già fatto.
         getUtenti();
 

@@ -6,14 +6,28 @@ import theknife.models.Ristorante;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * Controller per i Ristoratori.
+ * Consente la navigazione per menu ristoratori.
+ *
+ * @author Alessio Sangiorgi 730420 VA
+ */
 public class RistorantiPage extends Navigation {
     public final List<Ristorante> risultati = new ArrayList<>();
 
+    /**
+     * Costruttore
+     * @param scanner
+     */
     public RistorantiPage(Scanner scanner) {
         super(scanner);
     }
 
+    /**
+     * Costruttore facilitato.
+     * @param scanner
+     * @param risultati
+     */
     public RistorantiPage(Scanner scanner, ArrayList<Ristorante> risultati) {
         super(scanner);
         this.risultati.addAll(risultati);

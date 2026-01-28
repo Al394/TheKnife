@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Business logic per la Classe Ristorante
+ * Classe di logica.
+ * Gestisce la manipolazione del'oggetto {@link Ristorante}.
  *
- * @author Alessio Sangiorgi 730420
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class BLRistorante {
 

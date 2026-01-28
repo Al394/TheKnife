@@ -44,7 +44,7 @@ public class RecensioniManager extends FileManager {
     }
 
     /**
-     * Metodo per il singleton.
+     * Metodo per il singleton pattern.
      */
     public static RecensioniManager getInstance() {
         if (instance == null) {
@@ -54,7 +54,7 @@ public class RecensioniManager extends FileManager {
     }
 
     /**
-     * Carica tutte le recensioni dal file CSV e le inserisce in recensioniMap.
+     * Carico tutte le recensioni dal file CSV e le inserisce in recensioniMap.
      *
      * @throws IOException
      */
@@ -93,7 +93,7 @@ public class RecensioniManager extends FileManager {
     }
 
     /**
-     * Salva le recensioni da recensioniMap su file CSV.
+     * Salvo le recensioni da recensioniMap su file CSV.
      *
      * @throws IOException
      */
@@ -118,15 +118,9 @@ public class RecensioniManager extends FileManager {
     }
 
     /**
-     * Ottiene una recensione dalla mappa per ID.
-     */
-    public Recensione getRecensione(int id) {
-        return recensioniMap.get(id);
-    }
-
-    /**
-     * Ottiene tutte le recensioni.
-     *
+     * Ottengo tutte le recensioni.
+     * 
+     * @return
      */
     public HashMap<Integer, Recensione> getRecensioni() {
         try {
@@ -139,8 +133,7 @@ public class RecensioniManager extends FileManager {
     }
 
     /**
-     * Aggiunge una nuova recensione alla mappa.
-     *
+     * Aggiungo una nuova recensione alla mappa.
      */
     public void addRecensione(Recensione recensione) {
         // Sostituisco la vecchia recensione.
@@ -151,13 +144,6 @@ public class RecensioniManager extends FileManager {
         } catch (IOException e) {
             TheKnifeLogger.error(e);
         }
-    }
-
-    /**
-     * Rimuove una recensione dalla mappa per ID.
-     */
-    public void removeRecensione(int id) {
-        recensioniMap.remove(id);
     }
 
     private Recensione parseRecensione(String[] c)

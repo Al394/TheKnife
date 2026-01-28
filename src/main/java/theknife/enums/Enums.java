@@ -74,4 +74,25 @@ public class Enums {
             return risposta;
         }
     }
+
+    /**
+     * Enum per i livelli di log.
+     */
+    public enum LogLevel {
+        DEBUG("DEBUG"),
+        INFO("INFO"),
+        WARNING("WARNING"),
+        ERROR("ERROR");
+
+        private final String level;
+
+        LogLevel(String level) {
+            this.level = level;
+        }
+
+        public String getLevel() {
+            return level;
+        }
+    }
+
 }

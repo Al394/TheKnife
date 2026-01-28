@@ -12,14 +12,14 @@ import theknife.utility.RecensioniManager;
 import theknife.utility.RitstorantiManager;
 import theknife.utility.TheKnifeLogger;
 
-import java.io.FileNotFoundException;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * Controller per la modalità Cliente.
  * Consente ricerca ristoranti, gestione preferiti e gestione recensioni.
+ *
+ * @author Alessio Sangiorgi 730420 VA
  */
 public class ClientePage extends Navigation {
 
@@ -27,6 +27,11 @@ public class ClientePage extends Navigation {
     private final BLCliente blCliente;
     private final RecensioniManager rm = RecensioniManager.getInstance();
 
+    /**
+     * Costruttore
+     * @param scanner
+     * @param utente
+     */
     public ClientePage(Scanner scanner, Utente utente) {
         super(scanner);
         this.cliente = (Cliente) utente;
