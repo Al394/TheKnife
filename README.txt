@@ -8,7 +8,7 @@ javac -d bin (Get-ChildItem -Path src -Recurse -Filter *.java | Select -Expand F
 ```
 2. Generazione file Jar su Windows 10
 ```
-jar cvmf manifest.mf TheKnife.jar -C bin ./bin
+jar cvmf manifest.mf TheKnife.jar -C bin .
 ```
 ### Il file .Jar verrà generato nella stesso percorso in cui si lancia il comando.
 
