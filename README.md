@@ -26,3 +26,4 @@ java -jar TheKnife.jar
 Se la cartella `data` non è presente nello stesso percorso dell'eseguibile,
 il programma la genererà autonomamente e creerà i file .csv necessari per il salvataggio delle risorse.
 ---
+
