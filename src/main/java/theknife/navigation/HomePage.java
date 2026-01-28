@@ -18,7 +18,7 @@ public class HomePage extends Navigation {
         while (!exit) {
             stampaMenu();
 
-            String scelta = scanner.nextLine();
+            String scelta = leggiInput("Seleziona un'opzione: ");
 
             switch (scelta) {
                 case "1":
@@ -47,14 +47,13 @@ public class HomePage extends Navigation {
     private void stampaMenu() {
         pulisciConsole();
 
-        System.out.println("================================");
-        System.out.println("          THE KNIFE             ");
-        System.out.println("================================");
-        System.out.println("1 | Login");
-        System.out.println("2 | Continua come ospite");
-        System.out.println("3 | Registrazione");
-        System.out.println("0 | Esci");
-        System.out.print("Seleziona un'opzione: ");
+        scriviMessaggio("================================");
+        scriviMessaggio("          THE KNIFE             ");
+        scriviMessaggio("================================");
+        scriviMessaggio("1 | Login");
+        scriviMessaggio("2 | Continua come ospite");
+        scriviMessaggio("3 | Registrazione");
+        scriviMessaggio("0 | Esci");
     }
 
     private void vaiAllaLogin() {

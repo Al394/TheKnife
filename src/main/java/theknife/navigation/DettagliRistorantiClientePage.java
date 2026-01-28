@@ -62,7 +62,7 @@ public class DettagliRistorantiClientePage extends Navigation {
 
                     stampaMenuRistoranteSelezionato(ristoranteSelezionato);
 
-                    input = leggiInput("");
+                    input = leggiInput("Seleziona un'opzione: ");
 
                     switch (input) {
                         case "0":

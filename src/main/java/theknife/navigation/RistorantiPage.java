@@ -53,19 +53,29 @@ public class RistorantiPage extends Navigation {
                     input = leggiInput(
                             "1 | Visualizza i dettagli del ristorante.\n2 | Visualizza le recensioni.\n0 | Torna indietro.");
 
-                    if (input.equals("0"))
-                        return;
-                    if (input.equals("1")) {
-                        stampaMenuDettagliRistorante();
-                        scriviDettagliCompletiRistorante(ristoranteSelezionato);
-                    }
-                    if (input.equals("2")) {
-                        stampaMenuDettagliRecensioni();
-                        List<Recensione> recensioni = ristoranteSelezionato.getRecensioni();
+                    switch (input) {
+                        case "0":
+                            return;
 
-                        for (Recensione recensione : recensioni) {
-                            scriviMessaggio(recensione.toString());
-                        }
+                        case "1":
+                            stampaMenuDettagliRistorante();
+
+                            scriviDettagliCompletiRistorante(ristoranteSelezionato);
+                            break;
+
+                        case "2":
+                            stampaMenuDettagliRecensioni();
+
+                            List<Recensione> recensioni = ristoranteSelezionato.getRecensioni();
+
+                            for (Recensione recensione : recensioni) {
+                                scriviMessaggio(recensione.toString());
+                            }
+
+                            break;
+                        default:
+                            scriviMessaggio("Scelta non valida");
+                            break;
                     }
 
                     attendiInputBack();

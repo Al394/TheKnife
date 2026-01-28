@@ -30,7 +30,7 @@ public class GuestPage extends Navigation {
         while (!exit) {
             stampaMenu();
 
-            String scelta = scanner.nextLine();
+            String scelta = leggiInput("Seleziona un'opzione: ");
 
             switch (scelta) {
                 case "1":
@@ -53,12 +53,11 @@ public class GuestPage extends Navigation {
     private void stampaMenu() {
         pulisciConsole();
 
-        System.out.println("==============================");
-        System.out.println("      MODALITÀ OSPITE         ");
-        System.out.println("==============================");
-        System.out.println("1 | Cerca ristoranti");
-        System.out.println("0 | Torna alla Home");
-        System.out.print("Seleziona un'opzione: ");
+        scriviMessaggio("==============================");
+        scriviMessaggio("      MODALITÀ OSPITE         ");
+        scriviMessaggio("==============================");
+        scriviMessaggio("1 | Cerca ristoranti");
+        scriviMessaggio("0 | Torna alla Home");
     }
 
     private void cercaRistoranti() {
@@ -79,21 +78,9 @@ public class GuestPage extends Navigation {
         TernaryInfo booking = TernaryInfo.ANY;
         int mediaStelle = 0;
 
-        scriviInfo("Inserisci la nazione in cui ti trovi.");
-        while (nazione == null || nazione.isBlank()) {
-            nazione = leggiInput("Nazione: ");
+        nazione = loopLeggiInput("Nazione: ");
 
-            if (nazione.isBlank())
-                scriviErrore("Ai fini della ricerca la nazione è obbligatoria.");
-        }
-
-        scriviInfo("Inserisci la città in cui ti trovi.");
-        while (citta == null || citta.isBlank()) {
-            citta = leggiInput("Città: ");
-
-            if (citta.isBlank())
-                scriviErrore("Ai fini della ricerca la città è obbligatoria.");
-        }
+        citta = leggiInput("Città: ");
 
         scriviInfo("Invio per ignorare.");
         indirizzo = leggiInput("Tipo indirizzo: ");

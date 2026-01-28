@@ -20,11 +20,8 @@ public class LoginPage extends Navigation {
 
     @Override
     public void start() {
-        stampaMenu();
-
         while (true) {
-
-            scriviMessaggio("0 | Torna alla home.\n");
+            stampaMenu();
 
             String username = leggiInput("Username: ");
 
@@ -45,6 +42,8 @@ public class LoginPage extends Navigation {
 
             } catch (AuthException e) {
                 scriviErrore(e.getMessage());
+
+                attendiInputBack();
             }
         }
     }
@@ -63,6 +62,7 @@ public class LoginPage extends Navigation {
         scriviMessaggio("==============================");
         scriviMessaggio("            LOGIN             ");
         scriviMessaggio("==============================");
+        scriviMessaggio("0 | Torna alla home.\n");
     }
 
 }

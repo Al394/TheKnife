@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class RegistrazionePage extends Navigation {
 
+    private static final String DATE_PATTERN = "MM/dd/yyyy";
+
     public RegistrazionePage(Scanner scanner) {
         super(scanner);
     }
@@ -35,30 +37,11 @@ public class RegistrazionePage extends Navigation {
 
             stampaMenu();
 
-            while (nome.isBlank()) {
-                nome = leggiInput("Inserisci Nome: ");
+            nome = loopLeggiInput("Inserisci Nome: ");
 
-                if (nome.equals("0"))
-                    return;
+            cognome = loopLeggiInput("Inserisci Cognome: ");
 
-                if (nome.isBlank()) {
-                    scriviErrore("Il nome non può essere vuoto.");
-                }
-            }
-
-            while (cognome.isBlank()) {
-                cognome = leggiInput("Inserisci Cognome: ");
-                if (cognome.isBlank()) {
-                    scriviErrore("Il cognome non può essere vuoto.");
-                }
-            }
-
-            while (username.isBlank()) {
-                username = leggiInput("Inserisci Username: ");
-                if (username.isBlank()) {
-                    scriviErrore("Lo username non può essere vuoto.");
-                }
-            }
+            username = loopLeggiInput("Inserisci Username: ");
 
             while (password.isBlank()) {
                 password = leggiInput("Inserisci Password: ");
@@ -85,32 +68,15 @@ public class RegistrazionePage extends Navigation {
                 }
             }
 
-            while (nazione.isBlank()) {
-                nazione = leggiInput("Inserisci Nazione: ");
-                if (nazione.isBlank()) {
-                    scriviErrore("La nazione non può essere vuota.");
-                }
-            }
+            nazione = loopLeggiInput("Inserisci Nazione: ");
 
-            while (citta.isBlank()) {
-                citta = leggiInput("Inserisci Città: ");
-                if (citta.isBlank()) {
-                    scriviErrore("La città non può essere vuota.");
-                }
-            }
+            citta = loopLeggiInput("Inserisci Città: ");
 
-            while (indirizzo.isBlank()) {
-                indirizzo = leggiInput("Inserisci Indirizzo: ");
-                if (indirizzo.isBlank()) {
-                    scriviErrore("L'indirizzo non può essere vuoto.");
-                }
-            }
+            indirizzo = loopLeggiInput("Inserisci Indirizzo: ");
 
             while (ruolo.isBlank()) {
-                ruolo = leggiInput("Inserisci il tuo ruolo:\n1 | Cliente\n2 | Ristoratore\n");
-                if (ruolo.isBlank()) {
-                    scriviErrore("Il ruolo non può essere lasciato vuoto.");
-                }
+                ruolo = loopLeggiInput("Inserisci il tuo ruolo:\n1 | Cliente\n2 | Ristoratore\n");
+
                 ruoloEnum = ruolo.equals("1") ? Enums.Ruolo.CLIENTE
                         : ruolo.equals("2") ? Enums.Ruolo.RISTORATORE : null;
 
@@ -125,6 +91,7 @@ public class RegistrazionePage extends Navigation {
                 UtentiManager.registraUtente(nome, cognome, username, password, dataDiNascita, nazione, citta,
                         indirizzo,
                         ruoloEnum);
+
                 pulisciConsole();
 
                 scriviMessaggio("Utente registrato con successo!");
@@ -143,7 +110,14 @@ public class RegistrazionePage extends Navigation {
     }
 
     private Date parseDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd/MM/yyyy").parse(date);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+
+        // Valido il formato della data, altrimenti anche questo input è valido:
+        // 77/77/7777
+        sdf.setLenient(false);
+
+        return sdf.parse(date);
     }
 
     private void stampaMenu() {
@@ -152,7 +126,7 @@ public class RegistrazionePage extends Navigation {
         scriviMessaggio("==============================");
         scriviMessaggio("      NUOVA REGISTRAZIONE     ");
         scriviMessaggio("==============================");
-        System.out.println("0 | Torna indietro.");
+        scriviMessaggio("0 | Torna indietro.");
     }
 
 }

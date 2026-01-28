@@ -30,7 +30,7 @@ public class RistoratorePage extends Navigation {
         while (!exit) {
             stampaMenu();
 
-            String scelta = scanner.nextLine();
+            String scelta = loopLeggiInput("Seleziona un'opzione: ");
 
             switch (scelta) {
                 case "1":
@@ -74,7 +74,6 @@ public class RistoratorePage extends Navigation {
         scriviMessaggio("3 | Visualizza Recensioni");
         scriviMessaggio("4 | Rispondi Recensioni");
         scriviMessaggio("0 | Logout");
-        System.out.print("Seleziona un'opzione: ");
     }
 
     /**

@@ -59,7 +59,7 @@ public class ClientePage extends Navigation {
                     break;
 
                 case "0":
-                    scriviMessaggio("Ritorno alla Home...");
+                    scriviMessaggio("Logout in corso...");
                     exit = true;
                     break;
 
