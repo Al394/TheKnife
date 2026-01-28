@@ -115,7 +115,7 @@ public class TheKnifeLogger {
 
             // Scrivi in append
             try (FileWriter fw = new FileWriter(logFile, true);
-                    BufferedWriter bw = new BufferedWriter(fw)) {
+                 BufferedWriter bw = new BufferedWriter(fw)) {
 
                 String timestamp = LocalDateTime.now().format(dateTimeFormatter);
                 String logEntry = "[" + timestamp + "] [" + level.getLevel() + "] " + message;

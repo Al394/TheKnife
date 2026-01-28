@@ -11,6 +11,7 @@ import theknife.models.Utente;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Controller per i Ristoratore.
  * Consente di la navigazione menu da parte del ristoratore.

@@ -29,6 +29,7 @@ public class ClientePage extends Navigation {
 
     /**
      * Costruttore
+     *
      * @param scanner
      * @param utente
      */

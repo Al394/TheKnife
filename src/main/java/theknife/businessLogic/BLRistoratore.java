@@ -1,7 +1,7 @@
 package theknife.businessLogic;
 
-import theknife.models.Cliente;
 import theknife.models.Ristoratore;
+
 /**
  * Classe di logica.
  * Gestisce la manipolazione del'oggetto {@link theknife.models.Ristorante}.

@@ -18,6 +18,7 @@ public class LoginPage extends Navigation {
 
     /**
      * Costruttore
+     *
      * @param scanner
      */
     public LoginPage(Scanner scanner) {

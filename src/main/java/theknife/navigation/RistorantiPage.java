@@ -6,6 +6,7 @@ import theknife.models.Ristorante;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 /**
  * Controller per i Ristoratori.
  * Consente la navigazione per menu ristoratori.
@@ -17,6 +18,7 @@ public class RistorantiPage extends Navigation {
 
     /**
      * Costruttore
+     *
      * @param scanner
      */
     public RistorantiPage(Scanner scanner) {
@@ -25,6 +27,7 @@ public class RistorantiPage extends Navigation {
 
     /**
      * Costruttore facilitato.
+     *
      * @param scanner
      * @param risultati
      */

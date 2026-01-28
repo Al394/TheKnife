@@ -52,7 +52,7 @@ public class BLRistorante {
      *
      * @param ristoranteID ID del ristorante
      * @return Array con media stelle e numero recensioni
-     *         [mediaStelle, numeroRecensioni]
+     * [mediaStelle, numeroRecensioni]
      * @throws IllegalArgumentException se il ristorante non esiste
      */
     public double[] getRiepilogoRecensioni(int ristoranteID) {
@@ -88,19 +88,19 @@ public class BLRistorante {
     /**
      * Aggiunge una risposta a una recensione.
      *
-     * @param ristoranteScelto ID del ristorante
-     * @param recensioneScelto ID della recensione
+     * @param ristoranteScelto ID del ristoranteScelto
+     * @param recensioneScelta ID della recensione
      * @param risposta         Testo della risposta
      * @throws IOException
-     * @throws IllegalArgumentException se ristorante o recensione non esistono
+     * @throws IllegalArgumentException se ristoranteScelto o recensione non esistono
      */
-    public void rispondiRecensione(Ristorante ristorante, Recensione recensioneScelta, String risposta)
+    public void rispondiRecensione(Ristorante ristoranteScelto, Recensione recensioneScelta, String risposta)
             throws IOException {
-        ristorante.getRecensioni().remove(recensioneScelta);
+        ristoranteScelto.getRecensioni().remove(recensioneScelta);
 
         recensioneScelta.setRisposta(risposta);
 
-        ristorante.getRecensioni().add(recensioneScelta);
+        ristoranteScelto.getRecensioni().add(recensioneScelta);
 
         // Aggiorno file ristoranti.
         RitstorantiManager.scriviRistoranti(RitstorantiManager.getRistoranti().values().stream().toList());
@@ -210,8 +210,8 @@ public class BLRistorante {
     }
 
     public Ristorante aggiungiRistorante(String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, int prezzoMedio,
-            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi)
+                                         double latitudine, double longitudine, int prezzoMedio,
+                                         boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi)
             throws ValidationException, IOException {
 
         return RitstorantiManager.aggiungRistorante(nome, nazione, citta, indirizzo, latitudine,

@@ -98,9 +98,9 @@ public class Ristorante {
      * @throws ValidationException Coordinate non valide.
      */
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
-            double latitudine, double longitudine, int prezzoMedio,
-            boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
-            List<Integer> recensioniIDs)
+                      double latitudine, double longitudine, int prezzoMedio,
+                      boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
+                      List<Integer> recensioniIDs)
             throws ValidationException {
         this.id = id;
         this.nome = nome;

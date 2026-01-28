@@ -24,6 +24,7 @@ public class DettagliRistorantiClientePage extends Navigation {
 
     /**
      * Costruttore
+     *
      * @param scanner
      * @param risultati
      * @param cliente

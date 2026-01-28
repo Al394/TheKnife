@@ -20,6 +20,7 @@ public class GuestPage extends Navigation {
 
     /**
      * Costruttore
+     *
      * @param scanner
      */
     public GuestPage(Scanner scanner) {

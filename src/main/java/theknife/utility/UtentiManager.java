@@ -46,6 +46,36 @@ public class UtentiManager extends FileManager {
         return instance;
     }
 
+    private static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+            return Base64.getEncoder().encodeToString(hashedBytes);
+        } catch (Exception e) {
+            throw new RuntimeException("Errore durante l'hashing", e);
+        }
+    }
+
+    private static String scriviUtenteCSV(Utente u) {
+
+        String[] arr = {
+                String.valueOf(u.getId()),
+                u.getNome(),
+                u.getCognome(),
+                u.getUsername(),
+                u.getPassword(),
+                dateTimeFormatter.format(u.getDataDiNascita()),
+                u.getNazione(),
+                u.getCitta(),
+                u.getIndirizzo(),
+                u.getRuolo().getRuolo(),
+                u.getRistorantiIDs().toString()
+        };
+        return String.join(";", arr);
+    }
+
     /**
      * Registra un nuovo utente.
      *
@@ -167,18 +197,6 @@ public class UtentiManager extends FileManager {
         }
     }
 
-    private static String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-            byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-
-            return Base64.getEncoder().encodeToString(hashedBytes);
-        } catch (Exception e) {
-            throw new RuntimeException("Errore durante l'hashing", e);
-        }
-    }
-
     private Utente leggiUtenteCSV(String[] c) throws ParseException, IllegalArgumentException {
         int id = Integer.parseInt(c[0]);
         String nome = c[1];
@@ -206,24 +224,6 @@ public class UtentiManager extends FileManager {
             default:
                 throw new IllegalArgumentException("Ruolo utente non valido: " + ruolo);
         }
-    }
-
-    private static String scriviUtenteCSV(Utente u) {
-
-        String[] arr = {
-                String.valueOf(u.getId()),
-                u.getNome(),
-                u.getCognome(),
-                u.getUsername(),
-                u.getPassword(),
-                dateTimeFormatter.format(u.getDataDiNascita()),
-                u.getNazione(),
-                u.getCitta(),
-                u.getIndirizzo(),
-                u.getRuolo().getRuolo(),
-                u.getRistorantiIDs().toString()
-        };
-        return String.join(";", arr);
     }
 
     /**

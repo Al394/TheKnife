@@ -5,6 +5,7 @@ import theknife.utility.UtentiManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * Classe di logica.
  * Gestisce la manipolazione del'oggetto {@link Cliente}.
@@ -18,6 +19,7 @@ public class BLCliente {
 
     /**
      * Costruttore.
+     *
      * @param cliente
      */
     public BLCliente(Cliente cliente) {
