@@ -181,7 +181,7 @@ public class RistoratorePage extends Navigation {
         pulisciConsole();
 
         scriviMessaggio("================================");
-        scriviMessaggio("      RIEPILOGO RECENSIONI      ");
+        scriviMessaggio("      RIEPILOGO RIRSTORANTI     ");
         scriviMessaggio("================================");
 
         try {

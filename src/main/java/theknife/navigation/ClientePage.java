@@ -362,6 +362,8 @@ public class ClientePage extends Navigation {
                 return;
             }
 
+            pulisciConsole();
+
             Ristorante ristoranteSelezionato = listRistoranti.get(indice);
 
             int stelle = -1;
