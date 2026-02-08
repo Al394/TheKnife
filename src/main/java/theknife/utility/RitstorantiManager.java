@@ -215,8 +215,8 @@ public class RitstorantiManager extends FileManager {
      * @throws IOException
      */
     public static Ristorante aggiungRistorante(String nome, String nazione, String citta, String indirizzo,
-                                               double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
-                                               String tipoCucina, String descrizione, String servizi) throws ValidationException, IOException {
+            double latitudine, double longitudine, int prezzoMedio, boolean delivery, boolean booking,
+            String tipoCucina, String descrizione, String servizi) throws ValidationException, IOException {
 
         leggiRistoranti();
 

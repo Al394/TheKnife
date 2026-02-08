@@ -2,6 +2,7 @@ package theknife.utility;
 
 import theknife.exceptions.ValidationException;
 import theknife.models.Recensione;
+import theknife.models.Ristorante;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -141,6 +142,18 @@ public class RecensioniManager extends FileManager {
 
         try {
             scriviRecensioni();
+
+            Ristorante risotrante = RitstorantiManager.getRistoranti().get(recensione.getRistoranteID());
+
+            risotrante.aggiungiRecensione(recensione);
+
+            HashMap<Integer, Ristorante> ristoranti = RitstorantiManager.getRistoranti();
+
+            // Aggiorno il ristorante nella lista
+            ristoranti.put(risotrante.getId(), risotrante);
+
+            RitstorantiManager.scriviRistoranti(ristoranti.values().stream().toList());
+
         } catch (IOException e) {
             TheKnifeLogger.error(e);
         }

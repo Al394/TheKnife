@@ -1,0 +1,10 @@
+[30/01/2026 22:45:26] [ERROR] IllegalArgumentException: No enum constant theknife.enums.Enums.Ruolo.[]
+[08/02/2026 21:37:39] [ERROR] NumberFormatException: For input string: "Air conditioning"
+[08/02/2026 21:41:07] [ERROR] NumberFormatException: For input string: "Air conditioning"
+[08/02/2026 23:36:00] [ERROR] ParseException: Unparseable date: "22/10/1955"
+[08/02/2026 23:36:03] [ERROR] ParseException: Unparseable date: "22/10/1955"
+[08/02/2026 23:36:06] [ERROR] ParseException: Unparseable date: "22/10/1954"
+[08/02/2026 23:36:17] [ERROR] ParseException: Unparseable date: "22/10/1979"
+[09/02/2026 00:18:34] [ERROR] NullPointerException: Cannot invoke "theknife.models.Recensione.getRistoranteID()" because "this.recensione" is null
+[09/02/2026 00:35:23] [ERROR] UnsupportedOperationException: null
+[09/02/2026 00:40:44] [ERROR] UnsupportedOperationException: null

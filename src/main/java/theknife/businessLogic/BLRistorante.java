@@ -139,7 +139,7 @@ public class BLRistorante {
 
             // 2. Filtro per indirizzo (opzionale)
             if (filtroRicerca.getIndirizzo() != null && !filtroRicerca.getIndirizzo().isEmpty()) {
-                if (!r.getIndirizzo().equalsIgnoreCase(filtroRicerca.getIndirizzo())) {
+                if (r.getIndirizzo().indexOf(filtroRicerca.getIndirizzo()) == -1) {
                     continue;
                 }
             }

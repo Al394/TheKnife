@@ -999,5 +999,5 @@ id;nome;cognome;username;password;dataDiNascita;nazione;citta;indirizzo;ruolo;ri
 998;Cora;Garaghan;cgaraghanrp;iAF0ULi48tXlqmJidoMSjNlJrkRaiXyvXJnmJw5kKGA=;12/08/2025;Argentina;El Quebrachal;Suite 21;CLIENTE;[]
 999;Leann;Milksop;lmilksoprq;AcI+1lzbm8M/gK81vPtadHA45jxc9JuNgAWejAPcKmo=;15/05/2025;Japan;Sakai;Suite 21;CLIENTE;[]
 1000;Hester;Teanby;hteanbyrr;d40CUuR14p0swv9wapmvARHq+oWvnvK2+tcRP74ac94=;18/06/2025;Morocco;Sidi Redouane;Room 1629;RISTORATORE;[]
-1005;Luca;Rossi;LRossi;D/4avRoIIVNTwjPW4AlhPpXuxCU4Mqdhryj/N6xaFQw=;11/11/1111;FR;Jalaud;mrossi;RISTORATORE;[1]
-1006;Mario;Rossi;MRossi;7e4p+IJUO5VmILJtDuDn6VA5mxxCIvXeBeBkJbTJlek=;22/10/2223;FR;Jalaud;2;CLIENTE;[]
+1001;Mario;Rossi;mrossi;qu+b7S/drsbLjuvgXs6WtUJQHFXIFUASOspFwGKtrbc=;10/11/2000;Italy;Milan;Via Roma 10;CLIENTE;[36]
+1002;Luca;Rossi;lrossi;vqYiSyNhu1/W5FU2bQRdyjELI6vyZKr53WNdTpv2e/8=;22/10/1979;Italy;Milan;Via Roma;RISTORATORE;[251,252,268]

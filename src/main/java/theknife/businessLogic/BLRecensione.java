@@ -73,14 +73,25 @@ public class BLRecensione {
      */
     public void aggiungiRecensione(int nuovoID, byte stelle, String commento, int autoreID, int ristoranteID)
             throws ValidationException {
-        Recensione nuovaRecensione = new Recensione(nuovoID, stelle, commento, autoreID, ristoranteID);
+        recensione = new Recensione(nuovoID, stelle, commento, autoreID, ristoranteID);
 
-        validaRistoranteUnico(nuovaRecensione);
+        validaRistoranteUnico(recensione);
 
-        recManager.addRecensione(nuovaRecensione);
+        recManager.addRecensione(recensione);
 
         try {
             recManager.scriviRecensioni();
+
+            Ristorante risotrante = RitstorantiManager.getRistoranti().get(recensione.getRistoranteID());
+
+            risotrante.aggiungiRecensione(recensione);
+
+            HashMap<Integer, Ristorante> ristoranti = RitstorantiManager.getRistoranti();
+
+            // Aggiorno il ristorante nella lista
+            ristoranti.put(risotrante.getId(), risotrante);
+
+            RitstorantiManager.scriviRistoranti(ristoranti.values().stream().toList());
         } catch (IOException e) {
             TheKnifeLogger.error(e);
         }

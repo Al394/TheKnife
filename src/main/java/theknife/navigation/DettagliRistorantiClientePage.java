@@ -1,15 +1,21 @@
 package theknife.navigation;
 
 import theknife.businessLogic.BLCliente;
+import theknife.businessLogic.BLRecensione;
+import theknife.exceptions.ValidationException;
 import theknife.models.Cliente;
 import theknife.models.Recensione;
 import theknife.models.Ristorante;
+import theknife.utility.RecensioniManager;
+import theknife.utility.RitstorantiManager;
 import theknife.utility.TheKnifeLogger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * Controller per la visualizzazione dei ristoranti nella modalità Cliente.
@@ -21,6 +27,7 @@ public class DettagliRistorantiClientePage extends Navigation {
     public final ArrayList<Ristorante> risultati = new ArrayList<>();
     private final Cliente cliente;
     private final BLCliente blCliente;
+    private final RecensioniManager rm = RecensioniManager.getInstance();
 
     /**
      * Costruttore
@@ -113,6 +120,9 @@ public class DettagliRistorantiClientePage extends Navigation {
                             }
                             break;
 
+                        case "4":
+                            aggiungiRecensione(ristoranteSelezionato);
+                            break;
                         default:
                             break;
                     }
@@ -133,11 +143,13 @@ public class DettagliRistorantiClientePage extends Navigation {
             scriviMessaggio("1 | Visualizza i dettagli del ristorante.");
             scriviMessaggio("2 | Visualizza le recensioni.");
             scriviMessaggio("3 | Rimuovi dai preferiti.");
+            scriviMessaggio("4 | Aggiungi recensione.");
             scriviMessaggio("0 | Torna indietro.");
         } else {
             scriviMessaggio("1 | Visualizza i dettagli del ristorante.");
             scriviMessaggio("2 | Visualizza le recensioni.");
             scriviMessaggio("3 | Aggiungi ai preferiti.");
+            scriviMessaggio("4 | Aggiungi recensione.");
             scriviMessaggio("0 | Torna indietro.");
         }
     }
@@ -176,6 +188,52 @@ public class DettagliRistorantiClientePage extends Navigation {
             if (r.getRisposta() != null && !r.getRisposta().isEmpty()) {
                 System.out.println("[Risposta]: " + r.getRisposta());
             }
+        }
+    }
+
+    /**
+     * Aggiunge una nuova recensione ad un ristorante.
+     *
+     * @param ristoranteSelezionato
+     */
+    private void aggiungiRecensione(Ristorante ristoranteSelezionato) {
+        pulisciConsole();
+        try {
+
+            int stelle = -1;
+            while (stelle < 1 || stelle > 5) {
+                try {
+                    String stelleStr = leggiInput("Valutazione (1-5): ");
+                    stelle = Integer.parseInt(stelleStr);
+                    if (stelle < 1 || stelle > 5) {
+                        scriviErrore("La valutazione deve essere tra 1 e 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    scriviErrore("Input non valido.");
+                }
+            }
+
+            String commento = leggiInput("Commento: ");
+
+            try {
+                TreeMap<Integer, Recensione> recensioniHMap = new TreeMap<Integer, Recensione>(rm.getRecensioni());
+
+                int nuovoID = recensioniHMap.lastKey() + 1;
+
+                BLRecensione blRecensione = new BLRecensione();
+
+                blRecensione.aggiungiRecensione(nuovoID, (byte) stelle, commento, cliente.getId(),
+                        ristoranteSelezionato.getId());
+
+                scriviMessaggio("Recensione aggiunta con successo!");
+            } catch (ValidationException e) {
+                scriviErrore(e.getMessage());
+            } catch (Exception e) {
+                TheKnifeLogger.error(e);
+                scriviErrore("Errore durante l'aggiunta della recensione.");
+            }
+        } catch (NumberFormatException e) {
+            scriviErrore("Input non valido.");
         }
     }
 }
