@@ -82,16 +82,17 @@ public class BLRecensione {
         try {
             recManager.scriviRecensioni();
 
-            Ristorante risotrante = RitstorantiManager.getRistoranti().get(recensione.getRistoranteID());
+            // Ristorante risotrante =
+            // RitstorantiManager.getRistoranti().get(recensione.getRistoranteID());
 
-            risotrante.aggiungiRecensione(recensione);
+            // risotrante.aggiungiRecensione(recensione);
 
-            HashMap<Integer, Ristorante> ristoranti = RitstorantiManager.getRistoranti();
+            // HashMap<Integer, Ristorante> ristoranti = RitstorantiManager.getRistoranti();
 
-            // Aggiorno il ristorante nella lista
-            ristoranti.put(risotrante.getId(), risotrante);
+            // // Aggiorno il ristorante nella lista
+            // ristoranti.put(risotrante.getId(), risotrante);
 
-            RitstorantiManager.scriviRistoranti(ristoranti.values().stream().toList());
+            // RitstorantiManager.scriviRistoranti(ristoranti.values().stream().toList());
         } catch (IOException e) {
             TheKnifeLogger.error(e);
         }

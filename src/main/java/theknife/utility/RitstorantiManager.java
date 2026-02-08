@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -147,11 +148,11 @@ public class RitstorantiManager extends FileManager {
      */
     private static Ristorante parseRistorante(String[] c) throws NumberFormatException, ValidationException {
 
-        List<Integer> rec = Arrays.stream(c[13].replaceAll("\\[|\\]", "").split(","))
+        ArrayList<Integer> rec = Arrays.stream(c[13].replaceAll("\\[|\\]", "").split(","))
                 .map(String::trim)
                 .filter(r -> !r.isEmpty())
                 .map(Integer::parseInt)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return new Ristorante(
                 Integer.parseInt(c[0]), // id

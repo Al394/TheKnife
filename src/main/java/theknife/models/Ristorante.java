@@ -67,7 +67,7 @@ public class Ristorante {
     /**
      * Lista recensioni del Ristorante.
      */
-    private List<Integer> recensioniIDs;
+    private ArrayList<Integer> recensioniIDs;
 
     /**
      * Lista di recensioni.
@@ -100,7 +100,7 @@ public class Ristorante {
     public Ristorante(int id, String nome, String nazione, String citta, String indirizzo,
             double latitudine, double longitudine, int prezzoMedio,
             boolean delivery, boolean booking, String tipoCucina, String descrizione, String servizi,
-            List<Integer> recensioniIDs)
+            ArrayList<Integer> recensioniIDs)
             throws ValidationException {
         this.id = id;
         this.nome = nome;

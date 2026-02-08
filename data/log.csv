@@ -8,3 +8,6 @@
 [09/02/2026 00:18:34] [ERROR] NullPointerException: Cannot invoke "theknife.models.Recensione.getRistoranteID()" because "this.recensione" is null
 [09/02/2026 00:35:23] [ERROR] UnsupportedOperationException: null
 [09/02/2026 00:40:44] [ERROR] UnsupportedOperationException: null
+[09/02/2026 00:43:30] [ERROR] UnsupportedOperationException: null
+[09/02/2026 00:45:25] [ERROR] UnsupportedOperationException: null
+[09/02/2026 00:49:49] [ERROR] UnsupportedOperationException: null
